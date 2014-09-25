@@ -13,42 +13,42 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller
 @Scope("prototype")
 public class UserController extends ActionSupport {
-	
-	private static final long serialVersionUID = 1L;
 
-	private int id;
-	private User user;
-	private UserService userService;
+    private static final long serialVersionUID = 1L;
 
-	public String add() {
-		
-		userService.save(user);
-		return SUCCESS;
-	}
-	
-	public int getId() {
-		return id;
-	}
+    private int id;
+    private User user;
+    private UserService userService;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String add() {
 
-	public User getUser() {
-		return user;
-	}
+        userService.save(user);
+        return SUCCESS;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public UserService getUserService() {
-		return userService;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@Inject
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    @Inject
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
 }

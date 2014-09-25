@@ -13,6 +13,14 @@
 			<result type="freemarker">register.html</result>
 			<result name="error" type="freemarker">error.html</result>
 		</action>
+		<action name="auth" class="authController">
+			<result name="success">jsps/afterlogin.jsp</result>
+			<result name="error">404.html</result>
+		</action>
+		<action name="login" class="loginController">
+            <result name="success">jsps/login.jsp</result>
+            <result name="error">404.html</result>
+        </action>
 		<action name="">
 			<result>index.html</result>
 		</action>

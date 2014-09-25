@@ -147,7 +147,7 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webAppConfig>
-						<contextPath>/s2sh</contextPath>
+						<contextPath>/manage</contextPath>
 					</webAppConfig>
 				</configuration>
 			</plugin>
