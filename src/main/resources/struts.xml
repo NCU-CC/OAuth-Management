@@ -13,16 +13,38 @@
 			<result type="freemarker">register.html</result>
 			<result name="error" type="freemarker">error.html</result>
 		</action>
+		
 		<action name="auth" class="authController">
-			<result name="success">jsps/afterlogin.jsp</result>
-			<result name="error">404.html</result>
+			<result name="success" type="redirect">logined</result>
+			<result name="error">500.html</result>
 		</action>
+		<action name="logined" class="afterLoginController">
+            <result name="success" type="redirect">/</result>
+            <result name="input" type="redirect">active</result>
+            <result name="error">500.html</result>
+        </action>
 		<action name="login" class="loginController">
             <result name="success">jsps/login.jsp</result>
-            <result name="error">404.html</result>
+            <result name="error">500.html</result>
         </action>
-		<action name="">
-			<result>index.html</result>
-		</action>
+        <action name="active" class="activateController">
+            <result name="success" type="redirect">/</result>
+            <result name="error">500.html</result>
+            <result name="input">jsps/active.jsp</result>
+            <result name="login" type="redirect">login</result>
+        </action>
+        <action name="actived" class="afterActiveController">
+            <result name="success" type="redirect">/</result>
+            <result name="error">500.html</result>
+        </action>
+        <action name="" class="mainpageController">
+            <result name="success">jsps/index.jsp</result>
+            <result name="login" type="redirect">login</result>
+        </action>
+        <action name="logout" class="logoutController">
+            <result name="success" type="redirect">/</result>
+            <result name="error">500.html</result>
+        </action>
+
 	</package>
 </struts>

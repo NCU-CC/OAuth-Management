@@ -36,15 +36,18 @@ public class OpenIDManager {
         return setting.getURL();
     }
 
+    @SuppressWarnings("rawtypes")
     public boolean checkAuthentication(Map request) {
         return checkAuthenticationWithStringMap(convertMapToStringMap(request));
     }
 
+    @SuppressWarnings("rawtypes")
     public String getStudentID(Map request) {
         Map<String, String> re = convertMapToStringMap(request);
         return re.get("openid.ext1.value.student_id");
     }
 
+    @SuppressWarnings("rawtypes")
     private Map<String, String> convertMapToStringMap(Map request) {
         Map<String, String> re = new HashMap<String, String>();
         for (Object oo : request.keySet()) {

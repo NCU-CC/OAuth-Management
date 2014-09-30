@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
@@ -23,12 +24,18 @@ public class AuthController extends ActionSupport {
     public String execute() throws Exception {
         request = ServletActionContext.getRequest();
         student_id = request.getParameter("openid.ext1.value.student_id");
-        if (student_id != null && student_id.length() > 0) {
-            if (checkOpenId()) {
+        if (student_id != null && student_id.trim().length() > 0) {
+            if (checkOpenId()) {          
+                login(student_id);
                 return SUCCESS;
             }
         }
         return ERROR;
+    }
+    
+    private void login(String id){
+        HttpSession session=request.getSession(true);
+        session.setAttribute("tmpId", id);
     }
 
     private boolean checkOpenId() {
