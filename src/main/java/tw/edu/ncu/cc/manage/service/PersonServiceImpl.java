@@ -12,7 +12,7 @@ import tw.edu.ncu.cc.manage.entity.Person;
 public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> implements IPersonService<T>{
 
     @SuppressWarnings("unchecked")
-    @Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+    @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
     public T findPersonByAccount(String account) {
         List<T> person = this.getDao().creatQuery(
                 "select p from Person p " +
@@ -30,7 +30,9 @@ public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> impleme
         if(findPersonByAccount(person.getAccount())!=null){
             throw new RuntimeException("account " +person.getAccount() + "has already existed");
         }
+        System.out.println("creat person: "+person.getAccount());
         this.getDao().create(person);
+        System.out.println("2creat person: "+person.getAccount());
     }
 
 }

@@ -25,6 +25,7 @@ public abstract class ServiceImpl<T extends BaseBean> implements IService<T> {
     public IDao<T> getDao() {
         return dao;
     }
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public abstract void create(T baseBean);
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void save(T baseBean) {
@@ -36,11 +37,11 @@ public abstract class ServiceImpl<T extends BaseBean> implements IService<T> {
         dao.save(baseBean);
     }
 
-    @Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+    @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
     public int getTotalCount(String query, Object... params) {
         return dao.getTotalCount(query, params);
     }
-    @Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+    @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
     public List<T> list(String query, int firstResult, int maxSize,
             Object... params) {
         return dao.list(query, firstResult, maxSize, params);
