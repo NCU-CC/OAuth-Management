@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class PersonInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     private int id;
+    private String type;
     public int getId() {
         return id;
     }
@@ -17,5 +18,11 @@ public class PersonInfo implements Serializable {
     }
     public void setAccount(String account) {
         this.account = account;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }    
 }

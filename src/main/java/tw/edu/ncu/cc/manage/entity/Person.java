@@ -6,34 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 @Entity
 public class Person extends BaseBean{
 
     private String account;
+    private String password;
     private String type;
-    private String name;
-    private int sign_version;
-    @Temporal(value=TemporalType.TIMESTAMP)
-    private Date sign_date;
-   
-    public Date getSign_date() {
-        return sign_date;
-    }
-    public void setSign_date(Date sign_date) {
-        this.sign_date = sign_date;
-    }
-    public int getSign_version() {
-        return sign_version;
-    }
-    public void setSign_version(int sign_version) {
-        this.sign_version = sign_version;
-    }
+    private String name; 
     private String email;
     private String ipCreated;
     @Temporal(value=TemporalType.TIMESTAMP)
     private Date dateLastActived;
     private String ipLastActived;
-    
     public String getAccount() {
         return account;
     }
@@ -76,5 +61,10 @@ public class Person extends BaseBean{
     public void setIpLastActived(String ipLastActived) {
         this.ipLastActived = ipLastActived;
     }
-    
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }   
 }

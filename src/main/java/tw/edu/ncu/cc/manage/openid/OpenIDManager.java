@@ -43,8 +43,17 @@ public class OpenIDManager {
 
     @SuppressWarnings("rawtypes")
     public String getStudentID(Map request) {
+        return getIdentityID(request);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    public String getIdentityID(Map request){
         Map<String, String> re = convertMapToStringMap(request);
-        return re.get("openid.ext1.value.student_id");
+        return getIDFromURL(re.get("openid.identity"));
+        
+    }
+    private String getIDFromURL(String url){
+        return url.split("user/")[1];
     }
 
     @SuppressWarnings("rawtypes")
