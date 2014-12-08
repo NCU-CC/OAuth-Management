@@ -1,14 +1,14 @@
 package tw.edu.ncu.cc.manage.controller.login;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import tw.edu.ncu.cc.manage.openid.OpenIDException;
-import tw.edu.ncu.cc.manage.openid.OpenIDManager;
+import tw.edu.ncu.cc.manage.service.login.AuthService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -17,36 +17,34 @@ import com.opensymphony.xwork2.ActionSupport;
 public class AuthController extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private HttpServletRequest request;
+    @Autowired
+    private HttpServletRequest request;  
+    private AuthService authService; 
     private String student_id = "";
 
     @Override
     public String execute() throws Exception {
-        request = ServletActionContext.getRequest();
-        student_id = request.getParameter("openid.ext1.value.student_id");
-        if (student_id != null && student_id.trim().length() > 0) {
-            if (checkOpenId()) {          
+        student_id = checkOpenId();
+        if (!isStringEmpty(student_id)) {     
                 login(student_id);
                 return SUCCESS;
-            }
         }
         return ERROR;
     }
-    
+    private boolean isStringEmpty(String string){
+        return !(string!=null && string.length()>0);
+    }
     private void login(String id){
         HttpSession session=request.getSession(true);
         session.setAttribute("tmpId", id);
     }
 
-    private boolean checkOpenId() {
-        try {
-            OpenIDManager manager = new OpenIDManager();
-            return manager.checkAuthentication(ServletActionContext
-                    .getRequest().getParameterMap());
-        } catch (OpenIDException e) {
-            e.printStackTrace();
-        }
-        return false;
+    private String checkOpenId() {
+            boolean isChecked = authService.isLoginSuccess(request);
+            if(isChecked){
+                return authService.getIdentityId(request);
+            }
+        return null;
     }
 
     public String getStudent_id() {
@@ -55,6 +53,10 @@ public class AuthController extends ActionSupport {
 
     public void setStudent_id(String student_id) {
         this.student_id = student_id;
+    }
+    @Inject
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
 
 }

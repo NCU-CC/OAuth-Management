@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="/struts-tags" prefix="struts" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -23,17 +24,22 @@
                 <!-- Main content -->
                 <section class="content">
 
+                    <struts:set var="titlex" >您尚未註冊任何Token</struts:set>
                     
+                    <struts:if test="tokenList !=null && tokenList.size() > 0">
+                        <struts:set var="titlex" >Token列表</struts:set>
+                    </struts:if>
 
                    
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">已授權軟體列表</h3>
+                                    <h3 class="box-title"><struts:property value="titlex"/></h3>
                                     
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive no-padding">
+                                <struts:if test="tokenList !=null && tokenList.size() > 0">
                                     <table class="table table-hover">
                                         <tr>
                                             <th>ID</th>
@@ -42,35 +48,17 @@
                                             <th>簡介</th>
                                             <th>授權</th>
                                         </tr>
-                                        <tr>
-                                            <td>183</td>
-                                            <td><a href="#" target="_blank">中大地圖</a></td>
-                                            <td>user:email</td>
-                                            <td>NCUAPP.是中央大學oauth的服務網站，透過此網站您可以掌握您oauth的使用情形</td>
-                                            <td><a href="<struts:url namespace="/user" action='cancel'/>"><span class="label label-danger">取消</span></a></td>
+                                        <struts:iterator value="tokenList" >
+                                            <tr>
+                                            <td>${id }</td>
+                                            <td>${application.name }</td>
+                                            <td>${scopeString }</td>
+                                            <td>${application.description}</td>
+                                            <td><a href="<struts:url namespace="/user" action='cancel'><struts:param name="id" >${id }</struts:param></struts:url>" data-confirm="是否要獲刪除Token？ " data-method="post"  class="btn btn-warning"><span class="label label-danger">取消</span></a></td>
                                         </tr>
-                                        <tr>
-                                            <td>219</td>
-                                            <td><a href="#" target="_blank">選課APP</a></td>
-                                            <td>public_repo, user:email</td>
-                                            <td>現階段NCUAPP.只提供course的web service，在將來我們我提供更多服務</td>
-                                            <td><a href="<struts:url namespace="/user" action='cancel'/>"><span class="label label-danger">取消</span></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>657</td>
-                                            <td><a href="#" target="_blank">公車資訊通</a></td>
-                                            <td>read:org, repo:status, repo_deployment, user:email, write:repo_hook</td>
-                                            <td>NCUAPP.是相當安全的，我們全程透過ssl加密來傳送資料。不需要當心您的資料被竊取。</td>
-                                            <td><a href="<struts:url namespace="/user" action='cancel'/>"><span class="label label-danger">取消</span></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>175</td>
-                                            <td><a href="#" target="_blank">課外活動通</a></td>
-                                            <td>repo, user:email</td>
-                                            <td>NCUAPP.是中央大學oauth的服務網站，透過此網站您可以掌握您oauth的使用情形</td>
-                                            <td><a href="<struts:url namespace="/user" action='cancel'/>"><span class="label label-danger">取消</span></a></td>
-                                        </tr>
+                                        </struts:iterator>                                        
                                     </table>
+                                    </struts:if>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
                         </div>
@@ -84,7 +72,8 @@
 
 
         <jsp:include page="usingcommonjs.jsp"></jsp:include>
-
+        <script src="<c:url value='/js/rails.js'/>" type="text/javascript"></script>
+        <script src="<c:url value='/js/data-confirm-modal.js'/>" type="text/javascript"></script>  
 
     </body>
 </html>

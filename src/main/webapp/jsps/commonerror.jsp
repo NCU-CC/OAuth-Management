@@ -10,11 +10,10 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     
-                </section>
-                
-
+                </section>                
                 <!-- Main content -->
                 <section class="content">
+
                     
                    <!-- left column -->
                             <div class="box box-primary invoice">
@@ -23,15 +22,15 @@
                                     <div class="box box-info">
                                         <div class="box-header">
                                             <i class="fa fa-bullhorn"></i>
-                                            <h3 class="box-title">通知</h3>
+                                            <h3 class="box-title">錯誤</h3>
                                         </div><!-- /.box-header -->
                                         <div class="box-body">                                          
-                                            <div class="callout callout-info">
-                                                <h4>成功刪除</h4>
-                                                <p>成功刪除TOKEN</p>
+                                            <div class="callout callout-danger">
+                                                <h4>${errorTitle }</h4>
+                                                <p>${errorContent}</p>
                                                    
                                             </div>
-                                            <a href="<struts:url namespace="/user" action='list'/>"><button class="btn btn-success"><i class="fa fa-reply"></i> 返回</button></a>       
+                                            <a href="<struts:url namespace="/" action=''/>"><button class="btn btn-success"><i class="fa fa-reply"></i> 返回</button></a>       
                                         </div><!-- /.box-body -->
                                         
                                     </div><!-- /.box -->

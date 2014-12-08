@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import tw.edu.ncu.cc.manage.entity.oauth.APPInfo;
+import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
 import tw.edu.ncu.cc.manage.service.oauth.IAPPService;
 import tw.edu.ncu.cc.manage.util.PersonUtil;
 
@@ -20,7 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class APPListController extends ActionSupport {
     private static final long serialVersionUID = 1L;
     private IAPPService service;
-    private List<APPInfo> appList;    
+    private List<IdApplication> appList;    
     @Autowired
     private HttpServletRequest request;    
 
@@ -34,10 +34,10 @@ public class APPListController extends ActionSupport {
     public void setService(IAPPService service) {
         this.service = service;
     }
-    public List<APPInfo> getAppList() {
+    public List<IdApplication> getAppList() {
         return appList;
     }
-    public void setAppList(List<APPInfo> appList) {
+    public void setAppList(List<IdApplication> appList) {
         this.appList = appList;
     }
 }

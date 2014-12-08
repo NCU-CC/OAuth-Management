@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 @Controller
 @Scope("prototype")
-public class MainpageController extends ActionSupport {
+public class MainpageController extends BasicController {
 
     private static final long serialVersionUID = 1L;
     @Autowired

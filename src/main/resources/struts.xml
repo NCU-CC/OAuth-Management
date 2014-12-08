@@ -8,19 +8,22 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
     <constant name="struts.action.extension" value=","/>
-	<package name="main" extends="struts-default" namespace="/">
-	<interceptors>
-	<interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>
-	</interceptors>
-	   <global-results>
-	       <result name="login" type="redirect">/login</result>
-	   </global-results>
-		<action name="add" class="userController" method="add">
-			<result type="freemarker">register.html</result>
-			<result name="error" type="freemarker">error.html</result>
-		</action>
-		
-		
+    
+    <package name="default" extends="struts-default" abstract="true">
+	    <interceptors>
+	    <interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>
+	    </interceptors>
+	    <global-results>
+	        <result name="login" type="redirect">/login</result>
+	    </global-results>
+    
+    </package>
+    
+	<package name="main" extends="default" namespace="/">
+	   <action name="login" class="loginController">
+            <result name="success">jsps/login.jsp</result>
+            <result name="error">500.html</result>
+        </action>   
 		<action name="auth" class="authController">
 			<result name="success" type="redirect">logined</result>
 			<result name="error">500.html</result>
@@ -28,20 +31,16 @@
 		<action name="logined" class="afterLoginController">
             <result name="success" type="redirect">/</result>
             <result name="error">500.html</result>
-        </action>
-		<action name="login" class="loginController">
-            <result name="success">jsps/login.jsp</result>
-            <result name="error">500.html</result>
-        </action>        
+        </action>		     
         <action name="" class="mainpageController">
             <result name="success">jsps/index.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>           
         </action>
         <action name="index" class="mainpageController">
             <result name="success">jsps/index.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>
         <action name="logout" class="logoutController">
             <result name="success" type="redirect">/</result>
@@ -49,90 +48,94 @@
         </action>
         <action name="terms" class="mainpageController">
             <result name="success">/jsps/terms.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>
         <action name="about" class="mainpageController">
             <result name="success">/jsps/about.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>
 	</package>
 	
-	<package name="teach" extends="struts-default" namespace="/tutorial">
-		<interceptors>
-	       <interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>
-	    </interceptors>
-	    <global-results>
-           <result name="login" type="redirect">/login</result>
-       </global-results>
+	<package name="teach" extends="default" namespace="/tutorial">		
 	    <action name="user" class="mainpageController">
 	        <result name="success">/jsps/teachuser.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+	        <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
 	    </action>
 	    <action name="dev" class="mainpageController">
             <result name="success">/jsps/teachdev.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>	    
 	</package>
 	
-	   <package name="user" extends="struts-default" namespace="/user">
-        <interceptors>
-           <interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>
-        </interceptors>
-        <global-results>
-           <result name="login" type="redirect">/login</result>
-       </global-results>
-        <action name="list" class="mainpageController">
+	   <package name="user" extends="default" namespace="/user">        
+        <action name="list" class="tokenListController">
             <result name="success">/jsps/authorizedapplist.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action> 
-        <action name="cancel" class="mainpageController">
-            <result name="success">/jsps/authorizedappdelete.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-        </action> 
-        <action name="cancelok" class="mainpageController">
+        <action name="cancel" class="tokenListController" method="remove">
             <result name="success">/jsps/authorizedappdeletesuc.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="input" >/jsps/authorizedappdeletefail.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
-        </action> 
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
+        </action>
     </package>
     
-        <package name="dev" extends="struts-default" namespace="/dev">
+        <package name="dev" extends="default" namespace="/dev">
         <interceptors>
-           <interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>
-        </interceptors>
-        <global-results>
-           <result name="login" type="redirect">/login</result>
+            <interceptor name="APPInterceptor" class="APPInterceptor"></interceptor>
+        </interceptors>        
+        <global-results>           
+           <result name="error">/jsps/commonerrordev.jsp</result>
        </global-results>
-        <action name="list" class="aPPListController">
+        <action name="list" class="APPListController">
             <result name="success">/jsps/applist.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>
-        <action name="new" class="mainpageController">
-            <result name="success">/jsps/appregister.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
+        <action name="new" class="APPNewController">        
+            <result name="input">/jsps/appregister.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>    
-        <action name="edit" class="mainpageController">
-            <result name="success">/jsps/appedit.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-        </action>   
-        <action name="newok" class="mainpageController">
+        <action name="secret" class="APPNewController" method="update">        
+            <result name="input">/jsps/appeditdeletefail.jsp</result>
             <result name="success">/jsps/appregistersuc.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
-        </action>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
+        </action> 
+        <action name="tonew" class="APPNewController" method="create">        
+            <result name="input">/jsps/appregister.jsp</result>
+            <result name="success">/jsps/appregistersuc.jsp</result>
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
+        </action>    
+        <action name="edit" class="APPEditController">
+            <result name="input">/jsps/appedit.jsp</result>
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="APPInterceptor"></interceptor-ref> 
+            <interceptor-ref name="defaultStack"></interceptor-ref>   
+        </action>   
+        <action name="edited" class="APPEditController" method="upload">
+            <result name="success">/jsps/appeditsuc.jsp</result>
+            <result name="input">/jsps/appedit.jsp</result>
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
+        </action>   
+        <action name="delete" class="APPEditController" method="delete">
+            <result name="success">/jsps/appeditsuc.jsp</result>
+            <result name="input">/jsps/appeditdeletefail.jsp</result>
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
+        </action>   
         <action name="api" class="mainpageController">
             <result name="success">/jsps/openfunctions.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action> 
     </package>
 	

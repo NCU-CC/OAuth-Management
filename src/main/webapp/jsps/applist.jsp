@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="/struts-tags" prefix="struts" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -12,25 +13,26 @@
                     <h1>
                         程式開發APP
                         <small>下列APP是您已註冊去使用API的申請</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i>Home </a></li>
-                        <li><a href="#"></i>Oauth </a></li>
-                        <li class="active">Authorized Applications </li>
-                    </ol>
+                    </h1>                    
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
+                
 
                     
+                    <struts:set var="titlex" >您尚未註冊任何APP</struts:set>
+                    
+                    <struts:if test="appList !=null && appList.size() > 0">
+                        <struts:set var="titlex" >APP列表</struts:set>
+                    </struts:if>
 
                    
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">APP列表</h3>
+                                    <h3 class="box-title"><struts:property value="titlex"/></h3>
                                     <div class="box-tools">
                                         <div class="input-group">
                                             
@@ -41,43 +43,39 @@
                                     </div>
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive no-padding">
+                                <struts:if test="appList !=null && appList.size() > 0">
                                     <table class="table table-hover">
                                         <tr>
                                             <th>ID</th>
                                             <th>名稱</th>
                                             <th>網站URL</th>
                                             <th>簡介</th>
-                                            <th></th>
+                                            <th>編輯</th>
+                                        </tr>                   
+                                        <struts:iterator value="appList" >
+                                            <tr>
+                                            <td>${id }</td>
+                                            <td>${name }</td>
+                                            <td><a href="${url }" target="_blank">${url }</a></td>
+                                            <td>${description}</td>
+                                            <td><a href="<struts:url namespace="/dev" action='edit' ><struts:param name="id" >${id }</struts:param></struts:url>"><span class="label label-primary">修改</span></a></td>
                                         </tr>
-                                        <tr>
-                                            <td>183</td>
-                                            <td>中大地圖</td>
-                                            <td><a href="#" target="_blank">http://appforncu.appspot.com/</a></td>
-                                            <td>NCUAPP.是中央大學oauth的服務網站，透過此網站您可以掌握您oauth的使用情形</td>
-                                            <td><a href="<struts:url namespace="/dev" action='edit'/>"><span class="label label-primary">修改</span></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>219</td>
-                                            <td>選課APP</td>
-                                            <td><a href="#" target="_blank">http://appforncu.appspot.com/</a></td>
-                                            <td>現階段NCUAPP.只提供course的web service，在將來我們我提供更多服務</td>
-                                            <td><a href="<struts:url namespace="/dev" action='edit'/>"><span class="label label-primary">修改</span></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>657</td>
-                                            <td>公車資訊通</td>
-                                            <td><a href="#" target="_blank">http://appforncu.appspot.com/</a></td>
-                                            <td>NCUAPP.是相當安全的，我們全程透過ssl加密來傳送資料。不需要當心您的資料被竊取。</td>
-                                            <td><a href="<struts:url namespace="/dev" action='edit'/>"><span class="label label-primary">修改</span></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>175</td>
-                                            <td>課外活動通</td>
-                                            <td><a href="#" target="_blank">http://appforncu.appspot.com/</a></td>
-                                            <td>NCUAPP.是中央大學oauth的服務網站，透過此網站您可以掌握您oauth的使用情形</td>
-                                            <td><a href="<struts:url namespace="/dev" action='edit'/>"><span class="label label-primary">修改</span></a></td>
-                                        </tr>
+                                        </struts:iterator>
+                                                                                
+                                        
                                     </table>
+                                    </struts:if>
+                                        <struts:else>
+                                        
+                                        
+                                        <div class="col-xs-2"></div>
+                                            <div class="col-xs-8">
+                                                <a class="btn btn-block btn-social btn-foursquare" href="<struts:url namespace="/dev" action='new'/>">
+                                                    <i class="fa fa-plus"></i> 註冊新APP
+                                                </a>     
+                                                </div>
+                                                                   
+                                        </struts:else>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
                         </div>
@@ -91,7 +89,9 @@
 
 
         <jsp:include page="usingcommonjs.jsp"></jsp:include>
-
+        
+        <script src="<c:url value='/js/rails.js'/>" type="text/javascript"></script>
+        <script src="<c:url value='/js/data-confirm-modal.js'/>" type="text/javascript"></script>    
 
     </body>
 </html>

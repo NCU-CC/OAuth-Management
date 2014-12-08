@@ -3,11 +3,14 @@ package tw.edu.ncu.cc.manage.util;
 import javax.servlet.http.HttpServletRequest;
 
 
+import javax.servlet.http.HttpSession;
+
 import tw.edu.ncu.cc.manage.entity.Person;
 
 
 public class PersonUtil {
     public static final String PERSON_INFO = "personInfo";
+    public static final String PERSON_TMP = "tmpId";
     public static PersonInfo getPersonInfo(HttpServletRequest request){
         return (PersonInfo) request.getSession(true).getAttribute(PERSON_INFO);
     }
@@ -36,5 +39,8 @@ public class PersonUtil {
         PersonInfo personInfo=getPersonInfo(request);
         String tmpId=personInfo.getAccount();
         return tmpId;
+    }
+    public static String getTmpId(HttpSession session){
+        return ((String) session.getAttribute("tmpId")).trim();
     }
 }

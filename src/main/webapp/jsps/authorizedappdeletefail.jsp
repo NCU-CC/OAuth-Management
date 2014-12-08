@@ -26,9 +26,9 @@
                                             <h3 class="box-title">通知</h3>
                                         </div><!-- /.box-header -->
                                         <div class="box-body">                                          
-                                            <div class="callout callout-info">
-                                                <h4>成功刪除</h4>
-                                                <p>成功刪除TOKEN</p>
+                                            <div class="callout callout-danger">
+                                                <h4>操作失敗</h4>
+                                                <p>操作失敗，請稍後在試</p>
                                                    
                                             </div>
                                             <a href="<struts:url namespace="/user" action='list'/>"><button class="btn btn-success"><i class="fa fa-reply"></i> 返回</button></a>       

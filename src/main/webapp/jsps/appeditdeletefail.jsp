@@ -27,11 +27,11 @@
                                         </div><!-- /.box-header -->
                                         <div class="box-body">                                          
                                             <div class="callout callout-info">
-                                                <h4>成功刪除</h4>
-                                                <p>成功刪除TOKEN</p>
+                                                <h4>操作失敗</h4>
+                                                <p>操作失敗，請稍後在試</p>
                                                    
                                             </div>
-                                            <a href="<struts:url namespace="/user" action='list'/>"><button class="btn btn-success"><i class="fa fa-reply"></i> 返回</button></a>       
+                                            <a href="<struts:url namespace="/dev" action='list'/>"><button class="btn btn-success"><i class="fa fa-reply"></i> 返回</button></a>       
                                         </div><!-- /.box-body -->
                                         
                                     </div><!-- /.box -->
