@@ -9,9 +9,10 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.action.extension" value=","/>
     
+    
     <package name="default" extends="struts-default" abstract="true">
 	    <interceptors>
-	    <interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>
+	    <interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>	   
 	    </interceptors>
 	    <global-results>
 	        <result name="login" type="redirect">/login</result>
@@ -80,6 +81,9 @@
         <action name="cancel" class="tokenListController" method="remove">
             <result name="success">/jsps/authorizedappdeletesuc.jsp</result>
             <result name="input" >/jsps/authorizedappdeletefail.jsp</result>
+            <interceptor-ref name="tokenSession">
+             <param name="includeMethods">*</param>
+            </interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>
@@ -105,17 +109,23 @@
         <action name="secret" class="APPNewController" method="update">        
             <result name="input">/jsps/appeditdeletefail.jsp</result>
             <result name="success">/jsps/appregistersuc.jsp</result>
+            <interceptor-ref name="tokenSession">
+             <param name="includeMethods">*</param>
+            </interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action> 
         <action name="tonew" class="APPNewController" method="create">        
             <result name="input">/jsps/appregister.jsp</result>
             <result name="success">/jsps/appregistersuc.jsp</result>
+            <interceptor-ref name="tokenSession">
+			 <param name="includeMethods">*</param>
+			</interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>    
         <action name="edit" class="APPEditController">
-            <result name="input">/jsps/appedit.jsp</result>
+            <result name="input">/jsps/appedit.jsp</result>            
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="APPInterceptor"></interceptor-ref> 
             <interceptor-ref name="defaultStack"></interceptor-ref>   
@@ -123,12 +133,18 @@
         <action name="edited" class="APPEditController" method="upload">
             <result name="success">/jsps/appeditsuc.jsp</result>
             <result name="input">/jsps/appedit.jsp</result>
+            <interceptor-ref name="tokenSession">
+             <param name="includeMethods">*</param>
+            </interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>   
         <action name="delete" class="APPEditController" method="delete">
             <result name="success">/jsps/appeditsuc.jsp</result>
             <result name="input">/jsps/appeditdeletefail.jsp</result>
+            <interceptor-ref name="tokenSession">
+             <param name="includeMethods">*</param>
+            </interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>   

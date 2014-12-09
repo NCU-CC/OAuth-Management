@@ -27,7 +27,8 @@ public class TokenListController extends BasicController {
     private List<AccessToken> tokenList;
 
     @Override
-    public String execute() throws Exception {                
+    public String execute() throws Exception {         
+        createTokenForGet();
         String userId = PersonUtil.getStudentId(request);
         tokenList =service.getAllTokensByUserId(userId);
         return SUCCESS;

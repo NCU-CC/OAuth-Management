@@ -33,6 +33,7 @@ public class APPEditController extends BasicController {
     public String execute() throws Exception {  
         appInfo =getAPPbyAPPId(id);
         if(isAccessible){           
+            createTokenForGet();
             return INPUT;
         }
         return ERROR;        

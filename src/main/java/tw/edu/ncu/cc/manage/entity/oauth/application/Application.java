@@ -1,5 +1,7 @@
 package tw.edu.ncu.cc.manage.entity.oauth.application;
 
+import tw.edu.ncu.cc.manage.util.StringOperator;
+
 public class Application {
 
     private String name;
@@ -8,20 +10,20 @@ public class Application {
     private String callback;
     private String owner;
 
-    public String getName() {
+    public String getName() {        
         return name;
     }
 
     public void setName( String name ) {
-        this.name = name;
+        this.name = StringOperator.getEncodeString(name);
     }
-
+    
     public String getDescription() {
         return description;
     }
 
     public void setDescription( String description ) {
-        this.description = description;
+        this.description = StringOperator.getEncodeString(description);
     }
 
     public String getUrl() {

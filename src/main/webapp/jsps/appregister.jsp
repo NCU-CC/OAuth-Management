@@ -70,6 +70,7 @@
                                     <div class="box-footer">                                        
                                         <button type="submit" class="btn btn-success">送出申請</button>                                        
                                     </div>
+                                    <struts:token/>
                                 </struts:form>
                             </div><!-- /.box -->
 

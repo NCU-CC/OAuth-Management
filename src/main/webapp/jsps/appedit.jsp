@@ -68,10 +68,11 @@
                                     <div class="box-footer">
                                         <input type="hidden" name="id" value="${id }"/>
                                         <button type="submit" class="btn btn-success">更新APP</button>
-                                        <a href="<struts:url namespace="/dev" action='secret' ><struts:param name="id" >${id }</struts:param></struts:url>" data-confirm="是否要獲取新的secret？ 舊的secret將無法使用" data-method="post"  class="btn btn-warning">新的secret</a>
-                                        <a href="<struts:url namespace="/dev" action='delete' ><struts:param name="id" >${id }</struts:param></struts:url>" data-confirm="是否要刪除？" data-method="post"  class="btn btn-danger">刪除APP</a>
+                                        <a href="<struts:url namespace="/dev" action='secret' ><struts:param name="id" >${id }</struts:param><struts:param name="struts.token.name" value="%{'token'}"/><struts:param name="token" value="%{token}"/></struts:url>" data-confirm="是否要獲取新的secret？ 舊的secret將無法使用" data-method="post"  class="btn btn-warning">新的secret</a>
+                                        <a href="<struts:url namespace="/dev" action='delete' ><struts:param name="id" >${id }</struts:param><struts:param name="struts.token.name" value="%{'token'}"/><struts:param name="token" value="%{token}"/></struts:url>" data-confirm="是否要刪除？" data-method="post"  class="btn btn-danger">刪除APP</a>
                                         
                                     </div>
+                                    <struts:token/>
                                     </struts:form>
                                 <!--</form>-->
                             </div><!-- /.box -->

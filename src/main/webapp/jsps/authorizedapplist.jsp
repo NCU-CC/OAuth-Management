@@ -54,7 +54,7 @@
                                             <td>${application.name }</td>
                                             <td>${scopeString }</td>
                                             <td>${application.description}</td>
-                                            <td><a href="<struts:url namespace="/user" action='cancel'><struts:param name="id" >${id }</struts:param></struts:url>" data-confirm="是否要獲刪除Token？ " data-method="post"  class="btn btn-warning"><span class="label label-danger">取消</span></a></td>
+                                            <td><a href="<struts:url namespace="/user" action='cancel'><struts:param name="id" >${id }</struts:param><struts:param name="struts.token.name" value="%{'token'}"/><struts:param name="token" value="%{token}"/></struts:url>" data-confirm="是否要獲刪除Token？ " data-method="post" ><span class="label label-danger">取消</span></a></td>
                                         </tr>
                                         </struts:iterator>                                        
                                     </table>
