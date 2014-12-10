@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
+            <%-- Left side column. contains the logo and sidebar --%>
             <jsp:include page="leftsider.jsp"></jsp:include>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
+            <%-- Right side column. Contains the navbar and content of the page --%>
             <aside class="right-side">
-                <!-- Content Header (Page header) -->
+                <%-- Content Header (Page header) --%>
                 <section class="content-header">
                     <h1>
                         API列表
@@ -19,7 +19,7 @@
                     </ol>
                 </section>
 
-                <!-- Main content -->
+                <%-- Main content --%>
                 <section class="content">
 
                     
@@ -31,7 +31,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title">已開放API列表</h3>
                                     
-                                </div><!-- /.box-header -->
+                                </div><%-- /.box-header --%>
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tr>
@@ -70,16 +70,16 @@
                                             <td><span class="label label-info">OAUTH</span></td>
                                         </tr>
                                     </table>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
+                                </div><%-- /.box-body --%>
+                            </div><%-- /.box --%>
                         </div>
                     </div>
 
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+                </section><%-- /.content --%>
+            </aside><%-- /.right-side --%>
+        </div><%-- ./wrapper --%>
 
-        <!-- add new calendar event modal -->
+        <%-- add new calendar event modal --%>
 
 
         <jsp:include page="usingcommonjs.jsp"></jsp:include>

@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
+            <%-- Left side column. contains the logo and sidebar --%>
             <jsp:include page="leftsider.jsp"></jsp:include>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
+            <%-- Right side column. Contains the navbar and content of the page --%>
             <aside class="right-side">
-                <!-- Content Header (Page header) -->
+                <%-- Content Header (Page header) --%>
                 <section class="content-header">
                     <h1>
                         已授權之軟體
@@ -21,7 +21,7 @@
                     </ol>
                 </section>
 
-                <!-- Main content -->
+                <%-- Main content --%>
                 <section class="content">
 
                     <struts:set var="titlex" >您尚未註冊任何Token</struts:set>
@@ -37,7 +37,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title"><struts:property value="titlex"/></h3>
                                     
-                                </div><!-- /.box-header -->
+                                </div><%-- /.box-header --%>
                                 <div class="box-body table-responsive no-padding">
                                 <struts:if test="tokenList !=null && tokenList.size() > 0">
                                     <table class="table table-hover">
@@ -59,16 +59,16 @@
                                         </struts:iterator>                                        
                                     </table>
                                     </struts:if>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
+                                </div><%-- /.box-body --%>
+                            </div><%-- /.box --%>
                         </div>
                     </div>
 
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+                </section><%-- /.content --%>
+            </aside><%-- /.right-side --%>
+        </div><%-- ./wrapper --%>
 
-        <!-- add new calendar event modal -->
+        <%-- add new calendar event modal --%>
 
 
         <jsp:include page="usingcommonjs.jsp"></jsp:include>

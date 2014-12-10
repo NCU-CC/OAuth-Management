@@ -1,9 +1,9 @@
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<%--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--%>
+<%--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]--%>
+<%--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]--%>
+<%--[if gt IE 8]><%--%> <html class="no-js"> <%--<![endif]--%>
     <head>
 
     <title>Login - Oauth Management</title>
@@ -70,12 +70,12 @@ a:active {
 
 		<a href="http://www.cc.ncu.edu.tw/net/password.php" class="btn btn-default">Forgot Password?</a>
 
-	</div> <!-- /#login -->
+	</div> <%-- /#login --%>
 
 	
 
 
-</div> <!-- /#login-container -->
+</div> <%-- /#login-container --%>
 
 
 </body>

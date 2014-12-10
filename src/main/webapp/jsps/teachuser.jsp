@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
+            <%-- Left side column. contains the logo and sidebar --%>
             <jsp:include page="leftsider.jsp"></jsp:include>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
+            <%-- Right side column. Contains the navbar and content of the page --%>
             <aside class="right-side">
-                <!-- Content Header (Page header) -->
+                <%-- Content Header (Page header) --%>
                 <section class="content-header">
                     <h1>
                                                                         教學頁面
@@ -19,20 +19,20 @@
                     </ol>
                 </section>
                 
-                <!-- Main content -->
+                <%-- Main content --%>
                 <section class="content invoice">
 
                     
-                    <!-- title row -->
+                    <%-- title row --%>
                     <div class="row">
                         <div class="col-xs-12">
                             <h2 class="page-header">
                                 <i class="fa fa-user-md"></i> 使用者教學
                                 <small class="pull-right">Date: 2/10/2014</small>
                             </h2>
-                        </div><!-- /.col -->
+                        </div><%-- /.col --%>
                     </div>
-                    <!-- info row -->
+                    <%-- info row --%>
                     <div class="row invoice-info">
                         <div class="col-sm-12 invoice-col">
                                                                                                <strong> 簡介</strong>
@@ -50,18 +50,18 @@
 放眼未來，中央大學將秉持著「誠樸」優良的校風，在既有的基礎上，繼續向下紮根、向上結果，締造更多「中大第一」，並為培育具國際視野、全球關懷的人才而努力，以開創新世紀大學之典範。
 <br><br>
                             </address>
-                        </div><!-- /.col -->                        
-                    </div><!-- /.row -->
+                        </div><%-- /.col --%>                        
+                    </div><%-- /.row --%>
 
                    
 
                     
 
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+                </section><%-- /.content --%>
+            </aside><%-- /.right-side --%>
+        </div><%-- ./wrapper --%>
 
-        <!-- add new calendar event modal -->
+        <%-- add new calendar event modal --%>
 
 
         <jsp:include page="usingcommonjs.jsp"></jsp:include>

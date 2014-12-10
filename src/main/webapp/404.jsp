@@ -17,9 +17,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="<c:url value='/css/style.css'/>">
 </head>
-<body id="wrapper-404">
-
-    <!-- start:wrapper -->
+<body id="wrapper-404">    
     <div class="container">
         <div class="errorpage">
             <i class="fa fa-frown-o fa-4x"></i>
@@ -28,16 +26,10 @@
             <h5>Something went wrong or that page doesnât exist yet. <a href="/manage" class="btn btn-sm btn-primary">Return Home</a></h5>
         </div>
     </div>
-    <!-- end:wrapper -->
-
-	<!-- start:javascript -->
-	<!-- javascript default for all pages-->
 	<script src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
 	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 
-    <!-- javascript for Srikandi admin -->
     <script src="<c:url value='/js/themes.js'/>"></script>
-	<!-- end:javascript -->
 
 </body>
 </html>	

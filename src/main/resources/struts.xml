@@ -6,7 +6,7 @@
 <struts>
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="false" />
     <constant name="struts.action.extension" value=","/>
     
     
@@ -23,15 +23,15 @@
 	<package name="main" extends="default" namespace="/">
 	   <action name="login" class="loginController">
             <result name="success">jsps/login.jsp</result>
-            <result name="error">500.html</result>
+            <result name="error">/500.jsp</result>
         </action>   
 		<action name="auth" class="authController">
 			<result name="success" type="redirect">logined</result>
-			<result name="error">500.html</result>
+			<result name="error">/500.jsp</result>
 		</action>
 		<action name="logined" class="afterLoginController">
             <result name="success" type="redirect">/</result>
-            <result name="error">500.html</result>
+            <result name="error">/500.jsp</result>
         </action>		     
         <action name="" class="mainpageController">
             <result name="success">jsps/index.jsp</result>

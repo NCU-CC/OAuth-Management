@@ -2,12 +2,12 @@
 <%@ taglib uri="/struts-tags" prefix="struts" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
+            <%-- Left side column. contains the logo and sidebar --%>
             <jsp:include page="leftsider.jsp"></jsp:include>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
+            <%-- Right side column. Contains the navbar and content of the page --%>
             <aside class="right-side">
-                <!-- Content Header (Page header) -->
+                <%-- Content Header (Page header) --%>
                 <section class="content-header">
                     <h1>
                         歡迎來到OAuth管理網站
@@ -18,13 +18,13 @@
                     </ol>
                 </section>
 
-                <!-- Main content -->
+                <%-- Main content --%>
                 <section class="content">
 
-                    <!-- Small boxes (Stat box) -->
+                    <%-- Small boxes (Stat box) --%>
                     <div class="row">
                         <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
+                            <%-- small box --%>
                             <div class="small-box bg-aqua">
                                 <div class="inner">
                                     <h3>
@@ -41,9 +41,9 @@
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div><!-- ./col -->
+                        </div><%-- ./col --%>
                         <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
+                            <%-- small box --%>
                             <div class="small-box bg-aqua">
                                 <div class="inner">
                                     <h3>
@@ -60,18 +60,18 @@
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div><!-- ./col -->
+                        </div><%-- ./col --%>
                         
                         
-                    </div><!-- /.row -->
-                    <!-- Main row -->
+                    </div><%-- /.row --%>
+                    <%-- Main row --%>
                     
       
       
-       <!-- Small boxes (Stat box) -->
+       <%-- Small boxes (Stat box) --%>
                     <div class="row">
                         <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
+                            <%-- small box --%>
                             <div class="small-box bg-yellow">
                                 <div class="inner">
                                     <h3>
@@ -88,9 +88,9 @@
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div><!-- ./col -->
+                        </div><%-- ./col --%>
                         <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
+                            <%-- small box --%>
                             <div class="small-box bg-yellow">
                                 <div class="inner">
                                     <h3>
@@ -107,9 +107,9 @@
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div><!-- ./col -->
+                        </div><%-- ./col --%>
                         <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
+                            <%-- small box --%>
                             <div class="small-box bg-yellow">
                                 <div class="inner">
                                     <h3>
@@ -126,18 +126,18 @@
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div><!-- ./col -->
+                        </div><%-- ./col --%>
                         
-                    </div><!-- /.row -->
-                    <!-- Main row -->
+                    </div><%-- /.row --%>
+                    <%-- Main row --%>
                     
                     
                     
                     
-                    <!-- Small boxes (Stat box) -->
+                    <%-- Small boxes (Stat box) --%>
                     <div class="row">
                         <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
+                            <%-- small box --%>
                             <div class="small-box bg-green">
                                 <div class="inner">
                                     <h3>
@@ -154,9 +154,9 @@
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div><!-- ./col -->
+                        </div><%-- ./col --%>
                         <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
+                            <%-- small box --%>
                             <div class="small-box bg-green">
                                 <div class="inner">
                                     <h3>
@@ -173,14 +173,14 @@
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div><!-- ./col -->
+                        </div><%-- ./col --%>
                         
                         
-                    </div><!-- /.row -->
-                    <!-- Main row -->
+                    </div><%-- /.row --%>
+                    <%-- Main row --%>
                     
                     
-                    </section><!-- /.content -->
+                    </section><%-- /.content --%>
                     
                    
                     
@@ -189,10 +189,10 @@
                    
 
                 
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+            </aside><%-- /.right-side --%>
+        </div><%-- ./wrapper --%>
 
-        <!-- add new calendar event modal -->
+        <%-- add new calendar event modal --%>
 
 
         <jsp:include page="usingcommonjs.jsp"></jsp:include>

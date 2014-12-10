@@ -153,6 +153,7 @@
 	</dependencies>
 	
 	<build>
+	<finalName>manage</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

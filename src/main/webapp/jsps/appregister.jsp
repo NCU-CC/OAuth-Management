@@ -2,12 +2,12 @@
 <%@ taglib uri="/struts-tags" prefix="struts" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
+            <%-- Left side column. contains the logo and sidebar --%>
             <jsp:include page="leftsider.jsp"></jsp:include>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
+            <%-- Right side column. Contains the navbar and content of the page --%>
             <aside class="right-side">
-                <!-- Content Header (Page header) -->
+                <%-- Content Header (Page header) --%>
                 <section class="content-header">
                     <h1>
                                                                         註冊APP
@@ -32,16 +32,16 @@
                 
                 
                 
-                <!-- Main content -->
+                <%-- Main content --%>
                 <section class="content">
 
                     
-                   <!-- left column -->
+                   <%-- left column --%>
                             <div class="box box-primary invoice">
                                 <div class="box-header">
                                     <h3 class="box-title">申請表單</h3>
-                                </div><!-- /.box-header -->
-                                <!-- form start -->
+                                </div><%-- /.box-header --%>
+                                <%-- form start --%>
                                 <struts:form role="form" namespace="/dev" action='tonew' method='post'>                                
                                    <div class="box-body">
                                         <div class="form-group">
@@ -65,20 +65,20 @@
                                             <p class="help-block">Your application's callback URL. Read our OAuth documentation for more information</p>
                                         </div>
                                             
-                                    </div><!-- /.box-body -->
+                                    </div><%-- /.box-body --%>
 
                                     <div class="box-footer">                                        
                                         <button type="submit" class="btn btn-success">送出申請</button>                                        
                                     </div>
                                     <struts:token/>
                                 </struts:form>
-                            </div><!-- /.box -->
+                            </div><%-- /.box --%>
 
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+                </section><%-- /.content --%>
+            </aside><%-- /.right-side --%>
+        </div><%-- ./wrapper --%>
 
-        <!-- add new calendar event modal -->
+        <%-- add new calendar event modal --%>
 
 
         <jsp:include page="usingcommonjs.jsp"></jsp:include>

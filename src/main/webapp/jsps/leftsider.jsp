@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/struts-tags" prefix="struts" %>
 <aside class="left-side sidebar-offcanvas">
-                <!-- sidebar: style can be found in sidebar.less -->
+                <%-- sidebar: style can be found in sidebar.less --%>
                 <section class="sidebar">
-                    <!-- Sidebar user panel -->
+                    <%-- Sidebar user panel --%>
                     <div class="user-panel">
                         <div class="pull-left image">
                             <img src="<c:url value='/img/avatar3.png'/>" class="img-circle" alt="User Image" />
@@ -15,10 +15,10 @@
                             <a><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                    <!-- search form -->
+                    <%-- search form --%>
                     
-                    <!-- /.search form -->
-                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <%-- /.search form --%>
+                    <%-- sidebar menu: : style can be found in sidebar.less --%>
                     <ul class="sidebar-menu">
                         <li>
                             <a href="<struts:url namespace="/" action=''/>">
@@ -70,5 +70,5 @@
                         </li>
                     </ul>
                 </section>
-                <!-- /.sidebar -->
+                <%-- /.sidebar --%>
             </aside>

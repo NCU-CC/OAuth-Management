@@ -18,8 +18,6 @@
     <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
 </head>
 <body id="wrapper-500">
-
-    <!-- start:wrapper -->
     <div class="container">
         <div class="errorpage">
             <i class="fa fa-flash fa-4x"></i>
@@ -28,16 +26,10 @@
             <h5>Looks like Something went wrong. <a href="/manage" class="btn btn-sm btn-danger">Return Home</a></h5>
         </div>
     </div>
-    <!-- end:wrapper -->
-
-    <!-- start:javascript -->
-    <!-- javascript default for all pages-->
     <script src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
     <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 
-    <!-- javascript for Srikandi admin -->
     <script src="<c:url value='/js/themes.js'/>"></script>
-    <!-- end:javascript -->
 
 </body>
 </html> 
