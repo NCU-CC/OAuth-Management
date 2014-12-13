@@ -1,9 +1,11 @@
 package tw.edu.ncu.cc.manage.service.oauth;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import tw.edu.ncu.cc.manage.entity.oauth.token.AccessToken;
@@ -11,6 +13,7 @@ import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
 import tw.edu.ncu.cc.manage.service.oauth.converter.TokenConverter;
 @Service
 public class TokenServiceImpl implements ITokenService{
+    private static final Logger logger = Logger.getLogger(TokenServiceImpl.class);
     public Connection connection;
     public TokenServiceImpl() {
         connection= new Connection();
@@ -23,7 +26,8 @@ public class TokenServiceImpl implements ITokenService{
             if(status==200){
                 return TokenConverter.convetList(connection.getStringFromConnection(connectionURL));
             }            
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }
@@ -36,7 +40,8 @@ public class TokenServiceImpl implements ITokenService{
             if(status==200){
                 return TokenConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }
@@ -52,7 +57,8 @@ public class TokenServiceImpl implements ITokenService{
             if(status==200){
                 return TokenConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }

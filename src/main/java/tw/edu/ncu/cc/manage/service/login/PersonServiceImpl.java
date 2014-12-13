@@ -1,5 +1,6 @@
 package tw.edu.ncu.cc.manage.service.login;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ import tw.edu.ncu.cc.manage.service.oauth.converter.UserConverter;
 
 @Service
 public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> implements IPersonService<T>{
+    private static final Logger logger = Logger.getLogger(PersonServiceImpl.class);
     public Connection connection;
     public PersonServiceImpl() {
         connection= new Connection();
@@ -66,7 +69,8 @@ public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> impleme
             if(status==200){
                 return UserConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }

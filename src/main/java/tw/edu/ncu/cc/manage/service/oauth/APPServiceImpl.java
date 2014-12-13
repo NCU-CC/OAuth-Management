@@ -1,9 +1,11 @@
 package tw.edu.ncu.cc.manage.service.oauth;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
@@ -16,6 +18,7 @@ import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 @Service
 public class APPServiceImpl implements IAPPService{
+    private static final Logger logger = Logger.getLogger(APPServiceImpl.class);
     public Connection connection;
     public APPServiceImpl() {
         connection= new Connection();
@@ -34,7 +37,8 @@ public class APPServiceImpl implements IAPPService{
 //                Collections.sort(list,new ApplicationComparator());
                 return list;
             }            
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }
@@ -47,7 +51,8 @@ public class APPServiceImpl implements IAPPService{
             if(status==200){
                 return ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }
@@ -64,7 +69,8 @@ public class APPServiceImpl implements IAPPService{
                 String content =connection.getStringFromErrorConnection(connectionURL);
                 throw new OAuthConnectionException(ErrorMessageConverter.convert(content));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }
@@ -72,7 +78,10 @@ public class APPServiceImpl implements IAPPService{
     public SecretIdApplication createAPP(Application app) throws OAuthConnectionException {
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL), ApplicationConverter.convert(app), Connection.POST);
-            int status=connectionURL.getResponseCode();
+            int status;
+            
+                status = connectionURL.getResponseCode();
+            
             if(status==200){
                 String content =connection.getStringFromConnection(connectionURL);
                 return ApplicationConverter.convert(content);
@@ -81,8 +90,9 @@ public class APPServiceImpl implements IAPPService{
                 String content =connection.getStringFromErrorConnection(connectionURL);
                 throw new OAuthConnectionException(ErrorMessageConverter.convert(content));
             }
-        } catch (Exception e) {
-        }
+        } catch (IOException e) {
+            logger.error("there is error", e);
+        }            
         return null;
     }
 
@@ -98,7 +108,8 @@ public class APPServiceImpl implements IAPPService{
             if(status==200){
                 return ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }
@@ -110,7 +121,8 @@ public class APPServiceImpl implements IAPPService{
                 String content =connection.getStringFromConnection(connectionURL);
                 return ApplicationConverter.convert(content);
             }                   
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return null;
     }

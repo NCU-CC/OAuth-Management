@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 @Controller
-@Scope("request")
+@Scope("prototype")
 public class APPInterceptor extends AbstractInterceptor{
     private static final long serialVersionUID = 1L;
     @Override

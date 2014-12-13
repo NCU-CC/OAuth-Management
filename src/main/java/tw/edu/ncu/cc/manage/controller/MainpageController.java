@@ -6,10 +6,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 @Scope("request")
 public class MainpageController extends BasicController {
-
     private static final long serialVersionUID = 1L;
 
-    @Override
     public String execute() throws Exception {                
         return SUCCESS;
     }

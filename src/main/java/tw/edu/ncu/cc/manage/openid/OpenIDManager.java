@@ -13,10 +13,12 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OpenIDManager {
+    private static final Logger logger = Logger.getLogger(OpenIDManager.class);
     private static OpenIDSetting setting;
     private static final String CHARSET = "UTF-8";
     private static final String CORRECTRESPONE = "is_valid:true";
@@ -40,7 +42,8 @@ public class OpenIDManager {
             if (isResultTrue(result)) {
                 return true;
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error("there is error", e);
         }
         return false;
     }
@@ -105,9 +108,16 @@ public class OpenIDManager {
     private String getResultFromUrl(URL obj) throws IOException {
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
-        InputStream inputStream = con.getInputStream();
-        String text = IOUtils.toString(inputStream, CHARSET);
-        inputStream.close();
+        InputStream inputStream=null;
+        String text=null;
+        try{
+            inputStream = con.getInputStream();
+            text = IOUtils.toString(inputStream, CHARSET);
+        }finally{
+            if(inputStream!=null){
+                inputStream.close();
+            }
+        }        
         return text;
     }
 
