@@ -115,7 +115,11 @@ public class OpenIDManager {
             text = IOUtils.toString(inputStream, CHARSET);
         }finally{
             if(inputStream!=null){
-                inputStream.close();
+                try{
+                    inputStream.close();
+                    }catch(IOException e){
+                        logger.error("there is an error",e);
+                    }
             }
         }        
         return text;

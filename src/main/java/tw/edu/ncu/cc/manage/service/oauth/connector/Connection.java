@@ -62,7 +62,11 @@ public class Connection {
               writer.flush();
           }finally{
               if(os!=null){
+                  try{
                   os.close();
+                  }catch(IOException e){
+                      logger.error("there is an error",e);
+                  }
               }
           }
       }
@@ -77,7 +81,11 @@ public class Connection {
             return result;
             }finally{
                 if(is!=null){
-                    is.close();
+                    try{
+                        is.close();
+                        }catch(IOException e){
+                            logger.error("there is an error",e);
+                        }
                 }
             } 
         }
@@ -91,7 +99,11 @@ public class Connection {
                 return  getStringFromConnection(is);
             }finally{
                 if(is!=null){
-                    is.close();
+                    try{
+                        is.close();
+                        }catch(IOException e){
+                            logger.error("there is an error",e);
+                        }
                 }
             }  
         }
