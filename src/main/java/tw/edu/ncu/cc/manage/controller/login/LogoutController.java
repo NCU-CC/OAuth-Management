@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Controller
-@Scope("prototype")
+@Scope("request")
 public class LogoutController extends ActionSupport {
 
     private static final long serialVersionUID = 1L;

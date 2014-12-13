@@ -1,18 +1,13 @@
 package tw.edu.ncu.cc.manage.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@Scope("prototype")
+@Scope("request")
 public class MainpageController extends BasicController {
 
     private static final long serialVersionUID = 1L;
-    @Autowired
-    private HttpServletRequest request;    
 
     @Override
     public String execute() throws Exception {                

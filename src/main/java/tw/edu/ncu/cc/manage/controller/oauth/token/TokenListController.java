@@ -16,7 +16,7 @@ import tw.edu.ncu.cc.manage.util.PersonUtil;
 
 
 @Controller
-@Scope("prototype")
+@Scope("request")
 public class TokenListController extends BasicController {
     private static final long serialVersionUID = 1L;
     @Autowired

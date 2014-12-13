@@ -35,7 +35,6 @@ public class APPServiceImpl implements IAPPService{
                 return list;
             }            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -49,7 +48,6 @@ public class APPServiceImpl implements IAPPService{
                 return ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -67,7 +65,6 @@ public class APPServiceImpl implements IAPPService{
                 throw new OAuthConnectionException(ErrorMessageConverter.convert(content));
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -85,7 +82,6 @@ public class APPServiceImpl implements IAPPService{
                 throw new OAuthConnectionException(ErrorMessageConverter.convert(content));
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -103,7 +99,6 @@ public class APPServiceImpl implements IAPPService{
                 return ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -111,13 +106,11 @@ public class APPServiceImpl implements IAPPService{
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL+id+"/secret/"), null , Connection.POST);
             int status=connectionURL.getResponseCode();
-            System.out.println("22222 " + status);
             if(status==200){
                 String content =connection.getStringFromConnection(connectionURL);
                 return ApplicationConverter.convert(content);
             }                   
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }

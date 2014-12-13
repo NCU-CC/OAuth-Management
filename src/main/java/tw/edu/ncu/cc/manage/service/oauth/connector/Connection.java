@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -23,6 +24,7 @@ public class Connection {
     public static final String GET ="GET";
     public static final String PUT ="PUT";
     public static final String DELETE ="DELETE";
+    public static final int MAX_STRING_LENGTH = 10000;
     static {        
         try {
             SSLContext sc = SSLContext.getInstance("TLS");
@@ -35,9 +37,9 @@ public class Connection {
             }
         });
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            
         } catch (KeyManagementException e) {
-            e.printStackTrace();
+            
         }
     }
     public HttpURLConnection doConnection(URL url,String content,String method) throws IOException{
@@ -49,26 +51,37 @@ public class Connection {
       httpConn.setRequestProperty("Content-Type",
               "application/json; charset=utf-8 ");  
       if(content!=null && content.length()>0){
-          
-          DataOutputStream wr = new DataOutputStream(httpConn.getOutputStream());
+          OutputStream os = httpConn.getOutputStream();
+          DataOutputStream wr = new DataOutputStream(os);
           BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
           writer.write(content);
+          writer.flush();
           writer.close();
           wr.close();
+          os.close();
       }
       return httpConn;
     }
     public String getStringFromConnection(HttpURLConnection connection) throws IOException{
-        return getStringFromConnection(connection.getInputStream());
+        InputStream is = connection.getInputStream();
+        String result = getStringFromConnection(is);
+        is.close();
+        return result;
     }
     public String getStringFromErrorConnection(HttpURLConnection connection) throws IOException{
-        return getStringFromConnection(connection.getErrorStream());
+        InputStream is = connection.getErrorStream();
+        String result = getStringFromConnection(is);
+        is.close();
+        return result;
     }
     private String getStringFromConnection(InputStream ins) throws IOException{
         BufferedReader in = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
         String all ="";
         String inputLine;
         while ((inputLine = in.readLine()) != null) 
+            if(all.length()>MAX_STRING_LENGTH){
+                break;
+            }
             all += inputLine+"\n";
         in.close();
         return all;

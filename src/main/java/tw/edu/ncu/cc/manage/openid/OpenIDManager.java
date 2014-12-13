@@ -41,15 +41,18 @@ public class OpenIDManager {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return false;
     }
     
+    @SuppressWarnings("rawtypes")
     public String getIdentityID(HttpServletRequest request){
-        Map<String, String> re = convertMapToStringMap(request.getParameterMap());
-        return getIDFromURL(re.get("openid.identity"));
-        
+        Map map =request.getParameterMap();
+        if(map!=null){
+            Map<String, String> re = convertMapToStringMap(map);
+            return getIDFromURL(re.get("openid.identity"));
+        }
+        return null;        
     }
     private String getIDFromURL(String url){
         return url.split("user/")[1];
@@ -78,14 +81,17 @@ public class OpenIDManager {
     private String getQueryStringFromRequest(HttpServletRequest request) throws UnsupportedEncodingException{
         StringBuffer tmp = new StringBuffer();
         Map map =request.getParameterMap();
-        Set keys = map.keySet();
-        for(Object keyObject : keys){
-            String key = (String) keyObject;
-            if(!key.equals("openid.ns") && !key.equals("openid.mode") ){
-                tmp.append("&").append(key).append("=").append(  getEncodedString( ((String [])map.get(key))[0] ) );
+        if(map!=null){
+            Set keys = map.keySet();
+            for(Object keyObject : keys){
+                String key = (String) keyObject;
+                if(!key.equals("openid.ns") && !key.equals("openid.mode") ){
+                    tmp.append("&").append(key).append("=").append(  getEncodedString( ((String [])map.get(key))[0] ) );
+                }
             }
+            return tmp.toString();
         }
-        return tmp.toString();
+        return null;
     }
 
     private String getEncodedString(String originalString) throws UnsupportedEncodingException{
@@ -101,6 +107,7 @@ public class OpenIDManager {
         con.setRequestMethod("GET");
         InputStream inputStream = con.getInputStream();
         String text = IOUtils.toString(inputStream, CHARSET);
+        inputStream.close();
         return text;
     }
 

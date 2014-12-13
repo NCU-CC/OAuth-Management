@@ -16,7 +16,6 @@ import tw.edu.ncu.cc.manage.entity.PersonType;
 import tw.edu.ncu.cc.manage.entity.oauth.User;
 import tw.edu.ncu.cc.manage.service.ServiceImpl;
 import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
-import tw.edu.ncu.cc.manage.service.oauth.converter.TokenConverter;
 import tw.edu.ncu.cc.manage.service.oauth.converter.UserConverter;
 
 @Service
@@ -44,9 +43,7 @@ public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> impleme
         if(findPersonByAccount(person.getAccount())!=null){
             throw new RuntimeException("account " +person.getAccount() + "has already existed");
         }
-        System.out.println("creat person: "+person.getAccount());
         this.getDao().create(person);
-        System.out.println("2creat person: "+person.getAccount());
     }
 
     public Person getNewLoginPerson(HttpServletRequest request,String id) {
@@ -70,7 +67,6 @@ public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> impleme
                 return UserConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }

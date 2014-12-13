@@ -20,7 +20,6 @@ public class OpenIDSetting {
         try {
             url = new URL(endpoint);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
         }
         return url;
     }
@@ -48,7 +47,6 @@ public class OpenIDSetting {
                                     .getProperty(parameters[parameters.length - 1]),
                                     "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
         return resultUrl;
     }

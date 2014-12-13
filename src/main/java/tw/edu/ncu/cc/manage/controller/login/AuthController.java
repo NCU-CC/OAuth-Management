@@ -13,7 +13,7 @@ import tw.edu.ncu.cc.manage.service.login.AuthService;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Controller
-@Scope("prototype")
+@Scope("request")
 public class AuthController extends ActionSupport {
 
     private static final long serialVersionUID = 1L;

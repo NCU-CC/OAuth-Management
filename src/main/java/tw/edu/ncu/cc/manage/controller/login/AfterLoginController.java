@@ -16,7 +16,7 @@ import tw.edu.ncu.cc.manage.util.PersonUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Controller
-@Scope("prototype")
+@Scope("request")
 public class AfterLoginController extends ActionSupport {
 
     private static final long serialVersionUID = 1L;

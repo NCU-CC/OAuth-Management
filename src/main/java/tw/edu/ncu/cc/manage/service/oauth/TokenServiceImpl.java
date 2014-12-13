@@ -24,7 +24,6 @@ public class TokenServiceImpl implements ITokenService{
                 return TokenConverter.convetList(connection.getStringFromConnection(connectionURL));
             }            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -38,7 +37,6 @@ public class TokenServiceImpl implements ITokenService{
                 return TokenConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -55,7 +53,6 @@ public class TokenServiceImpl implements ITokenService{
                 return TokenConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
