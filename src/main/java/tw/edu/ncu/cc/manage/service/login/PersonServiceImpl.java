@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,6 @@ import tw.edu.ncu.cc.manage.service.oauth.converter.UserConverter;
 
 @Service
 public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> implements IPersonService<T>{
-    private static final Logger logger = Logger.getLogger(PersonServiceImpl.class);
     public Connection connection;
     public PersonServiceImpl() {
         connection= new Connection();
@@ -62,17 +60,18 @@ public class PersonServiceImpl <T extends Person> extends ServiceImpl<T> impleme
     }
 
     public User createUserOnRemoteServer(String id) {
+        User user = null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL), UserConverter.convert(new User(id)), Connection.POST);
             int status=connectionURL.getResponseCode();
             connectionURL.connect();
             if(status==200){
-                return UserConverter.convert(connection.getStringFromConnection(connectionURL));
+                user= UserConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (IOException e) {
-            logger.error("there is error", e);
+            user=null;
         }
-        return null;
+        return user;
     }
 
 }

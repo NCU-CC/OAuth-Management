@@ -7,10 +7,8 @@ import java.net.URLEncoder;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-
 public class OpenIDSetting {
-    private static final Logger logger = Logger.getLogger(OpenIDSetting.class);
+    
     private Properties prop;
 
     public OpenIDSetting(Properties properties) {
@@ -23,7 +21,7 @@ public class OpenIDSetting {
         try {
             url = new URL(endpoint);
         } catch (MalformedURLException e) {
-            logger.error("there is error", e);
+            return url;
         }
         return url;
     }
@@ -51,7 +49,7 @@ public class OpenIDSetting {
                                     .getProperty(parameters[parameters.length - 1]),
                                     "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            logger.error("there is error", e);
+            return resultUrl;
         }
         return resultUrl;
     }

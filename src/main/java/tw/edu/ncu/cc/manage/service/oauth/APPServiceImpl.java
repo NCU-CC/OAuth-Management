@@ -5,7 +5,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
@@ -18,7 +17,6 @@ import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 @Service
 public class APPServiceImpl implements IAPPService{
-    private static final Logger logger = Logger.getLogger(APPServiceImpl.class);
     public Connection connection;
     public APPServiceImpl() {
         connection= new Connection();
@@ -28,54 +26,56 @@ public class APPServiceImpl implements IAPPService{
     }
 
     public List<IdApplication> getAllAPPsByUserId(String id) {
+        List<IdApplication> list = null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(USERSERVICEURL+id+"/application"), null, Connection.GET);
             connectionURL.connect();
             int status=connectionURL.getResponseCode();            
             if(status==200){                
-                List<IdApplication> list =ApplicationConverter.convetList(connection.getStringFromConnection(connectionURL));
-//                Collections.sort(list,new ApplicationComparator());
-                return list;
+                list =ApplicationConverter.convetList(connection.getStringFromConnection(connectionURL));
             }            
         } catch (IOException e) {
-            logger.error("there is error", e);
+            list=null;
         }
-        return null;
+        return list;
     }
 
     public IdApplication getAPPbyAPPId(String id) {
+        IdApplication ida= null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL+id), null, Connection.GET);
             connectionURL.connect();
             int status=connectionURL.getResponseCode();            
             if(status==200){
-                return ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
+                ida= ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (IOException e) {
-            logger.error("there is error", e);
+            ida=null;
         }
-        return null;
+        return ida;
     }
 
     public IdApplication updateAPP(IdApplication app) throws OAuthConnectionException {
+        IdApplication ida= null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL+app.getId()), ApplicationConverter.convert(app), Connection.PUT);
             connectionURL.connect();
             int status=connectionURL.getResponseCode();            
             if(status==200){
-                return ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
+                ida= ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
             if(status==400){
                 String content =connection.getStringFromErrorConnection(connectionURL);
                 throw new OAuthConnectionException(ErrorMessageConverter.convert(content));
             }
         } catch (IOException e) {
-            logger.error("there is error", e);
+            ida=null;
         }
-        return null;
+        return ida;
     }
     
     public SecretIdApplication createAPP(Application app) throws OAuthConnectionException {
+        SecretIdApplication sia =null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL), ApplicationConverter.convert(app), Connection.POST);
             int status;
@@ -84,16 +84,16 @@ public class APPServiceImpl implements IAPPService{
             
             if(status==200){
                 String content =connection.getStringFromConnection(connectionURL);
-                return ApplicationConverter.convert(content);
+                sia= ApplicationConverter.convert(content);
             }                        
             if(status==400){
                 String content =connection.getStringFromErrorConnection(connectionURL);
                 throw new OAuthConnectionException(ErrorMessageConverter.convert(content));
             }
         } catch (IOException e) {
-            logger.error("there is error", e);
+            sia=null;
         }            
-        return null;
+        return sia;
     }
 
     public IdApplication removeAPP(IdApplication app) {
@@ -101,29 +101,31 @@ public class APPServiceImpl implements IAPPService{
     }
 
     public IdApplication removeAPP(String id) {
+        IdApplication ida=null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL+id), null, Connection.DELETE);
             connectionURL.connect();
             int status=connectionURL.getResponseCode();            
             if(status==200){
-                return ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
+                ida= ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
             }            
         } catch (IOException e) {
-            logger.error("there is error", e);
+            ida=null;
         }
-        return null;
+        return ida;
     }
     public SecretIdApplication newSecret(String id) {
+        SecretIdApplication sia =null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL+id+"/secret/"), null , Connection.POST);
             int status=connectionURL.getResponseCode();
             if(status==200){
                 String content =connection.getStringFromConnection(connectionURL);
-                return ApplicationConverter.convert(content);
+                sia= ApplicationConverter.convert(content);
             }                   
         } catch (IOException e) {
-            logger.error("there is error", e);
+            sia=null;
         }
-        return null;
+        return sia;
     }
 }

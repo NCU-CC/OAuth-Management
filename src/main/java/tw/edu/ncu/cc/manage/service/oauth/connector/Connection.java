@@ -19,17 +19,15 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 
-import org.apache.log4j.Logger;
-
 public class Connection {
-    private static final Logger logger = Logger.getLogger(Connection.class);
     public static final String POST ="POST";
     public static final String GET ="GET";
     public static final String PUT ="PUT";
     public static final String DELETE ="DELETE";
     static {        
+        SSLContext sc=null;
         try {
-            SSLContext sc = SSLContext.getInstance("TLS");
+            sc = SSLContext.getInstance("TLS");
         
         sc.init(null, new TrustManager[] { new TrustAllX509TrustManager() }, new java.security.SecureRandom());
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
@@ -39,9 +37,9 @@ public class Connection {
             }
         });
         } catch (NoSuchAlgorithmException e) {
-            logger.error("there is error", e);
+            sc=null;
         } catch (KeyManagementException e) {
-            logger.error("there is error", e);
+            sc=null;
         }
     }
     public HttpURLConnection doConnection(URL url,String content,String method) throws IOException{
@@ -65,7 +63,7 @@ public class Connection {
                   try{
                   os.close();
                   }catch(IOException e){
-                      logger.error("there is an error",e);
+                      httpConn=null;
                   }
               }
           }
@@ -73,41 +71,43 @@ public class Connection {
       return httpConn;
     }
     public String getStringFromConnection(HttpURLConnection connection) throws IOException{
+        String result=null;
         if(connection!=null){
-            InputStream is = null ;
+            InputStream is = null ;            
             try{
             is = connection.getInputStream();
-            String result = getStringFromConnection(is);
-            return result;
+            result = getStringFromConnection(is);
+            
             }finally{
                 if(is!=null){
                     try{
                         is.close();
                         }catch(IOException e){
-                            logger.error("there is an error",e);
+                            result=null;
                         }
                 }
             } 
         }
-        return null;
+        return result;
     }
     public String getStringFromErrorConnection(HttpURLConnection connection) throws IOException{
+        String result=null;
         if(connection!=null){
             InputStream is =null;
             try{
                 is = connection.getErrorStream();
-                return  getStringFromConnection(is);
+                result=  getStringFromConnection(is);
             }finally{
                 if(is!=null){
                     try{
                         is.close();
                         }catch(IOException e){
-                            logger.error("there is an error",e);
+                            result=null;
                         }
                 }
             }  
         }
-        return null;
+        return result;
     }
     private String getStringFromConnection(InputStream ins) throws IOException{
         BufferedReader in = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
