@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import tw.edu.ncu.cc.manage.controller.BasicController;
 import tw.edu.ncu.cc.manage.entity.oauth.OAuthErrorMessage;
@@ -16,8 +16,8 @@ import tw.edu.ncu.cc.manage.service.oauth.IAPPService;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 import tw.edu.ncu.cc.manage.util.PersonUtil;
 
-@Controller
-@Scope("request")
+@Component
+@Scope("prototype")
 public class APPNewController extends BasicController {
     private static final long serialVersionUID = 1L;
     private IAPPService service;

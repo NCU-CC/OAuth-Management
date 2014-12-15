@@ -6,14 +6,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import tw.edu.ncu.cc.manage.service.login.AuthService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Controller
-@Scope("request")
+@Component
+@Scope("prototype")
 public class AuthController extends ActionSupport {
 
     private static final long serialVersionUID = 1L;

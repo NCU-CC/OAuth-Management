@@ -1,10 +1,10 @@
 package tw.edu.ncu.cc.manage.controller;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
-@Scope("request")
+@Component
+@Scope("prototype")
 public class MainpageController extends BasicController {
     private static final long serialVersionUID = 1L;
 

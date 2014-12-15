@@ -3,13 +3,13 @@ package tw.edu.ncu.cc.manage.controller.login;
 import javax.inject.Inject;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import tw.edu.ncu.cc.manage.service.login.AuthService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Controller
+@Component
 @Scope("prototype")
 public class LoginController extends ActionSupport {
 
