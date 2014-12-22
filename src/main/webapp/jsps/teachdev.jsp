@@ -35,21 +35,45 @@
                     <%-- info row --%>
                     <div class="row invoice-info">
                         <div class="col-sm-12 invoice-col">
-                                                                                               <strong> 簡介</strong>
-                            <address>
-                                中央大學民國四年創建於南京，大陸時期為東南的學術重鎮，素有「北北大、南中大」之稱。民國51年在台復校，歷經50年之發展，為國內少數歷史悠久、校景優美、校風淳樸、校譽優良之頂尖研究型大學。 
-<br><br>
-地處中壢雙連坡的中大，佔地廣達62公頃，扼守著台灣桃園國際機場航空城，距離首善之都台北僅40分鐘車程，鄰近高鐵桃園站，交通便捷。目前學生總人數約一萬三千人，大學生與研究生比例約1：1，為一所中型研究型大學。
-<br><br>
-目前設有文、理、工、管理、資訊電機、地球科學、客家、生醫理工，共8所學院，22個學系(含理學院不分系學士班)和54個研究所。同時設有8個校屬研究中心及1個聯合研究中心，並設有總教學中心，督導通識教育中心、師資培育中心、語言中心、藝文中心、科學教育中心、出版中心和體育室，是科學、人文薈萃的綜合大學。
-<br><br>
-中央大學近年來學術表現亮麗，獲選教育部5年500億邁向頂尖大學計畫，歷次考評執行成果均「優」，為台灣高教界進步幅度最大、速度最快的大學之一。
-<br><br>
-國際的評比上，中大持續進步。除了近年名列上海交通大學的世界大學學術排名前五百大，在英國高等教育調查公司QS的亞洲大學前200名最佳大學排行榜內，本校亦穩健攀升，2012年為第53名。
-<br><br>
-放眼未來，中央大學將秉持著「誠樸」優良的校風，在既有的基礎上，繼續向下紮根、向上結果，締造更多「中大第一」，並為培育具國際視野、全球關懷的人才而努力，以開創新世紀大學之典範。
-<br><br>
-                            </address>
+                                                                                               
+                                                                                               
+                            <div id="preview" preview=""><h1 id="oauth-for-">Oauth教學 for 開發者</h1>
+								<p>此網站主要是提供給開發者</p>
+								<ul>
+								<li>APP開發申請</li>
+								<li>刪除APP</li>
+								<li>取得新的Secret碼</li>
+								<li>編輯APP申請內容</li>
+								</ul>
+								<h5 id="app-">APP開發申請</h5>
+								<ul>
+								<li>點擊畫面左方的 <strong>開發人員軟體管理 --&gt; 註冊新APP</strong></li>
+								<li>填寫<strong>相關內容</strong></li>
+								<li>取得<strong>secret</strong>碼與<strong>client id</strong></li>
+								</ul>
+								<h5 id="-app">刪除APP</h5>
+								<ul>
+								<li>點擊畫面左方的 <strong>開發人員軟體管理 --&gt; APP開發管理</strong></li>
+								<li>顯示<strong>APP列表</strong>，選擇要刪除的APP，點擊右方<strong>修改</strong></li>
+								<li>點選<strong>刪除</strong></li>
+								</ul>
+								<h5 id="-secret-">取得新的Secret碼</h5>
+								<ul>
+								<li>點擊畫面左方的 <strong>開發人員軟體管理 --&gt; APP開發管理</strong></li>
+								<li>顯示<strong>APP列表</strong>，選擇要取得的APP，點擊右方<strong>修改</strong></li>
+								<li>點選<strong>新的secret</strong></li>
+								</ul>
+								<h5 id="-app-">編輯APP申請內容</h5>
+								<ul>
+								<li>點擊畫面左方的 <strong>開發人員軟體管理 --&gt; APP開發管理</strong></li>
+								<li>顯示<strong>APP列表</strong>，選擇要取得的APP，點擊右方<strong>修改</strong></li>
+								<li>修改內容</li>
+								<li>點擊<strong>更新APP</strong></li>
+								</ul>
+							</div>
+                            
+                            
+                                                                                                       
                         </div><%-- /.col --%>                        
                     </div><%-- /.row --%>
 
