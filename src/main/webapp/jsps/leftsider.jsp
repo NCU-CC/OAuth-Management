@@ -54,19 +54,8 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<struts:url namespace="/dev" action='list'/>"><i class="fa fa-angle-double-right"></i> APP開發管理</a></li>
-                                <li><a href="<struts:url namespace="/dev" action='new'/>"><i class="fa fa-angle-double-right"></i> 註冊新APP</a></li>      
-                                <li><a href="<struts:url namespace="/dev" action='api'/>"><i class="fa fa-angle-double-right"></i> 已開放API列表</a></li>                              
+                                <li><a href="<struts:url namespace="/dev" action='new'/>"><i class="fa fa-angle-double-right"></i> 註冊新APP</a></li>                                 
                             </ul>
-                        </li>
-                        <li>
-                            <a href="<struts:url namespace="/" action='terms'/>">
-                                <i class="fa fa-file-text-o"></i> <span>服務條款</span> 
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<struts:url namespace="/" action='about'/>">
-                                <i class="fa fa-group"></i> <span>關於我們</span> 
-                            </a>
                         </li>
                     </ul>
                 </section>

@@ -47,16 +47,6 @@
             <result name="success" type="redirect">/</result>
             <result name="error">500.html</result>
         </action>
-        <action name="terms" class="mainpageController">
-            <result name="success">/jsps/terms.jsp</result>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-            <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action>
-        <action name="about" class="mainpageController">
-            <result name="success">/jsps/about.jsp</result>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-            <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action>
 	</package>
 	
 	<package name="teach" extends="default" namespace="/tutorial">		
@@ -147,12 +137,7 @@
             </interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action>   
-        <action name="api" class="mainpageController">
-            <result name="success">/jsps/openfunctions.jsp</result>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-            <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action> 
+        </action>
     </package>
 	
 </struts>

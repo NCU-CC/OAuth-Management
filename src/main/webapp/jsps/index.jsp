@@ -108,77 +108,9 @@
                                 </a>
                             </div>
                         </div><%-- ./col --%>
-                        <div class="col-lg-4 col-xs-6">
-                            <%-- small box --%>
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3>
-                                        API列表
-                                    </h3>
-                                    <p>
-                                      程式開發者
-                                    </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-ios7-cloud-download"></i>
-                                </div>
-                                <a href="<struts:url namespace="/dev" action='api'/>" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><%-- ./col --%>
                         
                     </div><%-- /.row --%>
                     <%-- Main row --%>
-                    
-                    
-                    
-                    
-                    <%-- Small boxes (Stat box) --%>
-                    <div class="row">
-                        <div class="col-lg-4 col-xs-6">
-                            <%-- small box --%>
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3>
-                                                                                                                                                 服務條款
-                                    </h3>
-                                    <p>
-                                         所有使用者                                                                                                         
-                                    </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-ios7-copy"></i>
-                                </div>
-                                <a href="<struts:url namespace="/" action='terms'/>" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><%-- ./col --%>
-                        <div class="col-lg-4 col-xs-6">
-                            <%-- small box --%>
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3>
-                                                                                                                                                  關於我們
-                                    </h3>
-                                    <p>
-                                       所有使用者
-                                    </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-ios7-people"></i>
-                                </div>
-                                <a href="<struts:url namespace="/" action='about'/>" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><%-- ./col --%>
-                        
-                        
-                    </div><%-- /.row --%>
-                    <%-- Main row --%>
-                    
                     
                     </section><%-- /.content --%>
                     

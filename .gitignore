@@ -5,6 +5,7 @@
 .metadata
 *.launch
 .springBeans
+openidSetting.properties
 
 dataAccessDAO.properties
 
