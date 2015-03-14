@@ -7,16 +7,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.edu.ncu.cc.manage.entity.User;
-import tw.edu.ncu.cc.manage.repository.UserDao;
+import tw.edu.ncu.cc.manage.repository.IUserDao;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao;
+	private IUserDao userDao;
 	
 	@Inject
-	public void setUserDao(UserDao userDao) {
+	public void setUserDao(IUserDao userDao) {
 		this.userDao = userDao;
 	}
 
