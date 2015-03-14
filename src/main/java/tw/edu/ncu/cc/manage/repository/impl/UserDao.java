@@ -9,7 +9,7 @@ import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.repository.IUserDao;
 
 @Repository
-public class UserDaoImpl implements IUserDao {
+public class UserDao implements IUserDao {
 
 	private EntityManager entityManager;
 	

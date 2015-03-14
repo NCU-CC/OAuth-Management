@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import tw.edu.ncu.cc.manage.entity.User;
-import tw.edu.ncu.cc.manage.service.UserService;
+import tw.edu.ncu.cc.manage.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -18,7 +18,7 @@ public class UserController extends ActionSupport {
 
     private int id;
     private User user;
-    private UserService userService;
+    private IUserService userService;
 
     public String add() {
 
@@ -42,12 +42,12 @@ public class UserController extends ActionSupport {
         this.user = user;
     }
 
-    public UserService getUserService() {
+    public IUserService getUserService() {
         return userService;
     }
 
     @Inject
-    public void setUserService(UserService userService) {
+    public void setUserService(IUserService userService) {
         this.userService = userService;
     }
 

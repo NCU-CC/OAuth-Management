@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.service;
+package tw.edu.ncu.cc.manage.service.impl;
 
 import javax.inject.Inject;
 
@@ -8,10 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.repository.IUserDao;
+import tw.edu.ncu.cc.manage.service.IUserService;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-public class UserServiceImpl implements UserService {
+public class UserService implements IUserService {
 
 	private IUserDao userDao;
 	
