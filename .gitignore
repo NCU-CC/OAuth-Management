@@ -1,4 +1,6 @@
 # Eclipse project files
+bin
+build
 .settings
 .classpath
 .project
@@ -6,7 +8,6 @@
 *.launch
 .springBeans
 openidSetting.properties
-
 dataAccessDAO.properties
 
 # Always ignore these directories/files
@@ -23,10 +24,10 @@ war/
 #caching for already compiled files
 www-test/
 
-
-
 *.class
 
 # Package Files #
 *.jar
 *.war
+
+.gradle
