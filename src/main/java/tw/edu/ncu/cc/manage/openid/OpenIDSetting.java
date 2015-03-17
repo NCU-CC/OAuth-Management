@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.Set;
 
 public class OpenIDSetting {
+    
     private Properties prop;
 
     public OpenIDSetting(Properties properties) {
@@ -20,7 +21,7 @@ public class OpenIDSetting {
         try {
             url = new URL(endpoint);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            return url;
         }
         return url;
     }
@@ -48,7 +49,7 @@ public class OpenIDSetting {
                                     .getProperty(parameters[parameters.length - 1]),
                                     "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            return resultUrl;
         }
         return resultUrl;
     }

@@ -1,35 +1,3 @@
-# Eclipse project files
-.settings
-.classpath
-.project
-.metadata
-*.launch
-.springBeans
-
-dataAccessDAO.properties
-
-# Always ignore these directories/files
-target
-*.log
-src/main/webapp/WEB-INF/classes/
-src/main/webapp/WEB-INF/deploy/
-war/
-
-
-#compilation logs
-.gwt/
-
-#caching for already compiled files
-www-test/
-
-
-
-*.class
-
-# Package Files #
-*.jar
-*.war
-
 # Created by https://www.gitignore.io
 
 ### Gradle ###
@@ -81,3 +49,7 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
+
+# project specific
+openidSetting.properties
+dataAccessDAO.properties

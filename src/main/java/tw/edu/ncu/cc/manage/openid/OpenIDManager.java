@@ -8,14 +8,16 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OpenIDManager {
+public class OpenIDManager {    
     private static OpenIDSetting setting;
-    private static OpenIDSetting respone;
     private static final String CHARSET = "UTF-8";
     private static final String CORRECTRESPONE = "is_valid:true";
 
@@ -23,28 +25,51 @@ public class OpenIDManager {
         if (setting == null) {
             setting = new OpenIDSettingLoader()
                     .getSetting("openidSetting.properties");
-            respone = new OpenIDSettingLoader()
-                    .getSetting("openidCheck.properties");
         }
-    }
-
+    }   
+    
     public String getURLString() {
         return setting.getURLString();
     }
-
-    public URL getURL() {
-        return setting.getURL();
+    
+    public boolean checkAuthentication(HttpServletRequest request) {
+        boolean flag= false;
+        try {
+            String checkUrl = createCheckUrl(request);
+            String result =getResultFromUrl(new URL(checkUrl));
+            if (isResultTrue(result)) {
+                flag= true;
+            }
+        } catch (IOException e) {
+            flag= false;
+        }
+        return flag;
+    }
+    
+    @SuppressWarnings("rawtypes")
+    public String getIdentityID(HttpServletRequest request){
+        Map map =request.getParameterMap();
+        if(map!=null){
+            Map<String, String> re = convertMapToStringMap(map);
+            return getIDFromURL(re.get("openid.identity"));
+        }
+        return null;        
+    }
+    private String getIDFromURL(String url){
+        return url.split("user/")[1];
+    }
+    
+    private String createCheckUrl(HttpServletRequest request) throws UnsupportedEncodingException{
+        StringBuffer receivingURL =new StringBuffer(setting.getProp().getProperty("openid.op_endpoint"));
+        receivingURL.append("?openid.mode=check_authentication");
+       
+        receivingURL.append("&openid.realm="+URLEncoder.encode(setting.getProp().getProperty("openid.realm"), CHARSET));        
+        String queryString = getQueryStringFromRequest(request);
+        receivingURL.append(queryString);
+            return receivingURL.toString();        
     }
 
-    public boolean checkAuthentication(Map request) {
-        return checkAuthenticationWithStringMap(convertMapToStringMap(request));
-    }
-
-    public String getStudentID(Map request) {
-        Map<String, String> re = convertMapToStringMap(request);
-        return re.get("openid.ext1.value.student_id");
-    }
-
+    @SuppressWarnings("rawtypes")
     private Map<String, String> convertMapToStringMap(Map request) {
         Map<String, String> re = new HashMap<String, String>();
         for (Object oo : request.keySet()) {
@@ -52,25 +77,28 @@ public class OpenIDManager {
         }
         return re;
     }
-
-    public boolean checkAuthenticationWithStringMap(Map<String, String> request) {
-
-        String url = setting.getProp().getProperty("openid.op_endpoint") + "?";
-        String param;
-        try {
-            param = getSettingParameters();
-            param = getIncomingParameters(param, request);
-            URL obj = new URL(url + param);
-            String text = getResultFromUrl(obj);
-            if (isResultTrue(text)) {
-                return true;
+    
+    @SuppressWarnings("rawtypes")
+    private String getQueryStringFromRequest(HttpServletRequest request) throws UnsupportedEncodingException{
+        StringBuffer tmp = new StringBuffer();
+        Map map =request.getParameterMap();
+        if(map!=null){
+            Set keys = map.keySet();
+            for(Object keyObject : keys){
+                String key = (String) keyObject;
+                if(!key.equals("openid.ns") && !key.equals("openid.mode") ){
+                    tmp.append("&").append(key).append("=").append(  getEncodedString( ((String [])map.get(key))[0] ) );
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return tmp.toString();
         }
-        return false;
+        return null;
     }
 
+    private String getEncodedString(String originalString) throws UnsupportedEncodingException{
+        return URLEncoder.encode(originalString,CHARSET);
+    }
+    
     private boolean isResultTrue(String text) {
         return text.trim().equals(CORRECTRESPONE);
     }
@@ -78,31 +106,21 @@ public class OpenIDManager {
     private String getResultFromUrl(URL obj) throws IOException {
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
-        InputStream inputStream = con.getInputStream();
-        String text = IOUtils.toString(inputStream, CHARSET);
+        InputStream inputStream=null;
+        String text=null;
+        try{
+            inputStream = con.getInputStream();
+            text = IOUtils.toString(inputStream, CHARSET);
+        }finally{
+            if(inputStream!=null){
+                try{
+                    inputStream.close();
+                    }catch(IOException e){
+                        text=null;
+                    }
+            }
+        }        
         return text;
     }
 
-    private String getIncomingParameters(String param,
-            Map<String, String> request) throws UnsupportedEncodingException {
-        String result = param;
-        for (String key : respone.getProp().stringPropertyNames()) {
-            String realKey = respone.getProp().getProperty(key);
-            result += "&"
-                    + realKey
-                    + "="
-                    + URLEncoder.encode(request.get(realKey.toString()),
-                            CHARSET);
-
-        }
-        return result;
-    }
-
-    private String getSettingParameters() throws UnsupportedEncodingException {
-        return String.format("openid.mode=check_authentication&"
-                + "openid.return_to=%s&" + "openid.realm=%s", URLEncoder
-                .encode(setting.getProp().getProperty("openid.return_to"),
-                        CHARSET), URLEncoder.encode(setting.getProp()
-                .getProperty("openid.realm"), CHARSET));
-    }
 }
