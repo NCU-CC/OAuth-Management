@@ -29,13 +29,16 @@ dependencies {
 	// json
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
 	
+	// database
+	compile 'com.zaxxer:HikariCP:2.3.2'
+	
 	compile group: 'org.hibernate', name: 'hibernate-core', version:'4.1.4.Final'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:'4.1.4.Final'
     compile group: 'org.apache.struts', name: 'struts2-core', version:'2.3.4'
     compile group: 'org.apache.struts', name: 'struts2-spring-plugin', version:'2.3.4'
     compile group: 'cglib', name: 'cglib', version:'2.2.2'
-    compile group: 'commons-dbcp', name: 'commons-dbcp', version:'20030825.184428'
-    compile group: 'commons-pool', name: 'commons-pool', version:'20030825.183949'
+	
+	
     compile group: 'commons-collections', name: 'commons-collections', version:'20040616'
     compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.21'
     
