@@ -33,12 +33,12 @@
             <result name="success" type="redirect">/</result>
             <result name="error">/500.jsp</result>
         </action>		     
-        <action name="" class="mainpageController">
+        <action name="" class="mainController">
             <result name="success">jsps/index.jsp</result>
              <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>           
         </action>
-        <action name="index" class="mainpageController">
+        <action name="index" class="mainController">
             <result name="success">jsps/index.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
@@ -50,12 +50,12 @@
 	</package>
 	
 	<package name="teach" extends="default" namespace="/tutorial">		
-	    <action name="user" class="mainpageController">
+	    <action name="user" class="mainController">
 	        <result name="success">/jsps/teachuser.jsp</result>
 	        <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
 	    </action>
-	    <action name="dev" class="mainpageController">
+	    <action name="dev" class="mainController">
             <result name="success">/jsps/teachdev.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            

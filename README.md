@@ -16,6 +16,9 @@ A website for access token management and application registration
         jdbc.username=xxx
         jdbc.password=xxx
     ```
-    - openid-setting.properties ( https://github.com/NCU-CC/OpenID-Consumer )
-		replace openid.return_to=https://localhost/manage/auth
-		replace openid.realm=https://localhost
+    
+    - openid-setting.properties (https://github.com/NCU-CC/OpenID-Consumer)
+    ```
+		openid.return_to=http://localhost/manage/auth
+		openid.realm=http://localhost
+	```
