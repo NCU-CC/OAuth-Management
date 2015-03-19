@@ -51,5 +51,5 @@ local.properties
 
 
 # project specific
-openidSetting.properties
-dataAccessDAO.properties
+openid.properties
+database.properties

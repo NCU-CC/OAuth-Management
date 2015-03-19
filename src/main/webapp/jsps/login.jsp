@@ -6,7 +6,7 @@
 <%--[if gt IE 8]><%--%> <html class="no-js"> <%--<![endif]--%>
     <head>
 
-    <title>Login - Oauth Management</title>
+    <title>NCU OAuth</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -54,27 +54,15 @@ a:active {
 
 	<div id="login">
 
-		<h3>Welcome to Oauth Management</h3>
-
-		<h5>Please sign in to get access.</h5>
-
-		
-			
+		<h3>Welcome to NCU OAuth</h3>
 			<div class="form-group">
 
 			<a href="${loginUrl}">
 				<button  id="login-btn"  class="btn btn-primary btn-block">Signin &nbsp; <i class="fa fa-play-circle"></i></button>
 				</a>
 			</div>
-
-
 		<a href="http://www.cc.ncu.edu.tw/net/password.php" class="btn btn-default">Forgot Password?</a>
-
 	</div> <%-- /#login --%>
-
-	
-
-
 </div> <%-- /#login-container --%>
 
 
