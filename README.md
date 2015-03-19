@@ -8,14 +8,14 @@ A website for access token management and application registration
 
 ### Resources
 
-- production : put following files into
- **src/main/resources**
-    - dataAccessDAO.properties
+- production : put following files into **src/main/resources**
+    - database.properties
     ```
-        jdbc.driver = com.mysql.jdbc.Driver
-        jdbc.url = jdbc:mysql://localhost/dbname
+        jdbc.driver=com.mysql.jdbc.Driver
+        jdbc.url=jdbc:mysql://localhost/dbname
         jdbc.username=xxx
         jdbc.password=xxx
     ```
     - openid-setting.properties ( https://github.com/NCU-CC/OpenID-Consumer )
-
+		replace openid.return_to=https://localhost/manage/auth
+		replace openid.realm=https://localhost

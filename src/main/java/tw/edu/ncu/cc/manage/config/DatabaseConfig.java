@@ -11,8 +11,8 @@ import org.springframework.core.env.Environment;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
-@PropertySource("classpath:database.properties")
+//@Configuration
+//@PropertySource("classpath:database.properties")
 public class DatabaseConfig {
 
 	@Autowired
