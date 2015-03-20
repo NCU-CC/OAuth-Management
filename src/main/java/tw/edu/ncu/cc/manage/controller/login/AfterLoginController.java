@@ -24,6 +24,7 @@ public class AfterLoginController extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private HttpServletRequest request;
+
 	@Autowired
 	private IPersonService<Person> service;
 
