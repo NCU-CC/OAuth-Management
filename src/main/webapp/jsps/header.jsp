@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>OAuth管理網站 | 國立中央大學</title>
+        <title>NCU OAuth | 國立中央大學</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css" />
         <link href="<c:url value='/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css" />
@@ -51,16 +51,12 @@
                                 <%-- User image --%>
                                 <li class="user-header bg-light-blue">
                                     <img src="<c:url value='/img/avatar3.png'/>" class="img-circle" alt="User Image" />
-                                    <p>
-                                        歡迎來到中央大學
-                                        <small>National Central University</small>
-                                    </p>
+                                    <p>歡迎來到中央大學<small>National Central University</small></p>
                                 </li>
                                 <%-- Menu Body --%>
                                 
                                 <%-- Menu Footer--%>
                                 <li class="user-footer">
-                                    
                                     <div class="pull-right">
                                         <a href="<struts:url namespace="/" action='logout'/>" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
