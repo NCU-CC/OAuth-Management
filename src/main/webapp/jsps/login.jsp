@@ -58,10 +58,10 @@ a:active {
 			<div class="form-group">
 
 			<a href="${loginUrl}">
-				<button  id="login-btn"  class="btn btn-primary btn-block">Signin &nbsp; <i class="fa fa-play-circle"></i></button>
+				<button  id="login-btn"  class="btn btn-primary btn-block">登入<i class="fa fa-play-circle"></i></button>
 				</a>
 			</div>
-		<a href="http://www.cc.ncu.edu.tw/net/password.php" class="btn btn-default">Forgot Password?</a>
+		<a href="http://www.cc.ncu.edu.tw/net/password.php" class="btn btn-default">忘記密碼?</a>
 	</div> <%-- /#login --%>
 </div> <%-- /#login-container --%>
 

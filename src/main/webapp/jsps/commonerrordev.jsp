@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="/struts-tags" prefix="struts" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <%-- Left side column. contains the logo and sidebar --%>
@@ -30,7 +30,7 @@
                                                 <p>${errorContent}</p>
                                                    
                                             </div>
-                                            <a href="<struts:url namespace="/dev" action='list'/>"><button class="btn btn-success"><i class="fa fa-reply"></i> 返回</button></a>       
+                                            <a href="<c:url action='/dev/list'/>"><button class="btn btn-success"><i class="fa fa-reply"></i> 返回</button></a>       
                                         </div><%-- /.box-body --%>
                                         
                                     </div><%-- /.box --%>

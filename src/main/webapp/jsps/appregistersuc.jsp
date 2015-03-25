@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="/struts-tags" prefix="struts" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -10,17 +9,13 @@
             <aside class="right-side">
                 <%-- Content Header (Page header) --%>
                 <section class="content-header">
-                    <h1>
-                                                                        新增APP成功
-                        <small>APP內容</small>
-                    </h1>
+                    <h1>新增APP成功<small>APP內容</small></h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i>Home </a></li>
-                        <li><a href="#"></i>Oauth </a></li>
+                        <li><a href="#">OAuth-Management</a></li>
                         <li class="active">Authorized Applications </li>
                     </ol>
                 </section>
-               
                
                <div class="pad margin no-print">
                         <div class="alert alert-info" style="margin-bottom: 0!important;">
@@ -76,7 +71,7 @@
                                     </div><%-- /.box-body --%>
                                      <div class="row no-print">
 				                        <div class="col-xs-12">
-				                            <a href="<struts:url namespace="/dev" action='list'/>"><button class="btn btn-success pull-left"><i class="fa fa-reply"></i> 返回</button></a>
+				                            <a href="<c:url action='/dev/list'/>"><button class="btn btn-success pull-left"><i class="fa fa-reply"></i> 返回</button></a>
 				                        </div>
 				                    </div>
                                     

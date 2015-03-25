@@ -14,7 +14,7 @@
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i>Home </a></li>
-				<li><a href="#"></i>Oauth </a></li>
+				<li><a href="#">OAuth-Management</a></li>
 				<li class="active">Authorized Applications</li>
 			</ol>
 		</section>
@@ -73,10 +73,6 @@
 				<%-- /.col --%>
 			</div>
 			<%-- /.row --%>
-
-
-
-
 
 		</section>
 		<%-- /.content --%>
