@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="/struts-tags" prefix="struts" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <%-- Left side column. contains the logo and sidebar --%>
@@ -10,25 +11,22 @@
             <aside class="right-side">
                 <%-- Content Header (Page header) --%>
                 <section class="content-header">
-                    <h1>
-                                                                        修改APP
-                        <small>修改APP內容</small>
-                    </h1>
+                    <h1>修改APP<small>修改APP內容</small></h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i>Home </a></li>
-                        <li><a href="#"></i>Oauth </a></li>
+                        <li><a href="#">Oauth</a></li>
                         <li class="active">Authorized Applications </li>
                     </ol>
                 </section>
                 
-                <struts:if test="errorTitle!=null">
+                <c:if test="${errorTitle not empty}">
                     <div class="pad margin no-print">
                         <div class="alert alert-danger alert-dismissable" style="margin-bottom: 0!important;">
                             <i class="fa fa-ban"></i>
                             <b>${errorTitle }:</b> ${errorContent }
                         </div>
                     </div>
-                </struts:if>
+                </c:if>
                
                 <%-- Main content --%>
                 <section class="content">
@@ -40,7 +38,7 @@
                                     <h3 class="box-title">申請表單</h3>
                                 </div><%-- /.box-header --%>
                                 <%-- form start --%>
-                                <struts:form role="form" namespace="/dev" action='edited' method='post'>
+                                <form:form role="form" action='/dev/edited' method='post'>
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">APP名稱</label>
@@ -66,14 +64,15 @@
                                     </div><%-- /.box-body --%>
 
                                     <div class="box-footer">
-                                        <input type="hidden" name="id" value="${id }"/>
+                                        <input type="hidden" name="id" value="${id}"/>
                                         <button type="submit" class="btn btn-success">更新APP</button>
-                                        <a href="<struts:url namespace="/dev" action='secret' ><struts:param name="id" >${id }</struts:param><struts:param name="struts.token.name" value="%{'token'}"/><struts:param name="token" value="%{token}"/></struts:url>" data-confirm="是否要獲取新的secret？ 舊的secret將無法使用" data-method="post"  class="btn btn-warning">新的secret</a>
-                                        <a href="<struts:url namespace="/dev" action='delete' ><struts:param name="id" >${id }</struts:param><struts:param name="struts.token.name" value="%{'token'}"/><struts:param name="token" value="%{token}"/></struts:url>" data-confirm="是否要刪除？" data-method="post"  class="btn btn-danger">刪除APP</a>
-                                        
-                                    </div>
-                                    <struts:token/>
-                                    </struts:form>
+						<a href="<c:url action='/dev/secret?id=${id}&token=${token}&struts.token.name=token' />"
+							data-confirm="是否要獲取新的secret？ 舊的secret將無法使用" data-method="post"
+							class="btn btn-warning">新的secret</a> 
+						<a href="<c:url action='/dev/delete?id=${id}&token=${token}&struts.token.name=token' />"
+							data-confirm="是否要刪除？" data-method="post" class="btn btn-danger">刪除APP</a>
+					</div>
+                                    </form:form>
                                 <%--</form>--%>
                             </div><%-- /.box --%>
 

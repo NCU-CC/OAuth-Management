@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="/struts-tags" prefix="struts" %>
 <aside class="left-side sidebar-offcanvas">
                 <%-- sidebar: style can be found in sidebar.less --%>
                 <section class="sidebar">
@@ -32,8 +31,8 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<struts:url namespace="/tutorial" action='user'/>"><i class="fa fa-angle-double-right"></i> 一般使用者</a></li>         
-                                <li><a href="<struts:url namespace="/tutorial" action='dev'/>"><i class="fa fa-angle-double-right"></i> 程式開發者</a></li>                          
+                                <li><a href="<c:url action='/tutorial/user' />"><i class="fa fa-angle-double-right"></i> 一般使用者</a></li>         
+                                <li><a href="<c:url action='/tutorial/dev' />"><i class="fa fa-angle-double-right"></i> 程式開發者</a></li>                          
                             </ul>
                         </li>
                         <li class="treeview">
@@ -43,7 +42,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<struts:url namespace="/user" action='list'/>"><i class="fa fa-angle-double-right"></i> 已授權軟體管理</a></li>                               
+                                <li><a href="<c:url action='/user/list'/>"><i class="fa fa-angle-double-right"></i> 已授權軟體管理</a></li>                               
                             </ul>
                         </li>
                         <li class="treeview">
@@ -53,8 +52,8 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<struts:url namespace="/dev" action='list'/>"><i class="fa fa-angle-double-right"></i> APP開發管理</a></li>
-                                <li><a href="<struts:url namespace="/dev" action='new'/>"><i class="fa fa-angle-double-right"></i> 註冊新APP</a></li>                                 
+                                <li><a href="<c:url action='/dev/list'/>"><i class="fa fa-angle-double-right"></i> APP開發管理</a></li>
+                                <li><a href="<c:url action='/dev/new'/>"><i class="fa fa-angle-double-right"></i> 註冊新APP</a></li>                                 
                             </ul>
                         </li>
                     </ul>

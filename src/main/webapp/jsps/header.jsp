@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="/struts-tags" prefix="struts" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,7 +58,7 @@
                                 <%-- Menu Footer--%>
                                 <li class="user-footer">
                                     <div class="pull-right">
-                                        <a href="<struts:url namespace="/" action='logout'/>" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<c:url action='/logout'/>" class="btn btn-default btn-flat">登出</a>
                                     </div>
                                 </li>
                             </ul>

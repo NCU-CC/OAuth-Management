@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="/struts-tags" prefix="struts" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <%-- Left side column. contains the logo and sidebar --%>
@@ -9,26 +10,23 @@
             <aside class="right-side">
                 <%-- Content Header (Page header) --%>
                 <section class="content-header">
-                    <h1>
-                                                                        註冊APP
-                        <small>註冊APP將可使用API</small>
-                    </h1>
+                    <h1>註冊APP<small>註冊APP將可使用API</small></h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i>Home </a></li>
-                        <li><a href="#"></i>Oauth </a></li>
+                        <li><a href="#">OAuth-Management</a></li>
                         <li class="active">Authorized Applications </li>
                     </ol>
                 </section>
                 
                 
-                <struts:if test="errorTitle!=null">
+                <c:if test="${errorTitle not empty}">
 	                <div class="pad margin no-print">
 	                    <div class="alert alert-danger alert-dismissable" style="margin-bottom: 0!important;">
 	                        <i class="fa fa-ban"></i>
 	                        <b>${errorTitle }:</b> ${errorContent }
 	                    </div>
 	                </div>
-                </struts:if>
+                </c:if>
                 
                 
                 
@@ -42,7 +40,7 @@
                                     <h3 class="box-title">申請表單</h3>
                                 </div><%-- /.box-header --%>
                                 <%-- form start --%>
-                                <struts:form role="form" namespace="/dev" action='tonew' method='post'>                                
+                                <form:form role="form" action='tonew' method='post'>                                
                                    <div class="box-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">APP名稱</label>
@@ -70,8 +68,7 @@
                                     <div class="box-footer">                                        
                                         <button type="submit" class="btn btn-success">送出申請</button>                                        
                                     </div>
-                                    <struts:token/>
-                                </struts:form>
+                                </form:form>
                             </div><%-- /.box --%>
 
                 </section><%-- /.content --%>

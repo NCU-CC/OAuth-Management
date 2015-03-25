@@ -8,13 +8,10 @@
             <aside class="right-side">
                 <%-- Content Header (Page header) --%>
                 <section class="content-header">
-                    <h1>
-                                                                        教學頁面
-                        <small></small>
-                    </h1>
+                    <h1>教學頁面</h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i>Home </a></li>
-                        <li><a href="#"></i>Oauth </a></li>
+                        <li><a href="#">OAuth-Management</a></li>
                         <li class="active">Authorized Applications </li>
                     </ol>
                 </section>

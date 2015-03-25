@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="/struts-tags" prefix="struts" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"></jsp:include>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <%-- Left side column. contains the logo and sidebar --%>
@@ -9,13 +9,10 @@
             <aside class="right-side">
                 <%-- Content Header (Page header) --%>
                 <section class="content-header">
-                    <h1>
-                                                                        取消APP授權
-                        <small>取消APP授權後該APP將無法存取您的個人資料</small>
-                    </h1>
+                    <h1>取消APP授權<small>取消APP授權後該APP將無法存取您的個人資料</small></h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i>Home </a></li>
-                        <li><a href="#">Oauth </a></li>
+                        <li>OAuth-Management</li>
                         <li class="active">Authorized Applications </li>
                     </ol>
                 </section>               
@@ -60,7 +57,7 @@
                     <%-- this row will not appear when printing --%>
                     <div class="row no-print">
                         <div class="col-xs-12">
-                            <a href=" <struts:url namespace="/user" action='cancelok'/> "><button class="btn btn-danger pull-left"><i class="fa fa-ban"></i> 取消授權</button></a>
+                            <a href=" <c:url action='/user/cancelok'/> "><button class="btn btn-danger pull-left"><i class="fa fa-ban"></i> 取消授權</button></a>
                         </div>
                     </div>
 
