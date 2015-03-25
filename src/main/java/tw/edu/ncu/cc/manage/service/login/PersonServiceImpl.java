@@ -3,9 +3,8 @@ package tw.edu.ncu.cc.manage.service.login;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,13 +29,11 @@ public class PersonServiceImpl<T extends Person> extends ServiceImpl<T> implemen
 
 	@SuppressWarnings("unchecked")
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public T findPersonByAccount(String account) {
-		List<T> person = this.getDao().creatQuery("select p from Person p " + "where p.account = :account and deleted=false ").setParameter("account", account.trim())
-				.getResultList();
-		if (person.size() > 0) {
-			return person.get(0);
-		}
-		return null;
+	public Optional<T> findPersonByAccount(String account) {
+		T person = (T) this.getDao().creatQuery("select p from Person p " + "where p.account = :account and deleted=false ").setParameter("account", account.trim())
+				.getSingleResult();
+		
+		return Optional.ofNullable(person);
 	}
 
 	@Override
@@ -74,6 +71,13 @@ public class PersonServiceImpl<T extends Person> extends ServiceImpl<T> implemen
 			user = null;
 		}
 		return user;
+	}
+
+	@Override
+	public void refreshActivateInfo(T person, String ip) {
+		person.setDateLastActived(new Date());
+		person.setIpLastActived(ip);
+		
 	}
 
 }

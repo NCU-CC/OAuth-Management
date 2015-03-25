@@ -10,7 +10,6 @@ import tw.edu.ncu.cc.manage.entity.Person;
 
 public class PersonUtil {
     public static final String PERSON_INFO = "personInfo";
-    public static final String PERSON_TMP = "tmpId";
     public static PersonInfo getPersonInfo(HttpServletRequest request){
         return (PersonInfo) request.getSession(true).getAttribute(PERSON_INFO);
     }

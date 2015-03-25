@@ -3,10 +3,13 @@ package tw.edu.ncu.cc.manage.controller;
 import java.util.Map;
 
 import org.apache.struts2.util.TokenHelper;
+import org.springframework.stereotype.Controller;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class BasicController extends ActionSupport{
+@Controller
+public class BasicController{
     private static final long serialVersionUID = 1L;
     private String errorTitle;
     private String errorContent;    
