@@ -3,22 +3,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-	<display-name>manage</display-name>
+	<display-name>OAuth-Management</display-name>
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
 
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	<servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping> 
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -31,11 +31,10 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:applicationContext.xml</param-value>
+		<param-value>classpath:spring-servelt.xml</param-value>
 	</context-param>
-
 	
-	 <filter>     
+	<filter>     
         <filter-name>encoding</filter-name>     
         <filter-class>     
             org.springframework.web.filter.CharacterEncodingFilter     
@@ -44,30 +43,26 @@
             <param-name>encoding</param-name>     
             <param-value>UTF-8</param-value>     
         </init-param>     
-    </filter> 
-    
+    </filter>    
     <filter-mapping>     
         <filter-name>encoding</filter-name>     
         <url-pattern>/</url-pattern>     
     </filter-mapping> 
     
     <session-config>
-<session-timeout>20</session-timeout>
-</session-config>
-    
+        <session-timeout>20</session-timeout>
+    </session-config>
     
     <error-page>
-<exception-type>java.lang.Throwable</exception-type>
-<location>/500.jsp</location>
-</error-page>
-<error-page>
-<error-code>404</error-code>
-<location>/404.jsp</location>
-</error-page>
-<error-page>
-<error-code>500</error-code>
-<location>/500.jsp</location>
-</error-page>
-
-
+        <exception-type>java.lang.Throwable</exception-type>
+		<location>/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/500.jsp</location>
+    </error-page>
 </web-app>
