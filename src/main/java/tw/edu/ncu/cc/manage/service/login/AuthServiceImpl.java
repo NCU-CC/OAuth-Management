@@ -1,22 +1,18 @@
 package tw.edu.ncu.cc.manage.service.login;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.edu.ncu.cc.manage.openid.OpenIDManager;
 
 @Service
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements IAuthService{
 
+	@Autowired
     OpenIDManager openIDManager;
     
-    @Inject
-    public void setOpenIDManager(OpenIDManager openIDManager) {
-        this.openIDManager = openIDManager;
-    }
-
     public String getLoginString() {
         return openIDManager.getURLString();
     }

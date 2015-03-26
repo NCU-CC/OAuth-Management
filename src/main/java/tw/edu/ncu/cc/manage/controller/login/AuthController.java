@@ -1,62 +1,40 @@
 package tw.edu.ncu.cc.manage.controller.login;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import tw.edu.ncu.cc.manage.service.login.AuthService;
+import tw.edu.ncu.cc.manage.service.login.IAuthService;
 
-import com.opensymphony.xwork2.ActionSupport;
+@Controller
+@RequestMapping("/auth")
+public class AuthController {
 
-@Component
-@Scope("prototype")
-public class AuthController extends ActionSupport {
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
-    @Autowired
-    private HttpServletRequest request;  
-    private AuthService authService; 
-    private String student_id = "";
+	@Autowired
+	private IAuthService authService;
 
-    @Override
-    public String execute() throws Exception {
-        student_id = checkOpenId();
-        if (!isStringEmpty(student_id)) {     
-                login(student_id);
-                return SUCCESS;
-        }
-        return ERROR;
-    }
-    private boolean isStringEmpty(String string){
-        return !(string!=null && string.length()>0);
-    }
-    private void login(String id){
-        HttpSession session=request.getSession(true);
-        session.setAttribute("tmpId", id);
-    }
+	@RequestMapping("/")
+	public String auth(HttpServletRequest request, HttpSession session) {
+		String studentId = checkOpenId(request);
+		if (StringUtils.isNotEmpty(studentId)) {
+			session.setAttribute("tmpId", studentId);
+			return "redirect:logined";
+		}
+		// 403 forbidden
+		return "error";
+	}
 
-    private String checkOpenId() {
-            boolean isChecked = authService.isLoginSuccess(request);
-            if(isChecked){
-                return authService.getIdentityId(request);
-            }
-        return null;
-    }
-
-    public String getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(String student_id) {
-        this.student_id = student_id;
-    }
-    @Inject
-    public void setAuthService(AuthService authService) {
-        this.authService = authService;
-    }
-
+	private String checkOpenId(HttpServletRequest request) {
+		boolean isChecked = this.authService.isLoginSuccess(request);
+		if (isChecked) {
+			return this.authService.getIdentityId(request);
+		}
+		return null;
+	}
 }

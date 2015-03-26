@@ -42,7 +42,7 @@ public class APPNewController extends BasicController {
 		} catch (OAuthConnectionException e) {
 			OAuthErrorMessage errorMessage = e.getAuthErrorMessage();
 			if (errorMessage != null) {
-				setErrorMessage("發生錯誤", errorMessage.getError_description());
+				//setErrorMessage("發生錯誤", errorMessage.getError_description());
 			}
 		}
 		return "appregister";
@@ -53,9 +53,9 @@ public class APPNewController extends BasicController {
 		String userId = PersonUtil.getStudentId(request);
 		IdApplication appInfo = appService.getAPPbyAPPId(id);
 		if (appInfo == null) {
-			setErrorMessage("找無此APP", "無法找到該APP，可以是因為已被刪除");
+			//setErrorMessage("找無此APP", "無法找到該APP，可以是因為已被刪除");
 		} else if (!appService.isAllowToAccess(appInfo, userId)) {
-			setErrorMessage("您無權限存取該APP", "您無權限存取該APP，您並非是此APP的傭有者");
+			//setErrorMessage("您無權限存取該APP", "您無權限存取該APP，您並非是此APP的傭有者");
 		}
 
 		if (appInfo != null) {
@@ -69,6 +69,6 @@ public class APPNewController extends BasicController {
 	}
 
 	private void setDefaultError() {
-		setErrorMessage("未知原因", "請稍後在試");
+		//setErrorMessage("未知原因", "請稍後在試");
 	}
 }
