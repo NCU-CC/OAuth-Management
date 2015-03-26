@@ -77,7 +77,6 @@ public class PersonServiceImpl<T extends Person> extends ServiceImpl<T> implemen
 	public void refreshActivateInfo(T person, String ip) {
 		person.setDateLastActived(new Date());
 		person.setIpLastActived(ip);
-		
 	}
 
 }

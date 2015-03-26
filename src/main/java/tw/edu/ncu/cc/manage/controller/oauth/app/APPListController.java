@@ -2,42 +2,29 @@ package tw.edu.ncu.cc.manage.controller.oauth.app;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
 import tw.edu.ncu.cc.manage.service.oauth.IAPPService;
 import tw.edu.ncu.cc.manage.util.PersonUtil;
 
-import com.opensymphony.xwork2.ActionSupport;
+@Controller
+@RequestMapping("/dev")
+public class APPListController {
+	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	private IAPPService service;
 
-@Component
-@Scope("prototype")
-public class APPListController extends ActionSupport {
-    private static final long serialVersionUID = 1L;
-    private IAPPService service;
-    private List<IdApplication> appList;    
-    @Autowired
-    private HttpServletRequest request;    
+	@RequestMapping("/list")
+	public String list(HttpServletRequest request) throws Exception {
+		String userId = PersonUtil.getStudentId(request);
+		List<IdApplication>  appList = service.getAllAPPsByUserId(userId);
+		return "applist";
+	}
 
-    @Override
-    public String execute() throws Exception {  
-        String userId = PersonUtil.getStudentId(request);
-        appList =service.getAllAPPsByUserId(userId);
-        return SUCCESS;
-    }
-    @Inject
-    public void setService(IAPPService service) {
-        this.service = service;
-    }
-    public List<IdApplication> getAppList() {
-        return appList;
-    }
-    public void setAppList(List<IdApplication> appList) {
-        this.appList = appList;
-    }
 }

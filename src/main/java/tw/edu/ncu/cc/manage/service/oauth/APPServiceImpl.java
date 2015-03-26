@@ -74,7 +74,7 @@ public class APPServiceImpl implements IAPPService{
         return ida;
     }
     
-    public SecretIdApplication createAPP(Application app) throws OAuthConnectionException {
+    public SecretIdApplication create(Application app) throws OAuthConnectionException {
         SecretIdApplication sia =null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL), ApplicationConverter.convert(app), Connection.POST);

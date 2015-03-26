@@ -34,28 +34,18 @@ public class AfterLoginController {
 	@Autowired
 	private IPersonService<Person> service;
 
-	public String logined(@RequestParam(value = "tmpId") String tmpId, HttpSession session, HttpServletRequest request) {
-		Person person = updatePersonInfo(tmpId, request.getRemoteAddr());
-		session.setAttribute(PersonInfo.PERSON_INFO, person);
-		return "logined";
-	}
-
-
-	private Person updatePersonInfo(String personId, String ip) {
+	public String logined(@RequestParam(value = "tmpId") String personId, HttpSession session, HttpServletRequest request) {
 		Optional<Person> person = this.service.findPersonByAccount(personId);
 		
 		if (person.isPresent()) {
-			this.service.refreshActivateInfo(person.get(), ip);
+			this.service.refreshActivateInfo(person.get(), request.getRemoteAddr());
 		} else {
 			this.service.createUserOnRemoteServer(personId);
 			person = this.service.getNewLoginPerson(request, personId);
 			this.service.create(person);
 		}
-		return person;
-	}
 
-	private void refreshActivateInfo(Person person) {
-		person.setDateLastActived(new Date());
-		person.setIpLastActived(request.getRemoteAddr());
+		session.setAttribute(PersonInfo.PERSON_INFO, person.get());
+		return "logined";
 	}
 }
