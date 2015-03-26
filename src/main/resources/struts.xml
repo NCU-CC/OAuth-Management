@@ -91,6 +91,7 @@
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>
+        
         <action name="new" class="APPNewController">        
             <result name="input">/jsps/appregister.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
@@ -114,6 +115,7 @@
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>    
+        
         <action name="edit" class="APPEditController">
             <result name="input">/jsps/appedit.jsp</result>            
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
