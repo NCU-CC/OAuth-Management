@@ -1,15 +1,11 @@
 package tw.edu.ncu.cc.manage.controller.oauth.app;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import tw.edu.ncu.cc.manage.controller.BasicController;
 import tw.edu.ncu.cc.manage.entity.oauth.OAuthErrorMessage;
 import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
@@ -28,9 +24,6 @@ public class APPEditController {
 
 	@Autowired
 	private HttpServletRequest request;
-
-	private String warningTitle;
-	private String warningContent;
 
 	@RequestMapping("/edit")
 	public String Edit() {

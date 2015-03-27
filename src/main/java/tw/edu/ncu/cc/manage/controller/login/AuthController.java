@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import tw.edu.ncu.cc.manage.service.login.IAuthService;
 
 @Controller
-@RequestMapping("/auth")
 public class AuthController {
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +18,7 @@ public class AuthController {
 	@Autowired
 	private IAuthService authService;
 
-	@RequestMapping("/")
+	@RequestMapping("/auth")
 	public String auth(HttpServletRequest request, HttpSession session) {
 		String studentId = checkOpenId(request);
 		if (StringUtils.isNotEmpty(studentId)) {

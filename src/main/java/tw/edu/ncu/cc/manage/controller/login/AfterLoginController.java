@@ -15,7 +15,6 @@ import tw.edu.ncu.cc.manage.service.login.IPersonService;
 import tw.edu.ncu.cc.manage.util.PersonInfo;
 
 @Controller
-@RequestMapping("/logined")
 public class AfterLoginController {
 
 	private static final long serialVersionUID = 1L;
@@ -26,6 +25,7 @@ public class AfterLoginController {
 	@Autowired
 	private IPersonService<Person> service;
 
+	@RequestMapping("/logined")
 	public String logined(@RequestParam(value = "tmpId") String personId, HttpSession session, HttpServletRequest request) {
 		Optional<Person> person = this.service.findPersonByAccount(personId);
 		
