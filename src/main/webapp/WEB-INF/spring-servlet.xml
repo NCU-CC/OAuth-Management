@@ -13,6 +13,6 @@
 
 	<tx:annotation-driven />
 	
-	<import resource="databaseContext.xml" />
+	<!-- <import resource="databaseContext.xml" /> -->
 
 </beans>
