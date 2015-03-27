@@ -30,11 +30,9 @@ dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
 	
 	// database
-	compile 'com.zaxxer:HikariCP:2.3.2'
+	compile 'com.zaxxer:HikariCP:2.3.5'
     compile 'mysql:mysql-connector-java:5.1.35'
-    compile 'commons-dbcp:commons-dbcp:20030825.184428'
-	compile 'commons-pool:commons-pool:20030825.183949'
-
+	
 	// hibernate
 	compile 'org.hibernate:hibernate-core:4.1.4.Final'
     compile 'org.hibernate:hibernate-entitymanager:4.1.4.Final'

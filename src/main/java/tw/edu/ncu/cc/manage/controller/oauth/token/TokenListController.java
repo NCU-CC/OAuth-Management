@@ -15,7 +15,6 @@ import tw.edu.ncu.cc.manage.service.oauth.ITokenService;
 import tw.edu.ncu.cc.manage.util.PersonUtil;
 
 @Controller
-@RequestMapping("/")
 public class TokenListController {
 	private static final long serialVersionUID = 1L;
 
