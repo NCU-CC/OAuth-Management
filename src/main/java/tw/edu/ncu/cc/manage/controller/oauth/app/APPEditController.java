@@ -46,13 +46,13 @@ public class APPEditController {
 			try {
 				Application app = this.appService.updateAPP(appInfo);
 				if (app == null) {
-					warningTitle = "有些錯誤";
-					warningContent = "處理有些錯誤";
+					//warningTitle = "有些錯誤";
+					//warningContent = "處理有些錯誤";
 					return "appedit";
 				}
 			} catch (OAuthConnectionException e) {
-				warningTitle = "有些錯誤";
-				warningContent = "處理有些錯誤";
+				//warningTitle = "有些錯誤";
+				//warningContent = "處理有些錯誤";
 				OAuthErrorMessage errorMessage = e.getAuthErrorMessage();
 				if (errorMessage != null) {
 					//setErrorMessage("發生錯誤", errorMessage.getError_description());
@@ -71,8 +71,8 @@ public class APPEditController {
 		//if (isAccessible) {
 			Application app = this.appService.removeAPP(id);
 			if (app == null) {
-				warningTitle = "有些錯誤";
-				warningContent = "處理有些錯誤";
+				//warningTitle = "有些錯誤";
+				//warningContent = "處理有些錯誤";
 				return "appeditdeletefail";
 			}
 			return "appeditsuc";

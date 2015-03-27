@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+  <definition extends="tidy" name="index">
+       <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
+   </definition>
+   <definition extends="tidy" name="login">
+       <put-attribute name="body" value="/WEB-INF/views/login.jspx"/>
+   </definition>
+   <definition extends="tidy" name="logout">
+       <put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
+   </definition>
+   <definition extends="tidy" name="error">
+       <put-attribute name="body" value="/WEB-INF/views/error/error.jsp"/>
+   </definition>
+   <definition extends="tidy" name="error/notAllowedAction">
+       <put-attribute name="body" value="/WEB-INF/views/error/notAllowedAction.jsp"/>
+   </definition>
+   <definition extends="tidy" name="unfinished">
+       <put-attribute name="body" value="/WEB-INF/views/unfinished.jsp"/>
+   </definition>
+    <definition extends="tidy" name="sso">
+        <put-attribute name="body" value="/WEB-INF/views/sso.jspx"/>
+    </definition>
+   
+</tiles-definitions>
