@@ -8,7 +8,7 @@ public class IndexController {
     private static final long serialVersionUID = 1L;
 
     @RequestMapping({"/", "index", "default"})
-    public String index() throws Exception {                
+    public String index() {                
         return "index";
     }
 }

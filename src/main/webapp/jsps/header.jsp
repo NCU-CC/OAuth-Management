@@ -17,14 +17,14 @@
         <%-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --%>
         <%-- WARNING: Respond.js doesn't work if you view the page via file:// --%>
         <%--[if lt IE 9]>
-          <script src="<c:url value='/js/html5shiv.js'/>"></script>
-          <script src="<c:url value='js/respond.min.js'/>"></script>
+          <script src="<c:url value='/resources/js/html5shiv.js'/>"></script>
+          <script src="<c:url value='/resources/js/respond.min.js'/>"></script>
         <![endif]--%>
     </head>
     <body class="skin-blue">
         <%-- header logo: style can be found in header.less --%>
         <header class="header">
-            <a href="<struts:url namespace="/" action=''/>" class="logo">
+            <a href="<c:url value="/" />" class="logo">
                 <%-- Add the class icon to your logo image or logo icon to add the margining --%>
                 NcuApp.
             </a>
