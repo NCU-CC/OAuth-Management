@@ -50,7 +50,7 @@
                             <ul class="dropdown-menu">
                                 <%-- User image --%>
                                 <li class="user-header bg-light-blue">
-                                    <img src="<c:url value='theme/img/avatar3.png'/>" class="img-circle" alt="User Image" />
+                                    <img src="<c:url value='/resources/img/avatar3.png'/>" class="img-circle" alt="User Image" />
                                     <p>歡迎來到中央大學<small>National Central University</small></p>
                                 </li>
                                 <%-- Menu Body --%>

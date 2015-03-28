@@ -6,7 +6,8 @@ import java.util.Map;
 public class BasicController {
     private static final long serialVersionUID = 1L;
 
-
+// don't know what to do of this.
+// TODO should remove this after refactoring.
 //    protected void createTokenForGet() {
 //      Map<String, Object> context = ActionContext.getContext().getValueStack().getContext();
 //      Object myToken = context.get("token");

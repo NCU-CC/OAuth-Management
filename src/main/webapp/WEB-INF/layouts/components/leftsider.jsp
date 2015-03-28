@@ -31,29 +31,29 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="/tutorial/user"><i class="fa fa-angle-double-right"></i> 一般使用者</a></li>         
-                                <li><a href="/tutorial/dev"><i class="fa fa-angle-double-right"></i> 程式開發者</a></li>                          
+                                <li><a href="<c:url value="/tutorial/user"/>" ><i class="fa fa-angle-double-right"></i> 一般使用者</a></li>         
+                                <li><a href="<c:url value="/tutorial/developer"/>" ><i class="fa fa-angle-double-right"></i> 程式開發者</a></li>                          
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-user"></i>
-                                <span>使用者軟體管理</span>
+                                <span>使用者管理</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="/user/list"><i class="fa fa-angle-double-right"></i> 已授權軟體管理</a></li>                               
+                                <li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i>已授權軟體管理</a></li>                               
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-laptop"></i>
-                                <span>開發人員軟體管理</span>
+                                <span>開發者管理</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="/dev/list"><i class="fa fa-angle-double-right"></i> APP開發管理</a></li>
-                                <li><a href="/dev/new"><i class="fa fa-angle-double-right"></i> 註冊新APP</a></li>                                 
+                                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> App開發管理</a></li>
+                                <li><a href="<c:url value="/developer/app/new"/>"><i class="fa fa-angle-double-right"></i> 註冊新App</a></li>                                 
                             </ul>
                         </li>
                     </ul>
