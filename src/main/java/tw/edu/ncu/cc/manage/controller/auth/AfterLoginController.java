@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.controller.login;
+package tw.edu.ncu.cc.manage.controller.auth;
 
 import java.util.Optional;
 
@@ -38,6 +38,6 @@ public class AfterLoginController {
 		}
 
 		session.setAttribute(PersonInfo.PERSON_INFO, person.get());
-		return "logined";
+		return "redirect:/";
 	}
 }

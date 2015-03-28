@@ -15,7 +15,7 @@ public interface IAPPService {
     IdApplication getAPPbyAPPId(String id);
     IdApplication updateAPP(IdApplication app) throws OAuthConnectionException;
     IdApplication removeAPP(IdApplication app);
-    IdApplication removeAPP(String id);
+    IdApplication remove(String id);
     SecretIdApplication create(Application app) throws OAuthConnectionException;
     SecretIdApplication newSecret(String id);
 }

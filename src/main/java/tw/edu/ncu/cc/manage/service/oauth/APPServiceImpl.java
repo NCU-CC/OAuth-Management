@@ -97,10 +97,10 @@ public class APPServiceImpl implements IAPPService{
     }
 
     public IdApplication removeAPP(IdApplication app) {
-        return removeAPP(app.getId());
+        return remove(app.getId());
     }
 
-    public IdApplication removeAPP(String id) {
+    public IdApplication remove(String id) {
         IdApplication ida=null;
         try {
             HttpURLConnection connectionURL=connection.doConnection(new URL(SERVICEURL+id), null, Connection.DELETE);

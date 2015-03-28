@@ -11,8 +11,8 @@
 		<%-- Content Header (Page header) --%>
 		<section class="content-header">
 			<h1>
-				<tiles:insertAttribute name="primaryTitle" />
-				<small><tiles:insertAttribute name="secondaryTitle" /></small>
+				<tiles:insertAttribute name="primaryTitle" defaultValue=""/>
+				<small><tiles:insertAttribute name="secondaryTitle" defaultValue=""/></small>
 			</h1>
 		</section>
 
