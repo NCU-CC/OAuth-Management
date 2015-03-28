@@ -10,7 +10,7 @@
                 <section class="content-header">
                     <h1>歡迎來到OAuth管理網站</h1>
                     <ol class="breadcrumb">
-                        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-dashboard"></i>首頁</a></li>
                     </ol>
                 </section>
 
