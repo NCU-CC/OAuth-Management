@@ -50,6 +50,10 @@ dependencies {
 	// log
 	compile 'org.slf4j:slf4j-log4j12:1.7.12'
 	
+	// security
+	compile 'org.springframework.security:spring-security-openid:4.0.0.RELEASE'
+	compile 'org.springframework.security:spring-security-config:4.0.0.RELEASE'
+	
 	// test
     compile 'org.springframework:spring-test:4.1.5.RELEASE'
     testCompile 'junit:junit:4.8.2'
