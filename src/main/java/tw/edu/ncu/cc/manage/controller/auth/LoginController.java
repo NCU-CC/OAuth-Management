@@ -1,6 +1,5 @@
 package tw.edu.ncu.cc.manage.controller.auth;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +16,6 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	public String login() {
-		String loginUrl = this.authService.getLoginString();
-		if (StringUtils.isNotEmpty(loginUrl)) {
-			return "login";
-		}
-		return "error";
+		return "login";
 	}
 }

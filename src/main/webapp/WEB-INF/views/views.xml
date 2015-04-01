@@ -9,4 +9,8 @@
 		<put-attribute name="mainContent" value="/WEB-INF/views/index.jsp" />
 	</definition>
 
+    <definition extends="popup" name="login">
+        <put-attribute name="mainContent" value="/WEB-INF/views/login.jsp" />
+    </definition>
+
 </tiles-definitions>
