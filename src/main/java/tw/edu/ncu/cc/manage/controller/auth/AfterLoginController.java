@@ -30,7 +30,7 @@ public class AfterLoginController {
 		Optional<Person> person = this.service.findByAccount(personId);
 		
 		if (person.isPresent()) {
-			this.service.refreshActivateInfo(person.get(), request.getRemoteAddr());
+			this.service.refresh(person.get(), request.getRemoteAddr());
 		} else {
 			this.service.createUserOnRemoteServer(personId);
 			Person newPerson = this.service.getNewLoginPerson(request, personId);
