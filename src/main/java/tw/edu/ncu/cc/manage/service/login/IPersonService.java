@@ -8,14 +8,14 @@ import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.entity.oauth.User;
 import tw.edu.ncu.cc.manage.service.IService;
 
-public interface IPersonService<T extends Person> extends IService<T> {
+public interface IPersonService extends IService<Person> {
 	public static final String SERVICEURL = "https://api.cc.ncu.edu.tw/oauth/management/v1/user/";
 
-	Optional<T> findPersonByAccount(String account);
+	Optional<Person> findByAccount(String account);
 
 	Person getNewLoginPerson(HttpServletRequest request, String id);
 
 	User createUserOnRemoteServer(String id);
 	
-	void refreshActivateInfo(T person, String ip);
+	void refreshActivateInfo(Person person, String ip);
 }
