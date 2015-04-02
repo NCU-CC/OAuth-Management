@@ -27,7 +27,7 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
 	private static Logger logger = Logger.getLogger(MyFailureHandler.class);
 
-	private static final String AFTER_LOGIN_URL = "/";
+	private static final String AFTER_AUTHENTICATE_URL = "/";
 	
 	@Autowired
 	private IPersonService service;
@@ -68,7 +68,7 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		Optional<Person> person = this.service.findByAccount(account);
 		
 		if (person.isPresent()) {
-			this.service.refreshActivateInfo(person.get(), request.getRemoteAddr());
+			this.service.refresh(person.get(), request.getRemoteAddr());
 		} else {
 			this.service.createUserOnRemoteServer(account);
 			Person newPerson = this.service.getNewLoginPerson(request, account);
@@ -77,6 +77,6 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     	
     	
     	DefaultRedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-        redirectStrategy.sendRedirect(request, response, AFTER_LOGIN_URL);
+        redirectStrategy.sendRedirect(request, response, AFTER_AUTHENTICATE_URL);
     }	
 }
