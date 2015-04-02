@@ -1,12 +1,11 @@
 package tw.edu.ncu.cc.manage.security;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,10 +13,11 @@ import org.springframework.security.openid.OpenIDAttribute;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import com.google.inject.internal.Lists;
-
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.service.login.IPersonService;
+
+import com.google.inject.internal.Lists;
 
 @Service
 public class MyUserDetailService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
@@ -25,6 +25,9 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	private static final Logger logger = Logger.getLogger(MyUserDetailService.class);
 	
 	private static final String PREFIX = "https://portal.ncu.edu.tw/user/";
+	
+	@Autowired
+	private IPersonService personService;
 	
 	/**
 	 * STUDENT: 在校生
@@ -36,15 +39,18 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	@Override
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException, NoSuchUserRoleException {
 		
+		logger.debug(token);
+		
 		checkRoleAvailibility(token);
 		
 		String account = ((String) token.getPrincipal()).substring(PREFIX.length());
-
-		logger.debug(token);
 		
-		// TODO　search in db, throws UsernameNotFoundException if not exist
+		Optional<Person> person = this.personService.findByAccount(account);
+		if (person.isPresent()) {
+			return person.get();
+		}
 		
-		return new Person(account);
+		throw new UsernameNotFoundException("Username not found for " + account);
 	}
 
 	/**
@@ -57,7 +63,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		for (OpenIDAttribute attribute : attributes) {
 			if (isRoleAttribute(attribute)) {
 				if (noSuchRoles(attribute)) {
-					throw new NoSuchUserRoleException("Available roles not found:" + token + ", expected:" + PERMIT_ROLES);
+					throw new NoSuchUserRoleException(token, PERMIT_ROLES);
 				}
 			}
 		}

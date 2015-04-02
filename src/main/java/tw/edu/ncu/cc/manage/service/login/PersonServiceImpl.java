@@ -20,17 +20,16 @@ import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
 import tw.edu.ncu.cc.manage.service.oauth.converter.UserConverter;
 
 @Service
-public class PersonServiceImpl<T extends Person> extends ServiceImpl<T> implements IPersonService<T> {
+public class PersonServiceImpl extends ServiceImpl<Person> implements IPersonService {
 	public Connection connection;
 
 	public PersonServiceImpl() {
 		connection = new Connection();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Optional<T> findPersonByAccount(String account) {
-		T person = (T) this.getDao().creatQuery("select p from Person p " + "where p.account = :account and deleted=false ").setParameter("account", account.trim())
+	public Optional<Person> findByAccount(String account) {
+		Person person = (Person) this.getDao().creatQuery("select p from Person p " + "where p.account = :account and deleted=false ").setParameter("account", account.trim())
 				.getSingleResult();
 		
 		return Optional.ofNullable(person);
@@ -38,8 +37,8 @@ public class PersonServiceImpl<T extends Person> extends ServiceImpl<T> implemen
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public void create(T person) {
-		if (findPersonByAccount(person.getAccount()) != null) {
+	public void create(Person person) {
+		if (findByAccount(person.getAccount()) != null) {
 			throw new RuntimeException("account " + person.getAccount() + "has already existed");
 		}
 		this.getDao().create(person);
@@ -74,7 +73,7 @@ public class PersonServiceImpl<T extends Person> extends ServiceImpl<T> implemen
 	}
 
 	@Override
-	public void refreshActivateInfo(T person, String ip) {
+	public void refreshActivateInfo(Person person, String ip) {
 		person.setDateLastActived(new Date());
 		person.setIpLastActived(ip);
 	}

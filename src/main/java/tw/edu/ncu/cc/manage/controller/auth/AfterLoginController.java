@@ -23,11 +23,11 @@ public class AfterLoginController {
 	private HttpServletRequest request;
 
 	@Autowired
-	private IPersonService<Person> service;
+	private IPersonService service;
 
 	@RequestMapping("/logined")
 	public String logined(@RequestParam(value = "tmpId") String personId, HttpSession session, HttpServletRequest request) {
-		Optional<Person> person = this.service.findPersonByAccount(personId);
+		Optional<Person> person = this.service.findByAccount(personId);
 		
 		if (person.isPresent()) {
 			this.service.refreshActivateInfo(person.get(), request.getRemoteAddr());
