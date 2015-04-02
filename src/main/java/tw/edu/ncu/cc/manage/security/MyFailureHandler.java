@@ -27,6 +27,10 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException,
 			ServletException {
 
+		if (noSuchRoleInOpenIDAuthentication(exception)) {
+			super.onAuthenticationFailure(request, response, exception);
+		}
+		
 		// not found in our database, visit first time
 		if (openIdAuthenticationSuccesfullButUserIsNotRegistered(exception)) {
 			logger.warn("new user", exception);
@@ -36,6 +40,10 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		}
 	}
 
+	private boolean noSuchRoleInOpenIDAuthentication(AuthenticationException exception) {
+		return exception instanceof NoSuchUserRoleException;
+	}
+	
 	private boolean openIdAuthenticationSuccesfullButUserIsNotRegistered(AuthenticationException exception) {
 		return exception instanceof UsernameNotFoundException &&
 			OpenIDAuthenticationStatus.SUCCESS.equals((openIdAuthenticationToken()).getStatus());

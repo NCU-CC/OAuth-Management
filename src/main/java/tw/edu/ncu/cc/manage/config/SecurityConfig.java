@@ -14,11 +14,9 @@ import tw.edu.ncu.cc.manage.security.MyUserDetailService;
 
 @Configuration
 @EnableWebSecurity
-//@PropertySource("classpath:openid.properties")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	//@Autowired
-	//private Environment env;
+	
+	public static final String AX_NAME_ROLE = "axNameRoles"; 
 	
 	@Autowired
 	private MyUserDetailService myUserDetailsService;
@@ -44,7 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			
 		.authorizeRequests()
-
 			.antMatchers("/resources/**").permitAll()
 			.antMatchers("/login**").permitAll()
 			.anyRequest().authenticated()
