@@ -19,7 +19,7 @@
 </c:if>
 <form action="login/openid" method="post">
   <input id="openid_identifier" name="openid_identifier" size="70"
-maxlength="100" type="hidden" value="https://portal.ncu.edu.tw/endpoint" />
+maxlength="100" type="hidden" value="https://portal.ncu.edu.tw/user" />
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
   <input type="submit" value="Portal Login"/>
 </form>

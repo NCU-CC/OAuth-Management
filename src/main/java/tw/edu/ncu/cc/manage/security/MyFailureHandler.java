@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.security.service;
+package tw.edu.ncu.cc.manage.security;
 
 import java.io.IOException;
 

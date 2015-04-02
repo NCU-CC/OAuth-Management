@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.security.service;
+package tw.edu.ncu.cc.manage.security;
 
 import org.apache.log4j.Logger;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
