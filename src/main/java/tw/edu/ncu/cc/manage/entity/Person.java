@@ -52,6 +52,7 @@ public class Person extends BaseBean implements UserDetails {
 	private Date dateLastActived;
 
 	private String ipLastActived;
+	
 	Collection<? extends GrantedAuthority> authorities;
 
 	public Person() {
