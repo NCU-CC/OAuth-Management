@@ -2,16 +2,8 @@
 
 A website for access token management and application registration
 
-### Maven
-
-```sh
-# run embedded server
-$ mvn jetty:run
-```
-```sh
-# export war file
-$ mvn install
-```
+### Access Control
+OAuth Management is only available for students, faculties and alumnus of NCU for now.
 
 ### Developing
 

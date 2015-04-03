@@ -9,16 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
-import tw.edu.ncu.cc.manage.security.service.MyFailureHandler;
-import tw.edu.ncu.cc.manage.security.service.MyUserDetailService;
+import tw.edu.ncu.cc.manage.security.MyFailureHandler;
+import tw.edu.ncu.cc.manage.security.MyUserDetailService;
 
 @Configuration
 @EnableWebSecurity
-//@PropertySource("classpath:openid.properties")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	//@Autowired
-	//private Environment env;
+	
+	public static final String AX_NAME_ROLE = "axNameRoles"; 
 	
 	@Autowired
 	private MyUserDetailService myUserDetailsService;
