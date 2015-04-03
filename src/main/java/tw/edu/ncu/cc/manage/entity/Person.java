@@ -19,9 +19,6 @@ import com.google.inject.internal.Sets;
 @Entity
 public class Person extends BaseBean implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -52,6 +49,7 @@ public class Person extends BaseBean implements UserDetails {
 	private Date dateLastActived;
 
 	private String ipLastActived;
+
 	Collection<? extends GrantedAuthority> authorities;
 
 	public Person() {
