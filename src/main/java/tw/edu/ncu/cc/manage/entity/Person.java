@@ -4,9 +4,12 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -17,7 +20,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.google.inject.internal.Sets;
 
 @Entity
-public class Person extends BaseBean implements UserDetails {
+//@Table(name = "person")
+public class Person implements UserDetails {
 
 	/**
 	 * 
@@ -40,7 +44,8 @@ public class Person extends BaseBean implements UserDetails {
 
 	private String password;
 
-	private String type;
+	@Enumerated(EnumType.STRING)
+	private RoleEnum type;
 
 	private String name;
 
@@ -109,7 +114,7 @@ public class Person extends BaseBean implements UserDetails {
 		return password;
 	}
 
-	public String getType() {
+	public RoleEnum getType() {
 		return type;
 	}
 
@@ -186,7 +191,7 @@ public class Person extends BaseBean implements UserDetails {
 		this.password = password;
 	}
 
-	public void setType(String type) {
+	public void setType(RoleEnum type) {
 		this.type = type;
 	}
 

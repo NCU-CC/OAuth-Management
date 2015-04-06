@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.entity.RoleEnum;
 import tw.edu.ncu.cc.manage.service.login.IPersonService;
 
 import com.google.inject.internal.Lists;
@@ -34,7 +35,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	 * FACULTY: 教職員
 	 * ALUMNI: 校友
 	 */
-	private static final List<String> PERMIT_ROLES = Lists.newArrayList("STUDENT", "FACULTY", "ALUMNI");
+	private static final List<String> PERMIT_ROLES = RoleEnum.availableRoles();
 
 	@Override
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException, NoSuchUserRoleException {
@@ -47,6 +48,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		
 		Optional<Person> person = this.personService.findByAccount(account);
 		if (person.isPresent()) {
+			logger.debug("An old friend, ignore registration step.");
 			return person.get();
 		}
 		
@@ -62,6 +64,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		List<OpenIDAttribute> attributes = token.getAttributes();
 		for (OpenIDAttribute attribute : attributes) {
 			if (isRoleAttribute(attribute)) {
+				token.setDetails(attribute.getValues());
 				if (noSuchRoles(attribute)) {
 					throw new NoSuchUserRoleException(token, PERMIT_ROLES);
 				}
@@ -74,7 +77,9 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	}
 	
 	private boolean noSuchRoles(OpenIDAttribute attribute) {
-		List<String> roles = attribute.getValues();
-		return CollectionUtils.intersection(roles, PERMIT_ROLES).isEmpty();
+		String roles = attribute.getValues().get(0);
+		boolean hasAnyRole = PERMIT_ROLES.stream().anyMatch(role -> roles.indexOf(role) > -1);
+		return !hasAnyRole;
 	}
+	
 }

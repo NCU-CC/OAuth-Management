@@ -1,5 +1,6 @@
 package tw.edu.ncu.cc.manage.controller.auth;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,15 +27,15 @@ public class AfterLoginController {
 	private IPersonService service;
 
 	@RequestMapping("/logined")
-	public String logined(@RequestParam(value = "tmpId") String personId, HttpSession session, HttpServletRequest request) {
+	public String logined(@RequestParam(value = "tmpId") String personId, HttpSession session, HttpServletRequest request) throws IOException {
 		Optional<Person> person = this.service.findByAccount(personId);
 		
 		if (person.isPresent()) {
 			this.service.refresh(person.get(), request.getRemoteAddr());
 		} else {
 			this.service.createUserOnRemoteServer(personId);
-			Person newPerson = this.service.getNewLoginPerson(request, personId);
-			this.service.create(newPerson);
+			//Person newPerson = this.service.getNewLoginPerson(request, personId);
+			//this.service.create(newPerson);
 		}
 
 		session.setAttribute(PersonInfo.PERSON_INFO, person.get());
