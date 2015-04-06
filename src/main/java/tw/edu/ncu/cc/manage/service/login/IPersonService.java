@@ -13,9 +13,7 @@ public interface IPersonService extends IService<Person> {
 	public static final String OAUTH_SERVICE_URL = "https://api.cc.ncu.edu.tw/oauth/management/v1/user/";
 
 	Optional<Person> findByAccount(String account);
-
-	Person getNewLoginPerson(HttpServletRequest request, String id);
-
+	
 	void createUserOnRemoteServer(String id) throws IOException;
 	
 	void refresh(Person person, String ip);

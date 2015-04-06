@@ -6,29 +6,23 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import tw.edu.ncu.cc.manage.entity.Person;
-import tw.edu.ncu.cc.manage.entity.PersonType;
-import tw.edu.ncu.cc.manage.entity.oauth.User;
 import tw.edu.ncu.cc.manage.service.AbstractService;
 import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
-import tw.edu.ncu.cc.manage.service.oauth.converter.UserConverter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class PersonServiceImpl extends AbstractService<Person> implements IPersonService {
 
-	private static final Logger logger = Logger.getLogger(PersonServiceImpl.class);
-
 	private static final ObjectMapper MAPPER = new ObjectMapper();
+	
+	private static final Logger logger = Logger.getLogger(PersonServiceImpl.class);
 	
 	public Connection connection;
 
@@ -39,7 +33,7 @@ public class PersonServiceImpl extends AbstractService<Person> implements IPerso
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Optional<Person> findByAccount(String account) {
 
-		Person person = (Person) this.dao.createQuery("FROM Person AS p WHERE p.account = :account AND deleted=false").setParameter("account", account.trim())
+		Person person = (Person) this.dao.createQuery("from Person as p where p.account = :account and deleted=false").setParameter("account", account.trim())
 				.getSingleResult();
 
 		return Optional.ofNullable(person);
@@ -49,22 +43,9 @@ public class PersonServiceImpl extends AbstractService<Person> implements IPerso
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void create(Person person) {
 		if (findByAccount(person.getAccount()) != null) {
-			throw new RuntimeException("account " + person.getAccount() + "has already existed");
+			throw new RuntimeException("Account " + person.getAccount() + "has already existed");
 		}
 		this.dao.create(person);
-	}
-
-	public Person getNewLoginPerson(HttpServletRequest request, String id) {
-		Person person = new Person();
-		person.setAccount(id);
-		person.setDateCreated(null);
-
-		person.setDateLastActived(null);
-		person.setDeleted(false);
-		person.setIpCreated(request.getRemoteAddr());
-		person.setIpLastActived(request.getRemoteAddr());
-		person.setType(PersonType.STUDENT.toString());
-		return person;
 	}
 
 	@Override
@@ -80,11 +61,11 @@ public class PersonServiceImpl extends AbstractService<Person> implements IPerso
 			this.setName(name);
 		}
 
-		public String getName() {
+		String getName() {
 			return name;
 		}
 
-		public void setName(String name) {
+		void setName(String name) {
 			this.name = name;
 		}
 	}
@@ -92,6 +73,8 @@ public class PersonServiceImpl extends AbstractService<Person> implements IPerso
 	@Override
 	public void createUserOnRemoteServer(String id) throws IOException {
 
+    	logger.debug("Create user on remote server: " + id + ", " + OAUTH_SERVICE_URL);
+		
 		HttpURLConnection connectionURL = connection.doConnection(
 				new URL(OAUTH_SERVICE_URL), 
 				MAPPER.writeValueAsString(new User(id)), 
@@ -101,6 +84,7 @@ public class PersonServiceImpl extends AbstractService<Person> implements IPerso
 		connectionURL.connect();
 		if (status == 200) {
 			String userJsonString = connection.getStringFromConnection(connectionURL);
+			logger.debug("Successful created: " + userJsonString);
 			//user = MAPPER.readValue(userJsonString, User.class);
 		} else {
 			throw new RemoteServiceUnavailableException(OAUTH_SERVICE_URL);
@@ -111,7 +95,7 @@ public class PersonServiceImpl extends AbstractService<Person> implements IPerso
 
 		private static final long serialVersionUID = 1L;
 
-		RemoteServiceUnavailableException (String message) {
+		RemoteServiceUnavailableException(String message) {
 			super(message);
 		}
 	}
