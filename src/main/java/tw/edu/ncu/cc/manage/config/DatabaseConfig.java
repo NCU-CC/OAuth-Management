@@ -2,8 +2,7 @@ package tw.edu.ncu.cc.manage.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
-
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -61,38 +57,34 @@ public class DatabaseConfig {
 	    return hikariConfig;
 	}
 	
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
-		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-		emf.setDataSource(dataSource());
-		emf.setPackagesToScan(new String[] { "tw.edu.ncu.edu.manage.entity"});
-		
-		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		emf.setJpaVendorAdapter(vendorAdapter);
-		emf.setJpaProperties(jpaProperties());
-
-		return emf;
-	}
+    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setPackagesToScan(new String[] { "tw.edu.ncu.cc.manage.entity" });
+        sessionFactory.setHibernateProperties(hibernateProperties());
+        return sessionFactory;
+     }
 	
-	private Properties jpaProperties() {
+	private Properties hibernateProperties() {
 		Properties properties = new Properties();
 
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServer2008Dialect");
-		properties.setProperty("hibernate.show_sql", "false");
+		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
+		properties.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
 		
 		return properties;
 	}
 
-	@Bean
-	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(emf);
-
-		return transactionManager;
-	}
+    @Bean
+    @Autowired
+    public HibernateTransactionManager transactionManager(SessionFactory s) {
+       HibernateTransactionManager txManager = new HibernateTransactionManager();
+       txManager.setSessionFactory(s);
+       return txManager;
+    }
 
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {

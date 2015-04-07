@@ -1,5 +1,6 @@
 package tw.edu.ncu.cc.manage.controller.auth;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.Person;
-import tw.edu.ncu.cc.manage.service.login.IPersonService;
+import tw.edu.ncu.cc.manage.service.IPersonService;
 import tw.edu.ncu.cc.manage.util.PersonInfo;
 
 @Controller
@@ -23,18 +24,18 @@ public class AfterLoginController {
 	private HttpServletRequest request;
 
 	@Autowired
-	private IPersonService<Person> service;
+	private IPersonService service;
 
 	@RequestMapping("/logined")
-	public String logined(@RequestParam(value = "tmpId") String personId, HttpSession session, HttpServletRequest request) {
-		Optional<Person> person = this.service.findPersonByAccount(personId);
+	public String logined(@RequestParam(value = "tmpId") String personId, HttpSession session, HttpServletRequest request) throws IOException {
+		Optional<Person> person = this.service.findByAccount(personId);
 		
 		if (person.isPresent()) {
-			this.service.refreshActivateInfo(person.get(), request.getRemoteAddr());
+			this.service.refresh(person.get(), request.getRemoteAddr());
 		} else {
 			this.service.createUserOnRemoteServer(personId);
-			Person newPerson = this.service.getNewLoginPerson(request, personId);
-			this.service.create(newPerson);
+			//Person newPerson = this.service.getNewLoginPerson(request, personId);
+			//this.service.create(newPerson);
 		}
 
 		session.setAttribute(PersonInfo.PERSON_INFO, person.get());
