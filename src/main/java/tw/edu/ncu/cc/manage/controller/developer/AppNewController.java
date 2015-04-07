@@ -7,14 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.edu.ncu.cc.manage.controller.BasicController;
-import tw.edu.ncu.cc.manage.entity.oauth.OAuthErrorMessage;
-import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
-import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
-import tw.edu.ncu.cc.manage.entity.oauth.application.SecretIdApplication;
-import tw.edu.ncu.cc.manage.service.oauth.IAPPService;
-import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
-import tw.edu.ncu.cc.manage.util.PersonUtil;
+import tw.edu.ncu.cc.manage.service.IApplicationService;
 
 @Controller
 @RequestMapping("/developer/app")
@@ -22,7 +15,7 @@ public class AppNewController {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private IAPPService appService;
+	private IApplicationService appService;
 
 	@RequestMapping("/new")
 	public String index() {

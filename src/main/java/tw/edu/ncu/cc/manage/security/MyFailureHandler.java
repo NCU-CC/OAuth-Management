@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
-import tw.edu.ncu.cc.manage.entity.RoleEnum;
+import tw.edu.ncu.cc.manage.enums.RoleEnum;
 import tw.edu.ncu.cc.manage.service.IPersonService;
 
 @Component
@@ -40,18 +40,18 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 			ServletException {
 
 		if (noSuchRoleInOpenIDAuthentication(exception)) {
-			logger.debug("No such role.");
+			logger.warn("No such role.");
 			getRedirectStrategy().sendRedirect(request, response, NOT_AUTHORIZED_URL);
 			return;
 		}
 		
 		if (openIdAuthenticationSuccesfullButUserIsNotRegistered(exception)) {
-			logger.debug("Openid authentication succesfull but user is not registered.");
+			logger.info("Openid authentication succesfull but user is not registered.");
 			createOrUpdateUserInfo(request, response);
 	        getRedirectStrategy().sendRedirect(request, response, AFTER_AUTHENTICATE_URL);
 	        return;
 		} else {
-			logger.debug("Either openid authentication fail or other type exception happened.", exception);
+			logger.info("Either openid authentication fail or other type exception happened.", exception);
 			getRedirectStrategy().sendRedirect(request, response, NOT_AUTHORIZED_URL);
 			return;
 		}
@@ -76,11 +76,10 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     	OpenIDAuthenticationToken token = openIdAuthenticationToken();
     	String account = ((String)token.getPrincipal()).substring(SecurityConfig.AX_NAME_ROLE.length());
      	
-		this.personService.createUserOnRemoteServer(account);
+		this.personService.createUserOnOAuthService(account);
 		List<String> roles = (List<String>) token.getDetails();
 		Person newPerson = createPerson(request, account, roles);
 		this.personService.create(newPerson);
-
     }
     
 	private Person createPerson(HttpServletRequest request, String id, List<String> roles) {

@@ -6,20 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import tw.edu.ncu.cc.manage.entity.oauth.OAuthErrorMessage;
-import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
-import tw.edu.ncu.cc.manage.service.oauth.IAPPService;
-import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
-import tw.edu.ncu.cc.manage.util.PersonUtil;
+import tw.edu.ncu.cc.manage.service.IApplicationService;
 
 @Controller
 @RequestMapping("/developer/app")
 public class AppEditController {
-	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private IAPPService appService;
+	private IApplicationService appService;
 	private String id;
 
 	@Autowired
@@ -101,15 +96,15 @@ public class AppEditController {
 	}
 
 	private IdApplication getAPPbyAPPId(String id) {
-		String userId = PersonUtil.getStudentId(request);
-		IdApplication appInfo = appService.getAPPbyAPPId(id);
-		if (appInfo == null) {
-			//setErrorMessage("找無此APP", "無法找到該APP，可以是因為已被刪除");
-		} else if (!appService.isAllowToAccess(appInfo, userId)) {
-			//setErrorMessage("您無權限存取該APP", "您無權限存取該APP，您並非是此APP的傭有者");
-		} else {
-			return appInfo;
-		}
+//		String userId = PersonUtil.getStudentId(request);
+//		IdApplication appInfo = appService.getAPPbyAPPId(id);
+//		if (appInfo == null) {
+//			//setErrorMessage("找無此APP", "無法找到該APP，可以是因為已被刪除");
+//		} else if (!appService.isAllowToAccess(appInfo, userId)) {
+//			//setErrorMessage("您無權限存取該APP", "您無權限存取該APP，您並非是此APP的傭有者");
+//		} else {
+//			return appInfo;
+//		}
 		return null;
 	}
 

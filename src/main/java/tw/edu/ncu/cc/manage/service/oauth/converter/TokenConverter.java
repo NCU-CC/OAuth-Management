@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import tw.edu.ncu.cc.manage.entity.oauth.token.AccessToken;
+import tw.edu.ncu.cc.manage.entity.AccessToken;
 
 public class TokenConverter {
     public static String convert(AccessToken message) throws JsonProcessingException{

@@ -18,6 +18,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	public static final String AX_NAME_ROLE = "axNameRoles"; 
 	
+	/**
+	 * NCU portal 接口
+	 */
+	public static final String PORTAL_ENDPOINT = "https://portal.ncu.edu.tw/user/";
+	
 	@Autowired
 	private MyUserDetailService myUserDetailsService;
 	
@@ -31,27 +36,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			
 		.openidLogin()
-			.failureHandler(failureHandler())
-			.successHandler(successHandler())
-			.loginPage("/login")
-			.defaultSuccessUrl("/", true)
-			.authenticationUserDetailsService(myUserDetailsService)
-			.attributeExchange("https://portal.ncu.edu.tw/user")
+			.authenticationUserDetailsService(myUserDetailsService) //使用Openid登入後，本系統要做的驗證
+			.failureHandler(failureHandler()) 						// 驗證失敗
+			.successHandler(successHandler()) 						// 驗證成功
+			.loginPage("/login") 									// 登入頁面
+			.defaultSuccessUrl("/", true) 							//登入成功後要去的頁面
+			
+			.attributeExchange(PORTAL_ENDPOINT)	// Openid認証的網址
 				.attribute("axNameRoles").type("http://axschema.org/user/roles").required(true).and()
 				.and()
 			.and()
 			
 		.authorizeRequests()
-
 			.antMatchers("/resources/**").permitAll()
 			.antMatchers("/error/**").permitAll()
 			.antMatchers("/login**").permitAll()
 			.anyRequest().authenticated()
-		.and()
+			.and()
 		
 		.sessionManagement()
 			.maximumSessions(1)
-
 		;
 	}
 	
