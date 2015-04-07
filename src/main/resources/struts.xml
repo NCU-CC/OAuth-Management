@@ -33,12 +33,12 @@
             <result name="success" type="redirect">/</result>
             <result name="error">/500.jsp</result>
         </action>		     
-        <action name="" class="mainpageController">
+        <action name="" class="mainController">
             <result name="success">jsps/index.jsp</result>
              <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>           
         </action>
-        <action name="index" class="mainpageController">
+        <action name="index" class="mainController">
             <result name="success">jsps/index.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
@@ -47,25 +47,15 @@
             <result name="success" type="redirect">/</result>
             <result name="error">500.html</result>
         </action>
-        <action name="terms" class="mainpageController">
-            <result name="success">/jsps/terms.jsp</result>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-            <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action>
-        <action name="about" class="mainpageController">
-            <result name="success">/jsps/about.jsp</result>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-            <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action>
 	</package>
 	
 	<package name="teach" extends="default" namespace="/tutorial">		
-	    <action name="user" class="mainpageController">
+	    <action name="user" class="mainController">
 	        <result name="success">/jsps/teachuser.jsp</result>
 	        <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
 	    </action>
-	    <action name="dev" class="mainpageController">
+	    <action name="dev" class="mainController">
             <result name="success">/jsps/teachdev.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
@@ -101,6 +91,7 @@
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>
+        
         <action name="new" class="APPNewController">        
             <result name="input">/jsps/appregister.jsp</result>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
@@ -124,6 +115,7 @@
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
         </action>    
+        
         <action name="edit" class="APPEditController">
             <result name="input">/jsps/appedit.jsp</result>            
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
@@ -147,12 +139,7 @@
             </interceptor-ref>
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action>   
-        <action name="api" class="mainpageController">
-            <result name="success">/jsps/openfunctions.jsp</result>
-            <interceptor-ref name="loginInterceptor"></interceptor-ref>
-            <interceptor-ref name="defaultStack"></interceptor-ref>            
-        </action> 
+        </action>
     </package>
 	
 </struts>

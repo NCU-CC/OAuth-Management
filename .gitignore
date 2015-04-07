@@ -1,31 +1,55 @@
-# Eclipse project files
-.settings
-.classpath
-.project
+# Created by https://www.gitignore.io
+
+### Gradle ###
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+
+### Eclipse ###
+*.pydevproject
 .metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# Eclipse Core
+.project
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
 *.launch
-.springBeans
 
-dataAccessDAO.properties
+# CDT-specific
+.cproject
 
-# Always ignore these directories/files
-target
-*.log
-src/main/webapp/WEB-INF/classes/
-src/main/webapp/WEB-INF/deploy/
-war/
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
 
+# PDT-specific
+.buildpath
 
-#compilation logs
-.gwt/
+# sbteclipse plugin
+.target
 
-#caching for already compiled files
-www-test/
+# TeXlipse plugin
+.texlipse
 
 
-
-*.class
-
-# Package Files #
-*.jar
-*.war
+# project specific
+openid.properties
+database.properties
