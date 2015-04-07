@@ -72,13 +72,13 @@ public class PersonService implements IPersonService {
 	}
 
 	@Override
-	public void createUserOnRemoteServer(String id) throws IOException {
+	public void createUserOnOAuthService(String account) throws IOException {
 
-    	logger.debug("Create user on remote server: " + id + ", " + OAUTH_SERVICE_URL);
+    	logger.debug("Create user on OAuth-Service: " + account + ", " + OAUTH_SERVICE_URL);
 		
 		HttpURLConnection connectionURL = connection.doConnection(
 				new URL(OAUTH_SERVICE_URL), 
-				MAPPER.writeValueAsString(new User(id)), 
+				MAPPER.writeValueAsString(new User(account)), 
 				Connection.POST);
 		
 		int status = connectionURL.getResponseCode();
@@ -92,6 +92,11 @@ public class PersonService implements IPersonService {
 		}
 	}
 	
+	/**
+	 * 遠端的服務無法使用
+	 * @author yyc1217
+	 *
+	 */
 	private static class RemoteServiceUnavailableException extends IOException {
 
 		private static final long serialVersionUID = 1L;

@@ -17,6 +17,8 @@ import javax.persistence.Version;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import tw.edu.ncu.cc.manage.enums.RoleEnum;
+
 import com.google.inject.internal.Sets;
 
 @Entity

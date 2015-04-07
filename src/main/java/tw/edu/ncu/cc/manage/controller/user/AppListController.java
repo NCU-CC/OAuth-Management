@@ -1,7 +1,5 @@
 package tw.edu.ncu.cc.manage.controller.user;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.edu.ncu.cc.manage.entity.oauth.token.AccessToken;
-import tw.edu.ncu.cc.manage.service.oauth.ITokenService;
-import tw.edu.ncu.cc.manage.util.PersonUtil;
+import tw.edu.ncu.cc.manage.service.ITokenService;
 
 @Controller("userAppListController")
 @RequestMapping("/user/app")
