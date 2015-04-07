@@ -1,12 +1,10 @@
 package tw.edu.ncu.cc.manage.security;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,10 +12,10 @@ import org.springframework.security.openid.OpenIDAttribute;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import com.google.inject.internal.Lists;
-
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.entity.RoleEnum;
+import tw.edu.ncu.cc.manage.service.IPersonService;
 
 @Service
 public class MyUserDetailService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
@@ -26,25 +24,32 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	
 	private static final String PREFIX = "https://portal.ncu.edu.tw/user/";
 	
+	@Autowired
+	private IPersonService personService;
+	
 	/**
 	 * STUDENT: 在校生
 	 * FACULTY: 教職員
 	 * ALUMNI: 校友
 	 */
-	private static final List<String> PERMIT_ROLES = Lists.newArrayList("STUDENT", "FACULTY", "ALUMNI");
+	private static final List<String> PERMIT_ROLES = RoleEnum.availableRoles();
 
 	@Override
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException, NoSuchUserRoleException {
 		
+		logger.debug(token);
+		
 		checkRoleAvailibility(token);
 		
 		String account = ((String) token.getPrincipal()).substring(PREFIX.length());
-
-		logger.debug(token);
 		
-		// TODO　search in db, throws UsernameNotFoundException if not exist
+		Optional<Person> person = this.personService.findByAccount(account);
+		if (person.isPresent()) {
+			logger.debug("An old friend, ignore registration step.");
+			return person.get();
+		}
 		
-		return new Person(account);
+		throw new UsernameNotFoundException("Username not found for " + account);
 	}
 
 	/**
@@ -56,8 +61,9 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		List<OpenIDAttribute> attributes = token.getAttributes();
 		for (OpenIDAttribute attribute : attributes) {
 			if (isRoleAttribute(attribute)) {
+				token.setDetails(attribute.getValues());
 				if (noSuchRoles(attribute)) {
-					throw new NoSuchUserRoleException("Available roles not found:" + token + ", expected:" + PERMIT_ROLES);
+					throw new NoSuchUserRoleException(token, PERMIT_ROLES);
 				}
 			}
 		}
@@ -68,7 +74,9 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	}
 	
 	private boolean noSuchRoles(OpenIDAttribute attribute) {
-		List<String> roles = attribute.getValues();
-		return CollectionUtils.intersection(roles, PERMIT_ROLES).isEmpty();
+		String roles = attribute.getValues().get(0);
+		boolean hasAnyRole = PERMIT_ROLES.stream().anyMatch(role -> roles.indexOf(role) > -1);
+		return !hasAnyRole;
 	}
+	
 }
