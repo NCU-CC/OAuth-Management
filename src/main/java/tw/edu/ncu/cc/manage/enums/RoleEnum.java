@@ -1,15 +1,20 @@
-package tw.edu.ncu.cc.manage.entity;
+package tw.edu.ncu.cc.manage.enums;
 
 import java.util.List;
 
 import com.google.inject.internal.Lists;
 
+/**
+ * 使用者角色
+ * @author yyc1217
+ *
+ */
 public enum RoleEnum {
-	ROLE_STUDENT,
-	ROLE_FACULTY,
-	ROLE_ALUMNI,
-	ROLE_ADMIN,
-	ROLE_ANONYMOUS
+	ROLE_STUDENT,		//學生
+	ROLE_FACULTY,		//教職員工
+	ROLE_ALUMNI,		//校友
+	ROLE_ADMIN,			//系統管理者
+	ROLE_ANONYMOUS		//你誰？
 	;
 
 	/**

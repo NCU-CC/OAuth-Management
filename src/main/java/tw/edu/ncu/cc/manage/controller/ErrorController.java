@@ -3,6 +3,11 @@ package tw.edu.ncu.cc.manage.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 顯示錯誤頁面
+ * @author yyc1217
+ *
+ */
 @Controller
 @RequestMapping("/error")
 public class ErrorController {

@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.entity.oauth.token;
+package tw.edu.ncu.cc.manage.entity;
 
 import java.util.Date;
 
