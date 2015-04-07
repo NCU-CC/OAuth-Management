@@ -23,9 +23,6 @@ import com.google.inject.internal.Sets;
 @Table(name = "Person")
 public class Person implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -57,8 +54,7 @@ public class Person implements UserDetails {
 	private Date dateLastActived;
 
 	private String ipLastActived;
-	
-	
+
 	private transient Collection<? extends GrantedAuthority> authorities;
 
 	public Person() {
