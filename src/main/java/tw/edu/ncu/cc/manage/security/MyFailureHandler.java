@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.entity.RoleEnum;
-import tw.edu.ncu.cc.manage.service.login.IPersonService;
+import tw.edu.ncu.cc.manage.service.IPersonService;
 
 @Component
 public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {

@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.service.login;
+package tw.edu.ncu.cc.manage.service.impl;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -7,45 +7,46 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.edu.ncu.cc.manage.dao.IPersonDao;
 import tw.edu.ncu.cc.manage.entity.Person;
-import tw.edu.ncu.cc.manage.service.AbstractService;
+import tw.edu.ncu.cc.manage.service.IPersonService;
 import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class PersonServiceImpl extends AbstractService<Person> implements IPersonService {
+public class PersonService implements IPersonService {
 
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 	
-	private static final Logger logger = Logger.getLogger(PersonServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(PersonService.class);
 	
-	public Connection connection;
-
-	public PersonServiceImpl() {
+	Connection connection;
+	
+	public PersonService() {
 		connection = new Connection();
 	}
-
+	
+	@Autowired
+	private IPersonDao personDao;
+	
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Optional<Person> findByAccount(String account) {
-
-		Person person = (Person) this.dao.createQuery("from Person as p where p.account = :account and deleted=false").setParameter("account", account.trim())
-				.getSingleResult();
-
-		return Optional.ofNullable(person);
+		return this.personDao.findByAccount(account);
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void create(Person person) {
-		if (findByAccount(person.getAccount()) != null) {
+		if (!findByAccount(person.getAccount()).isPresent()) {
 			throw new RuntimeException("Account " + person.getAccount() + "has already existed");
 		}
-		this.dao.create(person);
+		this.personDao.create(person);
 	}
 
 	@Override

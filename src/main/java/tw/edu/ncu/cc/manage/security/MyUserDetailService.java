@@ -3,7 +3,6 @@ package tw.edu.ncu.cc.manage.security;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
@@ -16,9 +15,7 @@ import org.springframework.stereotype.Service;
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.entity.RoleEnum;
-import tw.edu.ncu.cc.manage.service.login.IPersonService;
-
-import com.google.inject.internal.Lists;
+import tw.edu.ncu.cc.manage.service.IPersonService;
 
 @Service
 public class MyUserDetailService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {

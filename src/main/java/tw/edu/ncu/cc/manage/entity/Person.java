@@ -20,7 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.google.inject.internal.Sets;
 
 @Entity
-//@Table(name = "person")
+@Table(name = "Person")
 public class Person implements UserDetails {
 
 	/**
@@ -58,7 +58,8 @@ public class Person implements UserDetails {
 
 	private String ipLastActived;
 	
-	Collection<? extends GrantedAuthority> authorities;
+	
+	private transient Collection<? extends GrantedAuthority> authorities;
 
 	public Person() {
 	}
