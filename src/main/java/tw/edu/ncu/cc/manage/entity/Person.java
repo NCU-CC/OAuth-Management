@@ -54,7 +54,7 @@ public class Person implements UserDetails {
 	private Date dateLastActived;
 
 	private String ipLastActived;
-	
+
 	private transient Collection<? extends GrantedAuthority> authorities;
 
 	public Person() {
