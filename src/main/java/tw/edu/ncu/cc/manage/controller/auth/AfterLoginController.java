@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.Person;
-import tw.edu.ncu.cc.manage.service.login.IPersonService;
+import tw.edu.ncu.cc.manage.service.IPersonService;
 import tw.edu.ncu.cc.manage.util.PersonInfo;
 
 @Controller
