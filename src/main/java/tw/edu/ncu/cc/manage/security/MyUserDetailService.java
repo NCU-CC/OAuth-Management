@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.openid.OpenIDAttribute;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
@@ -21,8 +23,6 @@ import tw.edu.ncu.cc.manage.service.IPersonService;
 public class MyUserDetailService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
 
 	private static final Logger logger = Logger.getLogger(MyUserDetailService.class);
-	
-
 	
 	@Autowired
 	private IPersonService personService;
@@ -41,6 +41,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		
 		Optional<Person> person = this.personService.findByAccount(account);
 		if (person.isPresent()) {
+			addUsernameToSession(person.get());
 			logger.debug("An old friend, ignore registration step.");
 			return person.get();
 		}
@@ -85,4 +86,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		return !hasAnyRole;
 	}
 	
+	private void addUsernameToSession(Person person) {
+		RequestContextHolder.getRequestAttributes().setAttribute("username", person.getAccount(), RequestAttributes.SCOPE_SESSION);
+	}
 }
