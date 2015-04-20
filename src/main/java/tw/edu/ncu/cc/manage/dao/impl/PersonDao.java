@@ -5,12 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import tw.edu.ncu.cc.manage.dao.AbstractDao;
+import tw.edu.ncu.cc.manage.dao.AbstractHibernateDao;
 import tw.edu.ncu.cc.manage.dao.IPersonDao;
 import tw.edu.ncu.cc.manage.entity.Person;
 
 @Repository
-public class PersonDao extends AbstractDao implements IPersonDao {
+public class PersonDao extends AbstractHibernateDao implements IPersonDao {
 
 	@Override
 	public Optional<Person> findByAccount(String account) {

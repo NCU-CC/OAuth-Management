@@ -14,13 +14,13 @@ import tw.edu.ncu.cc.manage.utils.SystemConstant;
  *
  */
 @Controller
-@SessionAttributes(SystemConstant.USER)
+@SessionAttributes(SystemConstant.USER_KEY)
 public class IndexController {
 
     @RequestMapping({"/", "/index", "/default"})
     public String index(Model model) {
-    	if (!model.containsAttribute(SystemConstant.USER)) {
-    		model.addAttribute(SystemConstant.USER, SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    	if (!model.containsAttribute(SystemConstant.USER_KEY)) {
+    		model.addAttribute(SystemConstant.USER_KEY, SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     	}
         return "index";
     }
