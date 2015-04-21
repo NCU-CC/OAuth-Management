@@ -13,7 +13,7 @@ public interface IApplicationService {
 
 	boolean isAllowToAccess(Application app, String userid);
 
-	List<IdApplication> getAllAPPsByUserId(String id);
+	List<IdApplication> findAll(String id);
 
 	IdApplication getAPPbyAPPId(String id);
 

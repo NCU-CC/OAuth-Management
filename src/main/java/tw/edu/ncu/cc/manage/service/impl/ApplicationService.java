@@ -7,8 +7,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tw.edu.ncu.cc.manage.dao.IApplicationDao;
 import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
 import tw.edu.ncu.cc.manage.entity.oauth.application.SecretIdApplication;
@@ -23,6 +25,9 @@ public class ApplicationService implements IApplicationService {
 	
 	private static final Logger logger = Logger.getLogger(ApplicationService.class);
 	
+	@Autowired
+	private IApplicationDao applicationDao;
+	
 	public Connection connection;
 
 	public ApplicationService() {
@@ -33,19 +38,8 @@ public class ApplicationService implements IApplicationService {
 		return app.getOwner().equals(userid);
 	}
 
-	public List<IdApplication> getAllAPPsByUserId(String id) {
-		List<IdApplication> list = Collections.emptyList();
-		try {
-			HttpURLConnection connectionURL = connection.doConnection(new URL(USER_SERVICE_URL + id + "/application"), null, Connection.GET);
-			connectionURL.connect();
-			int status = connectionURL.getResponseCode();
-			if (status == 200) {
-				list = ApplicationConverter.convetList(connection.getStringFromConnection(connectionURL));
-			}
-		} catch (IOException e) {
-			logger.warn(e);
-		}
-		return list;
+	public List<IdApplication> findAll(String userId) {
+		return this.applicationDao.findAll(userId);
 	}
 
 	public IdApplication getAPPbyAPPId(String id) {

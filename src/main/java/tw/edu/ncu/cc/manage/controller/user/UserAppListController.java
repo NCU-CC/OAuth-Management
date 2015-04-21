@@ -61,7 +61,7 @@ public class UserAppListController {
 	 * @return
 	 */
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
-	public String cancel(Model model, @RequestParam String tokenId, HttpServletRequest request) {
+	public String cancel(Model model, @RequestParam String tokenId) {
 		
 		Person user = this.applicationContextService.getCurrentUser();
 		String userAccount = user.getAccount();
