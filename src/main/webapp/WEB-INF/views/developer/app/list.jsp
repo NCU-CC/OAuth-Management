@@ -13,7 +13,7 @@
 				<div class="box-tools">
 					<div class="input-group">
 						<div class="input-group-btn">
-							<a href="<c:url value="/developer/app/new"/>"><button
+							<a href="<c:url value="/developer/app/register"/>"><button
 									class="btn btn-sm btn-default pull-right">
 									<i class="fa fa-plus">註冊新APP</i>
 								</button></a>
