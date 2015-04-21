@@ -6,7 +6,7 @@ apply plugin: 'jetty'
 group = 'tw.edu.ncu.cc'
 version = '0.0.1'
 
-description = """Oauth management"""
+description = """OAuth management"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
