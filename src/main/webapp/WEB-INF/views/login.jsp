@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 	<!DOCTYPE html>
 	<%--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--%>
@@ -55,7 +56,7 @@
 				<form action="login/openid" method="post">
 					<input id="openid_identifier" name="openid_identifier" size="70" maxlength="100" type="hidden"
 						value="https://portal.ncu.edu.tw/user" />
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<security:csrfInput/>
 					<input id="login-btn" class="btn btn-primary btn-block"type="submit" value="NCU Portal 登入" />
 				</form>
 			</div>
