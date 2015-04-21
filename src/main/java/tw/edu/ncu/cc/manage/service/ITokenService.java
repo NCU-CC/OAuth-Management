@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import tw.edu.ncu.cc.manage.entity.AccessToken;
 
@@ -11,11 +12,11 @@ public interface ITokenService {
 
 	List<AccessToken> findAll(String account);
 
-	AccessToken getTokenbyTokenId(String id);
+	Optional<AccessToken> findById(String id);
 
-	AccessToken removeToken(AccessToken app);
+	AccessToken remove(AccessToken app);
 
 	AccessToken removeToken(String id);
 
-	boolean isAllowToAccess(AccessToken app, String userid);
+	boolean hasPermission(AccessToken app, String userid);
 }

@@ -1,13 +1,15 @@
 package tw.edu.ncu.cc.manage.controller.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +18,6 @@ import tw.edu.ncu.cc.manage.entity.AccessToken;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.service.IApplicationContextService;
 import tw.edu.ncu.cc.manage.service.ITokenService;
-import tw.edu.ncu.cc.manage.utils.SystemConstant;
 
 /**
  * 使用者管理
@@ -26,6 +27,8 @@ import tw.edu.ncu.cc.manage.utils.SystemConstant;
 @Controller
 @RequestMapping("/user/app")
 public class UserAppListController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserAppListController.class);
 	
 	@Autowired
 	private ITokenService tokenService;
@@ -50,27 +53,44 @@ public class UserAppListController {
 		return "user/token/list";
 	}
 
-	@RequestMapping("/cancel")
-	public String cancel(Model model, @RequestParam String id, HttpServletRequest request) {
-//		String userId = PersonUtil.getStudentId(request);
-//		AccessToken appInfo = service.getTokenbyTokenId(id);
-//		if (appInfo == null) {
-//			// TODO setErrorMessage("找無此APP", "無法找到該APP，可以是因為已被刪除");
-//		} else if (!service.isAllowToAccess(appInfo, userId)) {
-//			// TODO setErrorMessage("您無權限存取該APP", "您無權限存取該APP，您並非是此APP的傭有者");
-//		}
-//		model.addAttribute("appInfo", appInfo);
-//		
-//		if (appInfo == null) {
-//			appInfo = service.removeToken(id);
-//			if (appInfo == null) {
-//				//return "authorizedappdeletefail";
-//				return "common/message";
-//			}
-//			// return "authorizedappdeletesuc";
-//			return "common/message";
-//		}
-//		// return "authorizedappdeletefail";
+	/**
+	 * 取消授權
+	 * @param model
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public String cancel(Model model, @RequestParam String tokenId, HttpServletRequest request) {
+		
+		Person user = this.applicationContextService.getCurrentUser();
+		String userAccount = user.getAccount();
+		
+		Optional<AccessToken> appInfo = this.tokenService.findById(tokenId);
+		
+		if (noSuchApp(appInfo)) {
+			logger.warn("Protential hacker, trying to access nonexist app. User {}, tokenId {} .", user, tokenId);
+			return "error/404";
+		}
+		
+		if (!hasPermission(appInfo, userAccount)) {
+			logger.warn("Protential hacker, trying to access non-authorized app. User {}, tokenId {} .", user, tokenId);
+			return "error/404";
+		}
+		
+		this.tokenService.remove(appInfo.get());
+		
+		model.addAttribute("messageTitlle", "刪除成功")
+		     .addAttribute("messageContent", "已成功刪除授權");
+
 		return "common/message";
+	}
+
+	private boolean noSuchApp(Optional<AccessToken> appInfo) {
+		return !appInfo.isPresent();
+	}
+	
+	private boolean hasPermission(Optional<AccessToken> token, String account) {
+		return tokenService.hasPermission(token.get(), account);
 	}
 }

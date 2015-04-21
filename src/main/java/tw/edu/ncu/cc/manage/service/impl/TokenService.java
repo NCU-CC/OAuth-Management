@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,23 +34,24 @@ public class TokenService implements ITokenService {
 		return tokenDao.findAll(account);
 	}
 
-	public AccessToken getTokenbyTokenId(String id) {
-		AccessToken accessToken = null;
-		try {
-			HttpURLConnection connectionURL = connection.doConnection(new URL(TOKEN_SERVICE_URL + id), null, Connection.GET);
-			int status = connectionURL.getResponseCode();
-			connectionURL.connect();
-			if (status == 200) {
-				accessToken = TokenConverter.convert(connection.getStringFromConnection(connectionURL));
-			}
-		} catch (IOException e) {
-			logger.info(e);
-			accessToken = null;
-		}
-		return accessToken;
+	public Optional<AccessToken> findById(String id) {
+		return tokenDao.findById(id);
+//		AccessToken accessToken = null;
+//		try {
+//			HttpURLConnection connectionURL = connection.doConnection(new URL(TOKEN_SERVICE_URL + id), null, Connection.GET);
+//			int status = connectionURL.getResponseCode();
+//			connectionURL.connect();
+//			if (status == 200) {
+//				accessToken = TokenConverter.convert(connection.getStringFromConnection(connectionURL));
+//			}
+//		} catch (IOException e) {
+//			logger.info(e);
+//			accessToken = null;
+//		}
+//		return Optional.ofNullable(accessToken);
 	}
 
-	public AccessToken removeToken(AccessToken app) {
+	public AccessToken remove(AccessToken app) {
 		return removeToken(app.getId());
 	}
 
@@ -69,7 +71,7 @@ public class TokenService implements ITokenService {
 		return accessToken;
 	}
 
-	public boolean isAllowToAccess(AccessToken app, String userid) {
+	public boolean hasPermission(AccessToken app, String userid) {
 		return app.getUser().equals(userid);
 	}
 }
