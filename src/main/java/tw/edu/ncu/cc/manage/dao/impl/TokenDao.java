@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -26,7 +27,7 @@ public class TokenDao implements ITokenDao {
 	
 	@Override
 	public List<AccessToken> findAll(String account) {
-		Assert.notNull(account, "Account must not be null");
+		Assert.hasText(account, "Account must not be null or empty.");
 		
 		List<AccessToken> tokenList = Collections.emptyList();
 		try {
@@ -36,6 +37,20 @@ public class TokenDao implements ITokenDao {
 			logger.info(e);
 		}
 		return tokenList;
+	}
+
+	@Override
+	public Optional<AccessToken> findById(String id) {
+		Assert.hasText(id, "Token id must not be null or empty.");
+		
+		AccessToken accessToken = null;
+		try {
+			String response = IOUtils.toString(new URL(TOKEN_SERVICE_URL + id), ENCODE);
+			accessToken = TokenConverter.convert(response);
+		} catch (IOException e) {
+			logger.info(e);
+		}
+		return Optional.ofNullable(accessToken);
 	}
 
 }
