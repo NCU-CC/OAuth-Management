@@ -22,8 +22,6 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 
 	private static final Logger logger = Logger.getLogger(MyUserDetailService.class);
 	
-
-	
 	@Autowired
 	private IPersonService personService;
 	
@@ -41,7 +39,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		
 		Optional<Person> person = this.personService.findByAccount(account);
 		if (person.isPresent()) {
-			logger.debug("An old friend, ignore registration step.");
+			logger.debug("User already registed, ignore registration step.");
 			return person.get();
 		}
 		
@@ -84,5 +82,4 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		boolean hasAnyRole = PERMIT_ROLES.stream().anyMatch(role -> roles.indexOf(role) > -1);
 		return !hasAnyRole;
 	}
-	
 }
