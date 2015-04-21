@@ -14,4 +14,8 @@ public class ApplicationContextService implements IApplicationContextService {
 		return (Person) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
+	@Override
+	public String getCurrentUsername() {
+		return this.getCurrentUser().getAccount();
+	}
 }

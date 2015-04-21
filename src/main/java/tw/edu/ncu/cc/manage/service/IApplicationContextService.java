@@ -4,4 +4,6 @@ import tw.edu.ncu.cc.manage.entity.Person;
 
 public interface IApplicationContextService {
 	public Person getCurrentUser();
+
+	public String getCurrentUsername();
 }

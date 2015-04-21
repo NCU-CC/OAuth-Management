@@ -4,26 +4,45 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
+import tw.edu.ncu.cc.manage.entity.oauth.application.SecretIdApplication;
+import tw.edu.ncu.cc.manage.service.IApplicationContextService;
 import tw.edu.ncu.cc.manage.service.IApplicationService;
+import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 @Controller
 @RequestMapping("/developer/app")
-public class AppNewController {
-	private static final long serialVersionUID = 1L;
-
+public class DeveloperAppRegisterController {
+	
+	@Autowired
+	private IApplicationContextService applicationContextService;
+	
 	@Autowired
 	private IApplicationService appService;
 
-	@RequestMapping("/new")
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String index() {
 		return "developer/app/register";
 	}
 
-	@RequestMapping("/tonew")
-	public String create(HttpServletRequest request) {
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String create(@ModelAttribute Application application) {
+		
+		String owner = this.applicationContextService.getCurrentUsername();
+		application.setOwner(owner);
+		
+		try {
+			SecretIdApplication secretIdApplication = this.appService.create(application);
+		} catch (OAuthConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		Application appInfo = new Application();
 //		appInfo.setOwner(PersonUtil.getStudentId(request));
 //		try {
