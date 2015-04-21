@@ -14,9 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.AccessToken;
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.service.IApplicationContextService;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.utils.SystemConstant;
 
+/**
+ * 使用者管理
+ * @author yyc1217
+ *
+ */
 @Controller
 @RequestMapping("/user/app")
 public class UserAppListController {
@@ -24,11 +30,23 @@ public class UserAppListController {
 	@Autowired
 	private ITokenService tokenService;
 
+	@Autowired
+	private IApplicationContextService applicationContextService;
+	
+	/**
+	 * 已授權軟體管理
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, @ModelAttribute(value = SystemConstant.USER_KEY) Person user) throws Exception {
+	public String list(Model model) {
+		
+		Person user = this.applicationContextService.getCurrentUser();
 		String userAccount = user.getAccount();
+		
 		List<AccessToken> tokenList = tokenService.findAll(userAccount);
 		model.addAttribute("tokenList", tokenList);
+		
 		return "user/token/list";
 	}
 

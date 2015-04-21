@@ -1,11 +1,12 @@
 package tw.edu.ncu.cc.manage.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import tw.edu.ncu.cc.manage.service.IApplicationContextService;
 import tw.edu.ncu.cc.manage.utils.SystemConstant;
 
 /**
@@ -14,14 +15,14 @@ import tw.edu.ncu.cc.manage.utils.SystemConstant;
  *
  */
 @Controller
-@SessionAttributes(SystemConstant.USER_KEY)
 public class IndexController {
 
+	@Autowired
+	private IApplicationContextService applicationContextService;
+	
     @RequestMapping({"/", "/index", "/default"})
-    public String index(Model model) {
-    	if (!model.containsAttribute(SystemConstant.USER_KEY)) {
-    		model.addAttribute(SystemConstant.USER_KEY, SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-    	}
+    public String index(HttpSession session) {
+    	session.setAttribute(SystemConstant.USER_KEY, this.applicationContextService.getCurrentUser());
         return "index";
     }
 }

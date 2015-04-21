@@ -11,7 +11,7 @@
                             <img src="<c:url value='/resources/img/avatar3.png'/>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, ${_user.account}</p>
+                            <p>Hello, ${sessionScope._user.account}</p>
                             <a><i class="fa fa-circle text-success"></i>Online</a>
                         </div>
                     </div>
