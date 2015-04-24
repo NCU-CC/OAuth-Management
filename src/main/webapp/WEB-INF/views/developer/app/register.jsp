@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:if test="${not empty errorTitle}">
 	<div class="pad margin no-print">
@@ -10,6 +11,7 @@
 	</div>
 </c:if>
 
+
 <%-- left column --%>
 <div class="box box-primary invoice">
 	<div class="box-header">
@@ -17,29 +19,31 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-	<form role="form" action='register' method='post'>
+	<form:form role="form" action='create' method='post'>
 		<div class="box-body">
 			<div class="form-group">
 				<label for="name">App名稱</label>
-                <input type="text" id="name" class="form-control" name="name" placeholder="顯示給使用者的名稱" value="${appInfo.name}">
+				<input id=name type="text" class="form-control" name="name"	placeholder="輸入app的名稱">
 			</div>
 			<div class="form-group">
-				<label for="url">App的網站位置</label>
-				<input type="text" id="url" class="form-control" name="url" placeholder="完整的網站URL (http, https)" value="${appInfo.url}">
+				<label for="url">App網站URL</label>
+				<input id=url type="text" class="form-control" name="url" placeholder="網站完整的網址(http, https)">
 			</div>
 			<div class="form-group">
-				<label for="description">App簡述</label>
-                    <input type="text" id="description" class="form-control" name="description" placeholder="簡單地描述你的作品" value="${appInfo.description}">			</div>
+				<label for="description">App簡述</label> 
+				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的app">
+			</div>
 			<div class="form-group">
 				<label for="callback">授權 callback URL</label>
-                <input type="text" id="callback" class="form-control" name="callback" placeholder="OAuth callback URL" value="${appInfo.callback}">
-				<p class="help-block"></p>
+				<input id=callback type="text" class="form-control" name="callback"	placeholder="OAuth callback url">
+				<p class="help-block">Your application's callback URL. Read our	OAuth documentation for more information</p>
 			</div>
 		</div>
 		<%-- /.box-body --%>
+
 		<div class="box-footer">
 			<button type="submit" class="btn btn-success">送出申請</button>
 		</div>
-	</form>
+	</form:form>
 </div>
 <%-- /.box --%>
