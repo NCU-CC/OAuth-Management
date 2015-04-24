@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import tw.edu.ncu.cc.manage.service.IApplicationContextService;
+import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.utils.SystemConstant;
 
 /**
@@ -18,7 +18,7 @@ import tw.edu.ncu.cc.manage.utils.SystemConstant;
 public class IndexController {
 
 	@Autowired
-	private IApplicationContextService applicationContextService;
+	private IUserContextService applicationContextService;
 	
     @RequestMapping({"/", "/index", "/default"})
     public String index(HttpSession session) {

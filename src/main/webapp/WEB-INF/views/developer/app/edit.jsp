@@ -17,33 +17,24 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-	<form:form role="form" action='/dev/edited' method='post'>
+	<form:form role="form" action='edit' method='post'>
 		<div class="box-body">
 			<div class="form-group">
-				<label for="exampleInputEmail1">App名稱</label> <input type="text"
-					class="form-control" name="AppInfo.name"
-					placeholder="Enter App's name" value="${AppInfo.name }">
-				<p class="help-block">Something users will recognize and trust</p>
+				<label for="name">App名稱</label>
+				<input id=name type="text" class="form-control" name="name"	placeholder="輸入app的名稱" value="${application.name }">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">App網站URL</label> <input type="text"
-					class="form-control" name="AppInfo.url" placeholder="Website url"
-					value="${AppInfo.url }">
-				<p class="help-block">The full URL to your Application homepage</p>
+				<label for="url">App網站URL</label>
+				<input id=url type="text" class="form-control" name="url" placeholder="網站完整的網址(http, https)" value="${application.url}">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">App簡述</label> <input type="text"
-					class="form-control" name="AppInfo.description"
-					placeholder="Description" value="${AppInfo.description }">
-				<p class="help-block">This is displayed to all potential users
-					of your Application</p>
+				<label for="description">App簡述</label> 
+				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的app" value="${application.description}">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">授權 callback URL</label> <input
-					type="text" class="form-control" name="AppInfo.callback"
-					placeholder="Callback url" value="${AppInfo.callback }">
-				<p class="help-block">Your Application's callback URL. Read our
-					OAuth documentation for more information</p>
+				<label for="callback">授權 callback URL</label>
+				<input id=callback type="text" class="form-control" name="callback"	placeholder="OAuth callback url" value="${application.callback}">
+				<p class="help-block">Your application's callback URL. Read our	OAuth documentation for more information</p>
 			</div>
 
 		</div>
@@ -53,10 +44,10 @@
 			<input type="hidden" name="id" value="${id}" />
 			<button type="submit" class="btn btn-success">更新App</button>
 			<a
-				href="<c:url action='/developer/app/secret?id=${id}&token=${token}&struts.token.name=token' />"
-				data-confirm="是否要獲取新的secret？ 舊的secret將無法使用" data-method="post"
-				class="btn btn-warning">新的secret</a> <a
-				href="<c:url action='/developer/app/delete?id=${id}&token=${token}&struts.token.name=token' />"
+				href="<c:url action='/developer/app/secret?id=${id}' />"
+				data-confirm="是否要更新secret？ 舊的secret將無法使用" data-method="post"
+				class="btn btn-warning">更新secret</a> <a
+				href="<c:url action='/developer/app/delete?id=${id}' />"
 				data-confirm="是否要刪除？" data-method="post" class="btn btn-danger">刪除App</a>
 		</div>
 	</form:form>
