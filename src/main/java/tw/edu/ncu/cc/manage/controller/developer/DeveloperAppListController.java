@@ -8,9 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
-import tw.edu.ncu.cc.manage.service.IApplicationContextService;
+import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.service.IApplicationService;
 
+/**
+ * 開發者的app清單
+ * @author Yeh-Yung
+ *
+ */
 @Controller
 @RequestMapping("/developer/app")
 public class DeveloperAppListController {
@@ -19,13 +24,18 @@ public class DeveloperAppListController {
 	private IApplicationService applicationService;
 
 	@Autowired
-	private IApplicationContextService applicationContextService;
+	private IUserContextService userContextService;
 	
+	/**
+	 * 開發者app清單首頁
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/list")
 	public String list(Model model) {
 		
-		String userId = this.applicationContextService.getCurrentUser().getAccount();
-		List<IdApplication> applicationList = this.applicationService.findAll(userId);
+		String username = this.userContextService.getCurrentUsername();
+		List<IdApplication> applicationList = this.applicationService.findAll(username);
 		
 		model.addAttribute("appList", applicationList);
 		

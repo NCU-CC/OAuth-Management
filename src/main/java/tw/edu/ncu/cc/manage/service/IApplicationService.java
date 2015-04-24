@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
@@ -15,7 +16,7 @@ public interface IApplicationService {
 
 	List<IdApplication> findAll(String id);
 
-	IdApplication getAPPbyAPPId(String id);
+	Optional<IdApplication> findById(String id);
 
 	IdApplication update(IdApplication app) throws OAuthConnectionException;
 
@@ -23,7 +24,7 @@ public interface IApplicationService {
 
 	IdApplication remove(String id);
 
-	SecretIdApplication create(Application app) throws OAuthConnectionException;
+	Optional<SecretIdApplication> create(Application app) throws OAuthConnectionException;
 
-	SecretIdApplication newSecret(String id);
+	Optional<SecretIdApplication> refreshSecret(String id);
 }
