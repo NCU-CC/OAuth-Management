@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.AccessToken;
 import tw.edu.ncu.cc.manage.entity.Person;
-import tw.edu.ncu.cc.manage.service.IApplicationContextService;
+import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 
 /**
@@ -34,7 +34,7 @@ public class UserAppListController {
 	private ITokenService tokenService;
 
 	@Autowired
-	private IApplicationContextService applicationContextService;
+	private IUserContextService applicationContextService;
 	
 	/**
 	 * 已授權軟體管理

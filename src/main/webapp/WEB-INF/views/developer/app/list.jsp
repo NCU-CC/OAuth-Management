@@ -49,7 +49,7 @@
 						<div class="col-xs-2"></div>
 						<div class="col-xs-8">
 							<a class="btn btn-block btn-social btn-foursquare"
-								href="<c:url value="/developer/app/new"/>"> <i class="fa fa-plus"></i>註冊新App
+								href="<c:url value="/developer/app/create"/>"> <i class="fa fa-plus"></i>註冊新App
 							</a>
 						</div>
 					</c:otherwise>
