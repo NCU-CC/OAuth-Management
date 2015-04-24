@@ -3,8 +3,8 @@ package tw.edu.ncu.cc.manage.service.impl;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +42,16 @@ public class ApplicationService implements IApplicationService {
 		return this.applicationDao.findAll(userId);
 	}
 
-	public IdApplication getAPPbyAPPId(String id) {
-		IdApplication ida = null;
+	@Override
+	public Optional<IdApplication> findById(String id) {
+		Optional<IdApplication> ida = Optional.empty();
 		try {
 			HttpURLConnection connectionURL = connection.doConnection(new URL(SERVICE_URL + id), null, Connection.GET);
 			connectionURL.connect();
 			int status = connectionURL.getResponseCode();
 			if (status == 200) {
-				ida = ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
+				SecretIdApplication result = ApplicationConverter.convert(connection.getStringFromConnection(connectionURL));
+				ida = Optional.ofNullable(result);
 			}
 		} catch (IOException e) {
 			logger.warn(e);
@@ -76,8 +78,8 @@ public class ApplicationService implements IApplicationService {
 		return ida;
 	}
 
-	public SecretIdApplication create(Application app) throws OAuthConnectionException {
-		SecretIdApplication sia = null;
+	public Optional<SecretIdApplication> create(Application app) throws OAuthConnectionException {
+		Optional<SecretIdApplication> sia = Optional.empty();
 		try {
 			HttpURLConnection connectionURL = connection.doConnection(new URL(SERVICE_URL), ApplicationConverter.convert(app), Connection.POST);
 			int status;
@@ -86,7 +88,7 @@ public class ApplicationService implements IApplicationService {
 
 			if (status == 200) {
 				String content = connection.getStringFromConnection(connectionURL);
-				sia = ApplicationConverter.convert(content);
+				sia = Optional.ofNullable(ApplicationConverter.convert(content));
 			}
 			if (status == 400) {
 				String content = connection.getStringFromErrorConnection(connectionURL);
@@ -117,14 +119,15 @@ public class ApplicationService implements IApplicationService {
 		return ida;
 	}
 
-	public SecretIdApplication newSecret(String id) {
-		SecretIdApplication sia = null;
+	@Override
+	public Optional<SecretIdApplication> refreshSecret(String id) {
+		Optional<SecretIdApplication> sia = Optional.empty();
 		try {
 			HttpURLConnection connectionURL = connection.doConnection(new URL(SERVICE_URL + id + "/secret/"), null, Connection.POST);
 			int status = connectionURL.getResponseCode();
 			if (status == 200) {
 				String content = connection.getStringFromConnection(connectionURL);
-				sia = ApplicationConverter.convert(content);
+				sia = Optional.ofNullable(ApplicationConverter.convert(content));
 			}
 		} catch (IOException e) {
 			logger.warn(e);
