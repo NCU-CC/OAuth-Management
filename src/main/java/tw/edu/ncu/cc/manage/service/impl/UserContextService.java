@@ -7,7 +7,7 @@ import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
 @Service
-public class ApplicationContextService implements IUserContextService {
+public class UserContextService implements IUserContextService {
 
 	@Override
 	public Person getCurrentUser() {

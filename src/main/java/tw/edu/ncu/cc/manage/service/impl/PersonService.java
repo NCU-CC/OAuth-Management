@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.edu.ncu.cc.manage.dao.IPersonDao;
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.exception.RemoteServiceUnavailableException;
 import tw.edu.ncu.cc.manage.service.IPersonService;
 import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
 
@@ -89,20 +90,6 @@ public class PersonService implements IPersonService {
 			//user = MAPPER.readValue(userJsonString, User.class);
 		} else {
 			throw new RemoteServiceUnavailableException(OAUTH_SERVICE_URL);
-		}
-	}
-	
-	/**
-	 * 遠端的服務無法使用
-	 * @author yyc1217
-	 *
-	 */
-	private static class RemoteServiceUnavailableException extends IOException {
-
-		private static final long serialVersionUID = 1L;
-
-		RemoteServiceUnavailableException(String message) {
-			super(message);
 		}
 	}
 }
