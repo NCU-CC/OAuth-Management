@@ -1,5 +1,7 @@
 package tw.edu.ncu.cc.manage.controller.developer;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -13,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
-import tw.edu.ncu.cc.manage.entity.oauth.application.SecretIdApplication;
 import tw.edu.ncu.cc.manage.service.IApplicationService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
+import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 /**
  * 開發者app編輯
@@ -39,20 +41,15 @@ public class DeveloperAppEditController {
 	 * @param model
 	 * @param id
 	 * @return
+	 * @throws IOException 
+	 * @throws MalformedURLException 
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String getEdit(Model model, @RequestParam(value = "id", required = true) String id) {
+	public String getEdit(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		Optional<IdApplication> application = this.appService.findById(id);
-		
-		if (!application.isPresent()) {
-			logger.warn("Potential hacker, trying to edit non exist app.");
-			return "error/404";
-		}
-		
-		if (!this.appService.isAllowToAccess(application.get(), username)) {
-			logger.warn("Potential hacker, trying to edit non-authorized app.");
+		if (!isAuthorized(application, username)) {
 			return "error/404";
 		}
 		
@@ -61,99 +58,62 @@ public class DeveloperAppEditController {
 		return "developer/app/edit";
 	}
 
+	/**
+	 * 按下「更新App」
+	 * @param model
+	 * @param editedApplication
+	 * @return
+	 * @throws OAuthConnectionException
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String postEdit(@ModelAttribute IdApplication editedApplication) {
+	public String postEdit(Model model, @ModelAttribute IdApplication editedApplication) throws OAuthConnectionException, MalformedURLException, IOException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		Optional<IdApplication> oldApplication = this.appService.findById(editedApplication.getId());
-		
-		if (!oldApplication.isPresent()) {
-			logger.warn("Potential hacker, trying to edit non exist app.");
+		if (!isAuthorized(oldApplication, username)) {
 			return "error/404";
 		}
-		
-		if (!this.appService.isAllowToAccess(oldApplication.get(), username)) {
-			logger.warn("Potential hacker, trying to edit non-authorized app.");
-			return "error/404";
-		}
-		
-		return "developer/app/edit";
-//		IdApplication old = getAPPbyAPPId(id);
-//		//if (isAccessible) {
-//			//IdApplication appInfo = copyAPPInfo(appInfo, old);
-//			IdApplication appInfo = new IdApplication();
-//			try {
-//				Application app = this.appService.updateAPP(appInfo);
-//				if (app == null) {
-//					//warningTitle = "有些錯誤";
-//					//warningContent = "處理有些錯誤";
-//					return "developer/app/edit";
-//				}
-//			} catch (OAuthConnectionException e) {
-//				//warningTitle = "有些錯誤";
-//				//warningContent = "處理有些錯誤";
-//				OAuthErrorMessage errorMessage = e.getAuthErrorMessage();
-//				if (errorMessage != null) {
-//					//setErrorMessage("發生錯誤", errorMessage.getError_description());
-//				}
-//				return "developer/app/edit";
-//			}
-//			/**
-//			 * with following message
-//			 * <h4>修改/刪除 成功</h4>
-//           		<p>您已成功修改/刪除 APP</p>
-//			 */
-//			return "common/message";
-//		//}
-//		// TODO 403 forbidden
-//		//return "error";
-	}
 
-	@RequestMapping("/delete")
-	public String delete() {
+		copySubmitValue(editedApplication, oldApplication.get());
+		
+		this.appService.update(editedApplication);
+		
+		model.addAttribute("messageTitle", "修改成功")
+		     .addAttribute("messageContent", "app修改成功");
+		
 		return "common/message";
-//		getAPPbyAPPId(id);
-//		//if (isAccessible) {
-//			Application app = this.appService.remove(id);
-//			if (app == null) {
-//				//warningTitle = "有些錯誤";
-//				//warningContent = "處理有些錯誤";
-//
-//    			/**
-//    			 * with following message
-//                <h4>操作失敗</h4>
-//                <p>操作失敗，請稍後在試</p>
-//    			 */
-//    			return "common/message";
-//			}
-//			/**
-//			 * with following message
-//			 * <h4>修改/刪除 成功</h4>
-//           		<p>您已成功修改/刪除 APP</p>
-//			 */
-//			return "common/message";
-//		//}
-//		// TODO 403 forbidden
-//		//return "error";
 	}
-
-	private IdApplication getAPPbyAPPId(String id) {
-//		String userId = PersonUtil.getStudentId(request);
-//		IdApplication appInfo = appService.getAPPbyAPPId(id);
-//		if (appInfo == null) {
-//			//setErrorMessage("找無此APP", "無法找到該APP，可以是因為已被刪除");
-//		} else if (!appService.isAllowToAccess(appInfo, userId)) {
-//			//setErrorMessage("您無權限存取該APP", "您無權限存取該APP，您並非是此APP的傭有者");
-//		} else {
-//			return appInfo;
-//		}
-		return null;
+	
+	private void copySubmitValue(IdApplication from, IdApplication to) {
+		to.setId(from.getId());
+		to.setOwner(from.getOwner());
 	}
+	
+	/**
+	 * 按下「刪除App」
+	 * @param model
+	 * @param id
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
+	@RequestMapping("/delete")
+	public String delete(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
+		
+		String username = this.userContextService.getCurrentUsername();
+		Optional<IdApplication> application = this.appService.findById(id);
+		if (!isAuthorized(application, username)) {
+			return "error/404";
+		}
+		
+		this.appService.remove(id);
 
-	private IdApplication copyAPPInfo(IdApplication main, IdApplication old) {
-		main.setId(old.getId());
-		main.setOwner(old.getOwner());
-		return main;
+		model.addAttribute("messageTitle", "刪除成功")
+	         .addAttribute("messageContent", "app刪除成功");
+		
+		return "common/message";
 	}
 	
 	/**
@@ -161,9 +121,11 @@ public class DeveloperAppEditController {
 	 * @param model
 	 * @param id
 	 * @return
+	 * @throws IOException 
+	 * @throws MalformedURLException 
 	 */
 	@RequestMapping("/secret")
-	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) {
+	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
 		
 		String username = userContextService.getCurrentUsername();
 		
@@ -179,19 +141,30 @@ public class DeveloperAppEditController {
 			return "error/404";			
 		}
 		
-		Optional<SecretIdApplication> newSecret = this.appService.refreshSecret(id);
-		
-		if (!newSecret.isPresent()) {
-			
-			logger.info("Can\'t refresh secret for app id {}", id);
-			model.addAttribute("messageTitle", "無法更新")
-			     .addAttribute("messageContent", "無法更新secret，請洽系統管理員。");
-			
-			return "common/message";
-		}
+		this.appService.refreshSecret(id);
 		
 		model.addAttribute("messageTitle", "更新成功")
 	     	 .addAttribute("messageContent", "更新secret成功");
+		
 		return "common/message";
+	}
+	
+	/**
+	 * 是有權限處理的{@link IdApplication}
+	 * @param application
+	 * @param username
+	 * @return
+	 */
+	private boolean isAuthorized(Optional<IdApplication> application, String username) {
+		if (!application.isPresent()) {
+			logger.warn("Potential hacker, trying to edit non exist app.");
+			return false;
+		}
+		
+		if (!this.appService.isAllowToAccess(application.get(), username)) {
+			logger.warn("Potential hacker, trying to edit non-authorized app.");
+			return false;
+		}
+		return true;
 	}
 }

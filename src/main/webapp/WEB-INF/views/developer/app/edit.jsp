@@ -6,7 +6,7 @@
 	<div class="pad margin no-print">
 		<div class="alert alert-danger alert-dismissable"
 			style="margin-bottom: 0 !important;">
-			<i class="fa fa-ban"></i> <b>${errorTitle }:</b> ${errorContent }
+			<i class="fa fa-ban"></i> <b>${errorTitle}:</b> ${errorContent}
 		</div>
 	</div>
 </c:if>
@@ -43,12 +43,15 @@
 		<div class="box-footer">
 			<input type="hidden" name="id" value="${id}" />
 			<button type="submit" class="btn btn-success">更新App</button>
-			<a
-				href="<c:url action='/developer/app/secret?id=${id}' />"
-				data-confirm="是否要更新secret？ 舊的secret將無法使用" data-method="post"
-				class="btn btn-warning">更新secret</a> <a
-				href="<c:url action='/developer/app/delete?id=${id}' />"
-				data-confirm="是否要刪除？" data-method="post" class="btn btn-danger">刪除App</a>
+			<a href="<c:url action='/developer/app/secret?id=${id}' />" 
+			   data-confirm="是否要更新secret？ 舊的secret將無法使用" 
+			   data-method="post"
+			   class="btn btn-warning">更新secret</a>
+            
+            <a href="<c:url action='/developer/app/delete?id=${id}' />"
+			   data-confirm="是否要刪除？" 
+			   data-method="post" 
+			   class="btn btn-danger">刪除App</a>
 		</div>
 	</form:form>
 	<%--</form>--%>
