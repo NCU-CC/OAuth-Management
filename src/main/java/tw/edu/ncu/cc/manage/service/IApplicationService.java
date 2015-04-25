@@ -14,8 +14,6 @@ import tw.edu.ncu.cc.manage.entity.oauth.application.SecretIdApplication;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 public interface IApplicationService {
-	public static final String SERVICE_URL = "https://api.cc.ncu.edu.tw/oauth/management/v1/application/";
-	public static final String USER_SERVICE_URL = "https://api.cc.ncu.edu.tw/oauth/management/v1/user/";
 
 	boolean isAllowToAccess(Application application, String userid);
 
