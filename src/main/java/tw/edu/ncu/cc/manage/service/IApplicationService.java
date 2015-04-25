@@ -17,19 +17,17 @@ public interface IApplicationService {
 	public static final String SERVICE_URL = "https://api.cc.ncu.edu.tw/oauth/management/v1/application/";
 	public static final String USER_SERVICE_URL = "https://api.cc.ncu.edu.tw/oauth/management/v1/user/";
 
-	boolean isAllowToAccess(Application app, String userid);
+	boolean isAllowToAccess(Application application, String userid);
 
-	List<IdApplication> findAll(String id);
+	List<IdApplication> findAll(String username) throws IOException;
 
 	Optional<IdApplication> findById(String id) throws MalformedURLException, IOException;
 
-	Optional<IdApplication> update(IdApplication app) throws OAuthConnectionException, IOException;
+	Optional<IdApplication> update(IdApplication application) throws OAuthConnectionException, IOException;
 
-	IdApplication removeAPP(IdApplication app) throws IOException;
+	void remove(IdApplication application) throws IOException, OAuthConnectionException;
 
-	IdApplication remove(String id) throws IOException;
+	Optional<IdApplication> create(Application application) throws OAuthConnectionException, JsonParseException, JsonMappingException, MalformedURLException, IOException;
 
-	Optional<SecretIdApplication> create(Application app) throws OAuthConnectionException, JsonParseException, JsonMappingException, MalformedURLException, IOException;
-
-	Optional<SecretIdApplication> refreshSecret(String id) throws MalformedURLException, IOException;
+	Optional<SecretIdApplication> refreshSecret(String applicationId) throws MalformedURLException, IOException, OAuthConnectionException;
 }
