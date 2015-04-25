@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.Optional;
 
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 public interface IPersonService {
-	public static final String OAUTH_SERVICE_URL = "https://api.cc.ncu.edu.tw/oauth/management/v1/user/";
+
 
 	/**
 	 * 以account來獲得使用者資訊
@@ -18,9 +19,11 @@ public interface IPersonService {
 	/**
 	 * 在OAuth-Service新增使用者
 	 * @param account
+	 * @return 
 	 * @throws IOException
+	 * @throws OAuthConnectionException 
 	 */
-	void createUserOnOAuthService(String account) throws IOException;
+	Person createUserOnOAuthService(String account) throws IOException, OAuthConnectionException;
 	
 	/**
 	 * 更新使用者狀態
