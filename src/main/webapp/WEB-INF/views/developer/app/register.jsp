@@ -6,7 +6,7 @@
 	<div class="pad margin no-print">
 		<div class="alert alert-danger alert-dismissable"
 			style="margin-bottom: 0 !important;">
-			<i class="fa fa-ban"></i> <b>${errorTitle }:</b> ${errorContent }
+			<i class="fa fa-ban"></i> <b>${errorTitle}:</b> ${errorContent}
 		</div>
 	</div>
 </c:if>
@@ -19,33 +19,24 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-	<form:form role="form" action='tonew' method='post'>
+	<form:form role="form" action='create' method='post'>
 		<div class="box-body">
 			<div class="form-group">
-				<label for="exampleInputEmail1">App名稱</label> <input type="text"
-					class="form-control" name="appInfo.name"
-					placeholder="Enter APP's name" value="${appInfo.name }">
-				<p class="help-block">Something users will recognize and trust</p>
+				<label for="name">App名稱</label>
+				<input id=name type="text" class="form-control" name="name"	placeholder="輸入app的名稱">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">App網站URL</label> <input type="text"
-					class="form-control" name="appInfo.url" placeholder="Website url"
-					value="${appInfo.url }">
-				<p class="help-block">The full URL to your application homepage</p>
+				<label for="url">App網站URL</label>
+				<input id=url type="text" class="form-control" name="url" placeholder="網站完整的網址(http, https)">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">App簡述</label> <input type="text"
-					class="form-control" name="appInfo.description"
-					placeholder="Description" value="${appInfo.description }">
-				<p class="help-block">This is displayed to all potential users
-					of your application</p>
+				<label for="description">App簡述</label> 
+				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的app">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">授權 callback URL</label> <input
-					type="text" class="form-control" name="appInfo.callback"
-					placeholder="Callback url" value="${appInfo.callback }">
-				<p class="help-block">Your application's callback URL. Read our
-					OAuth documentation for more information</p>
+				<label for="callback">授權 callback URL</label>
+				<input id=callback type="text" class="form-control" name="callback"	placeholder="OAuth callback url">
+				<p class="help-block">Your application's callback URL. Read our	OAuth documentation for more information</p>
 			</div>
 		</div>
 		<%-- /.box-body --%>

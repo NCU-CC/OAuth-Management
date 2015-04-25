@@ -13,10 +13,6 @@ OAuth Management is only available for students, faculties and alumnus of NCU fo
     * jdbc.url=jdbc:mysql://{localhost}/{dbname}
     * jdbc.username={xxx}
     * jdbc.password={xxx}
-    
-  - openid-setting.properties (https://github.com/NCU-CC/OpenID-Consumer)
-    * openid.return_to=http://{localhost}/manage/auth
-	* openid.realm=http://{localhost}
 
 ### Theme
 https://github.com/almasaeed2010/AdminLTE

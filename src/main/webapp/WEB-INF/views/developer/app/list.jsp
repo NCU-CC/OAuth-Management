@@ -13,7 +13,7 @@
 				<div class="box-tools">
 					<div class="input-group">
 						<div class="input-group-btn">
-							<a href="<c:url value="/developer/app/new"/>"><button
+							<a href="<c:url value="/developer/app/create"/>"><button
 									class="btn btn-sm btn-default pull-right">
 									<i class="fa fa-plus">註冊新APP</i>
 								</button></a>
@@ -49,7 +49,7 @@
 						<div class="col-xs-2"></div>
 						<div class="col-xs-8">
 							<a class="btn btn-block btn-social btn-foursquare"
-								href="<c:url value="/developer/app/new"/>"> <i class="fa fa-plus"></i>註冊新App
+								href="<c:url value="/developer/app/create"/>"> <i class="fa fa-plus"></i>註冊新App
 							</a>
 						</div>
 					</c:otherwise>

@@ -1,12 +1,11 @@
 package tw.edu.ncu.cc.manage.service.impl;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Date;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,23 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.edu.ncu.cc.manage.dao.IPersonDao;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.service.IPersonService;
-import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 @Service
 public class PersonService implements IPersonService {
 
-	private static final ObjectMapper MAPPER = new ObjectMapper();
-	
-	private static final Logger logger = Logger.getLogger(PersonService.class);
-	
-	Connection connection;
-	
-	public PersonService() {
-		connection = new Connection();
-	}
-	
+	private static final Logger logger = LoggerFactory.getLogger(PersonService.class);
+
 	@Autowired
 	private IPersonDao personDao;
 	
@@ -55,54 +44,10 @@ public class PersonService implements IPersonService {
 		person.setIpLastActived(ip);
 	}
 
-	private static class User {
-		private String name;
-
-		User(String name) {
-			this.setName(name);
-		}
-
-		String getName() {
-			return name;
-		}
-
-		void setName(String name) {
-			this.name = name;
-		}
-	}
-
 	@Override
-	public void createUserOnOAuthService(String account) throws IOException {
-
-    	logger.debug("Create user on OAuth-Service: " + account + ", " + OAUTH_SERVICE_URL);
-		
-		HttpURLConnection connectionURL = connection.doConnection(
-				new URL(OAUTH_SERVICE_URL), 
-				MAPPER.writeValueAsString(new User(account)), 
-				Connection.POST);
-		
-		int status = connectionURL.getResponseCode();
-		connectionURL.connect();
-		if (status == 200) {
-			String userJsonString = connection.getStringFromConnection(connectionURL);
-			logger.debug("Successful created: " + userJsonString);
-			//user = MAPPER.readValue(userJsonString, User.class);
-		} else {
-			throw new RemoteServiceUnavailableException(OAUTH_SERVICE_URL);
-		}
-	}
-	
-	/**
-	 * 遠端的服務無法使用
-	 * @author yyc1217
-	 *
-	 */
-	private static class RemoteServiceUnavailableException extends IOException {
-
-		private static final long serialVersionUID = 1L;
-
-		RemoteServiceUnavailableException(String message) {
-			super(message);
-		}
+	public Person createUserOnOAuthService(String username) throws IOException, OAuthConnectionException {
+    	logger.debug("Create user on OAuth-Service: " + username);
+    	return personDao.createUserOnOAuthService(username);
+    	
 	}
 }

@@ -12,12 +12,9 @@
 			<%-- /.box-header --%>
 			<div class="box-body">
 				<div class="callout callout-info">
-					<h4><!-- messageTitlle 修改/刪除 成功--></h4>
-					<p><!-- messageContent 您已成功修改/刪除 APP--></p>
+					<h4>${messageTitlle}<!-- messageTitlle 修改/刪除 成功--></h4>
+					<p>${messageContent}<!-- messageContent 您已成功修改/刪除 APP--></p>
 				</div>
-				<a href="<c:url value="/dev/list"/>">
-				    <button	class="btn btn-success"><i class="fa fa-reply"></i>返回</button>
-				</a>
 			</div>
 			<%-- /.box-body --%>
 

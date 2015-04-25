@@ -17,11 +17,14 @@ import org.springframework.security.openid.OpenIDAuthenticationStatus;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.enums.RoleEnum;
 import tw.edu.ncu.cc.manage.service.IPersonService;
+import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 @Component
 public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -31,6 +34,8 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	private static final String AFTER_AUTHENTICATE_URL = "/";
 	
 	private static final String NOT_AUTHORIZED_URL = "/error/401";
+	
+	private static final String INTERNAL_SERVER_ERROR = "/error/500";
 	
 	@Autowired
 	private IPersonService personService;
@@ -47,8 +52,15 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		
 		if (openIdAuthenticationSuccesfullButUserIsNotRegistered(exception)) {
 			logger.info("Openid authentication succesfull but user is not registered.");
-			createOrUpdateUserInfo(request, response);
-	        getRedirectStrategy().sendRedirect(request, response, AFTER_AUTHENTICATE_URL);
+			Person person;
+			try {
+				person = createUserInfo(request, response);
+				addUsernameToSession(person);
+		        getRedirectStrategy().sendRedirect(request, response, AFTER_AUTHENTICATE_URL);
+			} catch (OAuthConnectionException e) {
+				getRedirectStrategy().sendRedirect(request, response, INTERNAL_SERVER_ERROR);
+				e.printStackTrace();
+			}
 	        return;
 		} else {
 			logger.info("Either openid authentication fail or other type exception happened.", exception);
@@ -71,7 +83,7 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	}
 	
     @SuppressWarnings("unchecked")
-	private void createOrUpdateUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private Person createUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, OAuthConnectionException {
         
     	OpenIDAuthenticationToken token = openIdAuthenticationToken();
     	String account = ((String)token.getPrincipal()).substring(SecurityConfig.AX_NAME_ROLE.length());
@@ -80,6 +92,7 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		List<String> roles = (List<String>) token.getDetails();
 		Person newPerson = createPerson(request, account, roles);
 		this.personService.create(newPerson);
+		return newPerson;
     }
     
 	private Person createPerson(HttpServletRequest request, String id, List<String> roles) {
@@ -91,5 +104,9 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		person.setIpLastActived(request.getRemoteAddr());
 		person.setType(RoleEnum.matchOne(roles));
 		return person;
+	}
+	
+	private void addUsernameToSession(Person person) {
+		RequestContextHolder.getRequestAttributes().setAttribute("username", person.getAccount(), RequestAttributes.SCOPE_SESSION);
 	}
 }

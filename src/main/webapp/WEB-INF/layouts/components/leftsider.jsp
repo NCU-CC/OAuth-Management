@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <aside class="left-side sidebar-offcanvas">
                 <%-- sidebar: style can be found in sidebar.less --%>
                 <section class="sidebar">
@@ -9,9 +11,8 @@
                             <img src="<c:url value='/resources/img/avatar3.png'/>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, ${session.personInfo.getAccount()}</p>
-
-                            <a><i class="fa fa-circle text-success"></i> Online</a>
+                            <p>Hello, ${sessionScope._user.account}</p>
+                            <a><i class="fa fa-circle text-success"></i>Online</a>
                         </div>
                     </div>
                     <%-- search form --%>
