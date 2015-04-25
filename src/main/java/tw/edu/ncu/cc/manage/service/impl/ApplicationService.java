@@ -13,7 +13,6 @@ import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
 import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
 import tw.edu.ncu.cc.manage.entity.oauth.application.SecretIdApplication;
 import tw.edu.ncu.cc.manage.service.IApplicationService;
-import tw.edu.ncu.cc.manage.service.oauth.connector.Connection;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -25,12 +24,7 @@ public class ApplicationService implements IApplicationService {
 	@Autowired
 	private IApplicationDao applicationDao;
 
-	public Connection connection;
-
-	public ApplicationService() {
-		connection = new Connection();
-	}
-
+	@Override
 	public boolean isAllowToAccess(Application app, String username) {
 		return app.getOwner().equals(username);
 	}

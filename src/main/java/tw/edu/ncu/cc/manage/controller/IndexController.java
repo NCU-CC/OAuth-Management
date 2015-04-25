@@ -18,11 +18,11 @@ import tw.edu.ncu.cc.manage.utils.SystemConstant;
 public class IndexController {
 
 	@Autowired
-	private IUserContextService applicationContextService;
+	private IUserContextService userContextService;
 	
     @RequestMapping({"/", "/index", "/default"})
     public String index(HttpSession session) {
-    	session.setAttribute(SystemConstant.USER_KEY, this.applicationContextService.getCurrentUser());
+    	session.setAttribute(SystemConstant.USER_KEY, this.userContextService.getCurrentUser());
         return "index";
     }
 }

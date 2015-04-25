@@ -1,5 +1,7 @@
 package tw.edu.ncu.cc.manage.controller.user;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,7 @@ import tw.edu.ncu.cc.manage.entity.AccessToken;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.service.ITokenService;
+import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 /**
  * 使用者管理
@@ -32,20 +35,22 @@ public class UserAppListController {
 	private ITokenService tokenService;
 
 	@Autowired
-	private IUserContextService applicationContextService;
+	private IUserContextService userContextService;
 	
 	/**
 	 * 已授權軟體管理
 	 * @param model
 	 * @return
+	 * @throws IOException 
+	 * @throws MalformedURLException 
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) {
+	public String list(Model model) throws MalformedURLException, IOException {
 		
-		Person user = this.applicationContextService.getCurrentUser();
-		String userAccount = user.getAccount();
+		String username = this.userContextService.getCurrentUsername();
 		
-		List<AccessToken> tokenList = tokenService.findAll(userAccount);
+		List<AccessToken> tokenList = tokenService.findAll(username);
+		
 		model.addAttribute("tokenList", tokenList);
 		
 		return "user/token/list";
@@ -57,11 +62,13 @@ public class UserAppListController {
 	 * @param id
 	 * @param request
 	 * @return
+	 * @throws IOException 
+	 * @throws OAuthConnectionException 
 	 */
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
-	public String cancel(Model model, @RequestParam String tokenId) {
+	public String cancel(Model model, @RequestParam String tokenId) throws IOException, OAuthConnectionException {
 		
-		Person user = this.applicationContextService.getCurrentUser();
+		Person user = this.userContextService.getCurrentUser();
 		String userAccount = user.getAccount();
 		
 		Optional<AccessToken> appInfo = this.tokenService.findById(tokenId);

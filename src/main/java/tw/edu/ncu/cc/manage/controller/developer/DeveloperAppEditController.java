@@ -21,7 +21,7 @@ import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 /**
  * 開發者app編輯
- * @author Yeh-Yung
+ * @author yyc1217
  *
  */
 @Controller
