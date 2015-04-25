@@ -98,9 +98,10 @@ public class DeveloperAppEditController {
 	 * @return
 	 * @throws MalformedURLException
 	 * @throws IOException
+	 * @throws OAuthConnectionException 
 	 */
 	@RequestMapping("/delete")
-	public String delete(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
+	public String delete(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException, OAuthConnectionException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		Optional<IdApplication> application = this.appService.findById(id);
@@ -108,7 +109,7 @@ public class DeveloperAppEditController {
 			return "error/404";
 		}
 		
-		this.appService.remove(id);
+		this.appService.remove(application.get());
 
 		model.addAttribute("messageTitle", "刪除成功")
 	         .addAttribute("messageContent", "app刪除成功");
@@ -123,9 +124,10 @@ public class DeveloperAppEditController {
 	 * @return
 	 * @throws IOException 
 	 * @throws MalformedURLException 
+	 * @throws OAuthConnectionException 
 	 */
 	@RequestMapping("/secret")
-	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
+	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException, OAuthConnectionException {
 		
 		String username = userContextService.getCurrentUsername();
 		
