@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import tw.edu.ncu.cc.manage.dao.AbstractRestfulClientDao;
 import tw.edu.ncu.cc.manage.dao.IApplicationDao;
@@ -18,31 +19,37 @@ public class ApplicationDao extends AbstractRestfulClientDao<IdApplication> impl
 	
 	@Override
 	public List<IdApplication> findAll(String username) throws IOException {
-		return getList(SystemConstant.USER_SERVICE_URL + username + "/application");
+		Assert.hasText(username);
+		return getList(SystemConstant.OAUTH_USER_SERVICE_URL + username + "/application");
 	}
 
 	@Override
 	public Optional<IdApplication> findById(String applicationId) throws IOException {
-		return Optional.ofNullable(get(SystemConstant.SERVICE_URL + applicationId));
+		Assert.hasText(applicationId);
+		return Optional.ofNullable(get(SystemConstant.OAUTH_APPLICATION_SERVICE_URL + applicationId));
 	}
 
 	@Override
 	public Optional<IdApplication> update(IdApplication application) throws IOException, OAuthConnectionException {
-		return Optional.ofNullable(put(SystemConstant.SERVICE_URL + application.getId(), application));
+		Assert.notNull(application);
+		return Optional.ofNullable(put(SystemConstant.OAUTH_APPLICATION_SERVICE_URL + application.getId(), application));
 	}
 
 	@Override
 	public Optional<IdApplication> create(Application application) throws IOException, OAuthConnectionException {
-		return Optional.ofNullable(post(SystemConstant.SERVICE_URL, application));
+		Assert.notNull(application);
+		return Optional.ofNullable(post(SystemConstant.OAUTH_APPLICATION_SERVICE_URL, application));
 	}
 
 	@Override
 	public void remove(IdApplication application) throws IOException, OAuthConnectionException {
-		delete(SystemConstant.SERVICE_URL + application.getId());
+		Assert.notNull(application);
+		delete(SystemConstant.OAUTH_APPLICATION_SERVICE_URL + application.getId());
 	}
 
 	@Override
 	public Optional<IdApplication> refreshSecret(String applicationId) throws IOException, OAuthConnectionException {
-		return Optional.ofNullable(post(SystemConstant.SERVICE_URL + applicationId + "/secret/"));
+		Assert.hasText(applicationId);
+		return Optional.ofNullable(post(SystemConstant.OAUTH_APPLICATION_SERVICE_URL + applicationId + "/secret/"));
 	}
 }

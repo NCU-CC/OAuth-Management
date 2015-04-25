@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import tw.edu.ncu.cc.manage.dao.AbstractHibernateDao;
 import tw.edu.ncu.cc.manage.dao.IPersonDao;
@@ -18,6 +19,7 @@ public class PersonDao extends AbstractHibernateDao implements IPersonDao {
 	
 	@Override
 	public Optional<Person> findByAccount(String account) {
+		Assert.hasText(account);
 		Person person = (Person) getSession().createQuery("from Person as p where p.account = :account and deleted=false")
 		.setParameter("account", account.trim()).uniqueResult();
 		return Optional.ofNullable(person);
@@ -30,7 +32,8 @@ public class PersonDao extends AbstractHibernateDao implements IPersonDao {
 
 	@Override
 	public Person createUserOnOAuthService(String username) throws IOException, OAuthConnectionException {
-		String response = RestfulClientUtils.post(SystemConstant.OAUTH_SERVICE_URL, new User(username));
+		Assert.hasText(username);
+		String response = RestfulClientUtils.post(SystemConstant.OAUTH_USER_SERVICE_URL, new User(username));
 		return RestfulClientUtils.convert(response, Person.class);
 	}
 	
