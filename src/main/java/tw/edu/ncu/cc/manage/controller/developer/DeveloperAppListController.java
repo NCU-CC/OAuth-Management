@@ -1,5 +1,6 @@
 package tw.edu.ncu.cc.manage.controller.developer;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,10 @@ public class DeveloperAppListController {
 	 * 開發者app清單首頁
 	 * @param model
 	 * @return
+	 * @throws IOException Remote OAuth service down.
 	 */
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model) throws IOException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		List<IdApplication> applicationList = this.applicationService.findAll(username);
