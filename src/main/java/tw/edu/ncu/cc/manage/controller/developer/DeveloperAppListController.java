@@ -14,7 +14,7 @@ import tw.edu.ncu.cc.manage.service.IApplicationService;
 
 /**
  * 開發者的app清單
- * @author Yeh-Yung
+ * @author yyc1217
  *
  */
 @Controller

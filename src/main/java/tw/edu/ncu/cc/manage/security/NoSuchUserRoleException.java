@@ -7,7 +7,7 @@ import org.springframework.security.openid.OpenIDAuthenticationToken;
 
 /**
  * 使用者的角色不在被允許處理本系統的範圍內
- * @author Yeh-Yung
+ * @author yyc1217
  *
  */
 public class NoSuchUserRoleException extends AuthenticationException {

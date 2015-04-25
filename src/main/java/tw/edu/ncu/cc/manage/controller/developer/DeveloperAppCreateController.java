@@ -17,7 +17,7 @@ import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 /**
  * 開發者的app新增和更新secret
- * @author Yeh-Yung
+ * @author yyc1217
  *
  */
 @Controller
