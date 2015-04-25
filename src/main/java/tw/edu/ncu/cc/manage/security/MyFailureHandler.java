@@ -24,6 +24,7 @@ import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.enums.RoleEnum;
 import tw.edu.ncu.cc.manage.service.IPersonService;
+import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 @Component
 public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -33,6 +34,8 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	private static final String AFTER_AUTHENTICATE_URL = "/";
 	
 	private static final String NOT_AUTHORIZED_URL = "/error/401";
+	
+	private static final String INTERNAL_SERVER_ERROR = "/error/500";
 	
 	@Autowired
 	private IPersonService personService;
@@ -49,9 +52,15 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		
 		if (openIdAuthenticationSuccesfullButUserIsNotRegistered(exception)) {
 			logger.info("Openid authentication succesfull but user is not registered.");
-			Person person = createUserInfo(request, response);
-			addUsernameToSession(person);
-	        getRedirectStrategy().sendRedirect(request, response, AFTER_AUTHENTICATE_URL);
+			Person person;
+			try {
+				person = createUserInfo(request, response);
+				addUsernameToSession(person);
+		        getRedirectStrategy().sendRedirect(request, response, AFTER_AUTHENTICATE_URL);
+			} catch (OAuthConnectionException e) {
+				getRedirectStrategy().sendRedirect(request, response, INTERNAL_SERVER_ERROR);
+				e.printStackTrace();
+			}
 	        return;
 		} else {
 			logger.info("Either openid authentication fail or other type exception happened.", exception);
@@ -74,7 +83,7 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	}
 	
     @SuppressWarnings("unchecked")
-	private Person createUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private Person createUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, OAuthConnectionException {
         
     	OpenIDAuthenticationToken token = openIdAuthenticationToken();
     	String account = ((String)token.getPrincipal()).substring(SecurityConfig.AX_NAME_ROLE.length());
