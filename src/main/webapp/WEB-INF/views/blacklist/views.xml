@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition extends="defaultTemplate" name="blacklist/list">
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/list.jsp" />
+    </definition>
+ 
+    <definition extends="defaultTemplate" name="blacklist/create">
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/detail.jsp" />
+    </definition>
+    
+    <definition extends="defaultTemplate" name="blacklist/edit">
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/detail.jsp" />
+    </definition> 
+  
+</tiles-definitions>
