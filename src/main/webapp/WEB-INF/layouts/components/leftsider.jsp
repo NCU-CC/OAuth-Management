@@ -39,7 +39,7 @@
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-user"></i>
-                                <span>使用者管理</span>
+                                <span>使用者功能</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
@@ -49,14 +49,26 @@
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-laptop"></i>
-                                <span>開發者管理</span>
+                                <span>開發者功能</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> App開發管理</a></li>
+                                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> App管理</a></li>
                                 <li><a href="<c:url value="/developer/app/new"/>"><i class="fa fa-angle-double-right"></i> 註冊新App</a></li>                                 
                             </ul>
                         </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-unlock-alt"></i>
+                                <span>黑名單管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<c:url value="/blacklist"/>"><i class="fa fa-angle-double-right"></i>黑名單管理</a></li>                                 
+                            </ul>
+                        </li>
+
                     </ul>
                 </section>
                 <%-- /.sidebar --%>

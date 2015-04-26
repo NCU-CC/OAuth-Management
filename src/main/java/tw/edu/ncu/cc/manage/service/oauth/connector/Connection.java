@@ -19,6 +19,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 
+import tw.edu.ncu.cc.manage.dao.support.TrustAllX509TrustManager;
+
 public class Connection {
 	public static final String POST = "POST";
 	public static final String GET = "GET";

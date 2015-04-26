@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.dao;
+package tw.edu.ncu.cc.manage.dao.support;
 
 import java.util.Optional;
 
