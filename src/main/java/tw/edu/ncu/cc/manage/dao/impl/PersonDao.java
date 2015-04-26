@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import tw.edu.ncu.cc.manage.dao.AbstractHibernateDao;
 import tw.edu.ncu.cc.manage.dao.IPersonDao;
+import tw.edu.ncu.cc.manage.dao.support.AbstractHibernateDao;
 import tw.edu.ncu.cc.manage.entity.Person;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 import tw.edu.ncu.cc.manage.utils.RestfulClientUtils;
