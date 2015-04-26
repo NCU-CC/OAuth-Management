@@ -20,7 +20,7 @@ public class ApplicationDao extends AbstractRestfulClientDao<IdApplication> impl
 	@Override
 	public List<IdApplication> findAll(String username) throws IOException {
 		Assert.hasText(username);
-		return getList(SystemConstant.OAUTH_USER_SERVICE_URL + username + "/application");
+		return getList(SystemConstant.OAUTH_USER_SERVICE_URL + username + "/clients");
 	}
 
 	@Override
