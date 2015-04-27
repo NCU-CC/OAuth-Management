@@ -1,5 +1,6 @@
 package tw.edu.ncu.cc.manage.dao.support;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Optional;
 
 import org.hibernate.Session;
@@ -8,29 +9,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public abstract class AbstractHibernateDao {
+public abstract class AbstractHibernateDao<T> {
 	
 	@Autowired
     private SessionFactory sessionFactory;
  
+	private Class<T> clazz;
+	
+	@SuppressWarnings("unchecked")
+	public AbstractHibernateDao() {
+		 this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
 	
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
-	public Optional<Object> find(Class<?> clazz, int id) {
-		return Optional.ofNullable(getSession().get(clazz, id));
+	@SuppressWarnings("unchecked")
+	public Optional<T> find(int id) {
+		return (Optional<T>) Optional.ofNullable(getSession().get(clazz, id));
 	}
 
-	public void create(Object entity) {
+	public T create(T entity) {
 		this.getSession().persist(entity);
+		return entity;
 	}
 
-	public Optional<Object> save(Object entity) {
-		return Optional.ofNullable(this.getSession().save(entity));
+	@SuppressWarnings("unchecked")
+	public Optional<T> save(T entity) {
+		return (Optional<T>) Optional.ofNullable(this.getSession().save(entity));
 	}
 
-	public void delete(Object entity) {
+	public void delete(T entity) {
 		this.getSession().delete(entity);
 	}
 

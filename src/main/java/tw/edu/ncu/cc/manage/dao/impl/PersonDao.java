@@ -1,7 +1,6 @@
 package tw.edu.ncu.cc.manage.dao.impl;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -15,7 +14,7 @@ import tw.edu.ncu.cc.manage.utils.RestfulClientUtils;
 import tw.edu.ncu.cc.manage.utils.SystemConstant;
 
 @Repository
-public class PersonDao extends AbstractHibernateDao implements IPersonDao {
+public class PersonDao extends AbstractHibernateDao<Person> implements IPersonDao {
 	
 	@Override
 	public Optional<Person> findByAccount(String account) {
@@ -23,11 +22,6 @@ public class PersonDao extends AbstractHibernateDao implements IPersonDao {
 		Person person = (Person) getSession().createQuery("from Person as p where p.account = :account and deleted=false")
 		.setParameter("account", account.trim()).uniqueResult();
 		return Optional.ofNullable(person);
-	}
-
-	@Override
-	public Serializable create(Person person) {
-		return getSession().save(person);
 	}
 
 	@Override
