@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.edu.ncu.cc.manage.dao.IApplicationDao;
-import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
-import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
-import tw.edu.ncu.cc.manage.entity.oauth.application.SecretIdApplication;
+import tw.edu.ncu.cc.manage.entity.oauth.Application;
 import tw.edu.ncu.cc.manage.service.IApplicationService;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
@@ -30,32 +28,32 @@ public class ApplicationService implements IApplicationService {
 	}
 
 	@Override
-	public List<IdApplication> findAll(String username) throws IOException {
+	public List<Application> findAll(String username) throws IOException {
 		return this.applicationDao.findAll(username);
 	}
 
 	@Override
-	public Optional<IdApplication> findById(String applicationId) throws MalformedURLException, IOException {
+	public Optional<Application> findById(String applicationId) throws MalformedURLException, IOException {
 		return this.applicationDao.findById(applicationId);
 	}
 
 	@Override
-	public Optional<IdApplication> update(IdApplication application) throws OAuthConnectionException, IOException {
+	public Optional<Application> update(Application application) throws OAuthConnectionException, IOException {
 		return this.applicationDao.update(application);
 	}
 
-	public Optional<IdApplication> create(Application application) throws OAuthConnectionException, JsonParseException, JsonMappingException,
+	public Optional<Application> create(Application application) throws OAuthConnectionException, JsonParseException, JsonMappingException,
 			MalformedURLException, IOException {
 		return this.applicationDao.create(application);
 	}
 
-	public void remove(IdApplication application) throws IOException, OAuthConnectionException {
+	public void remove(Application application) throws IOException, OAuthConnectionException {
 		this.applicationDao.remove(application);
 	}
 
 	@Override
-	public Optional<SecretIdApplication> refreshSecret(String applicationId) throws MalformedURLException, IOException, OAuthConnectionException {
-		Optional<IdApplication> application = this.applicationDao.refreshSecret(applicationId);
-		return Optional.ofNullable((SecretIdApplication) application.get());
+	public Optional<Application> refreshSecret(String applicationId) throws MalformedURLException, IOException, OAuthConnectionException {
+		Optional<Application> application = this.applicationDao.refreshSecret(applicationId);
+		return Optional.ofNullable(application.get());
 	}
 }

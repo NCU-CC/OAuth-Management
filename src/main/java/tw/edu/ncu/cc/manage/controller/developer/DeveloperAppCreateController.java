@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tw.edu.ncu.cc.manage.entity.oauth.application.Application;
-import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
+import tw.edu.ncu.cc.manage.entity.oauth.Application;
 import tw.edu.ncu.cc.manage.service.IApplicationService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
@@ -52,7 +51,7 @@ public class DeveloperAppCreateController {
 		
 		application.setOwner(userContextService.getCurrentUsername());
 
-		Optional<IdApplication> appInfoId = this.appService.create(application);
+		Optional<Application> appInfoId = this.appService.create(application);
 		
 		if (!appInfoId.isPresent()) {
 			throw new Exception("Can\'t register new app.");

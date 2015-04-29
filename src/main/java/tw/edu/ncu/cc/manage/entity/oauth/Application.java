@@ -1,14 +1,32 @@
-package tw.edu.ncu.cc.manage.entity.oauth.application;
+package tw.edu.ncu.cc.manage.entity.oauth;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class Application {
 
+	private String id;
 	private String name;
 	private String description;
 	private String url;
 	private String callback;
 	private String owner;
+	private String secret;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
 
 	public String getName() {
 		return name;
@@ -54,4 +72,7 @@ public class Application {
 		return StringUtils.replaceEach(input, new String[] { "&", "\"", "<", ">" }, new String[] { "&amp;", "&quot;", "&lt;", "&gt;" });
 	}
 
+	public boolean isOwner(String username) {
+		return StringUtils.equals(username, this.owner);
+	}
 }
