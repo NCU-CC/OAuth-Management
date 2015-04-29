@@ -4,12 +4,12 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3>黑名單管理</h3>
-				<div class="box-tools">
+                <h3 class="box-title">黑名單管理</h3>
+                <div class="box-tools">
                     <div class="input-group">
                         <div class="input-group-btn">
-                            <a href="<c:url value='/blacklist/create'/>">
-                                <button class="btn btn-sm btn-default pull-right">
+                            <a href="<c:url value="/blacklist/create"/>"><button
+                                    class="btn btn-sm btn-default pull-right">
                                     <i class="fa fa-plus">新增黑名單</i>
                                 </button></a>
                         </div>

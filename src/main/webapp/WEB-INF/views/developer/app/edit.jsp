@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-<c:if test="${errorTitle not empty}">
+<c:if test="${not empty errorTitle}">
 	<div class="pad margin no-print">
 		<div class="alert alert-danger alert-dismissable"
 			style="margin-bottom: 0 !important;">
@@ -18,18 +19,19 @@
 	<%-- /.box-header --%>
 	<%-- form start --%>
 	<form:form role="form" action='edit' method='post'>
+	   <security:csrfInput/>
 		<div class="box-body">
 			<div class="form-group">
-				<label for="name">App名稱</label>
-				<input id=name type="text" class="form-control" name="name"	placeholder="輸入app的名稱" value="${application.name }">
+				<label for="name">應用服務名稱</label>
+				<input id=name type="text" class="form-control" name="name"	placeholder="輸入應用服務的名稱" value="${application.name }">
 			</div>
 			<div class="form-group">
-				<label for="url">App網站URL</label>
+				<label for="url">網站URL</label>
 				<input id=url type="text" class="form-control" name="url" placeholder="網站完整的網址(http, https)" value="${application.url}">
 			</div>
 			<div class="form-group">
-				<label for="description">App簡述</label> 
-				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的app" value="${application.description}">
+				<label for="description">應用服務簡述</label> 
+				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的應用服務" value="${application.description}">
 			</div>
 			<div class="form-group">
 				<label for="callback">授權 callback URL</label>
@@ -41,17 +43,16 @@
 		<%-- /.box-body --%>
 
 		<div class="box-footer">
-			<input type="hidden" name="id" value="${id}" />
-			<button type="submit" class="btn btn-success">更新App</button>
-			<a href="<c:url action='/developer/app/secret?id=${id}' />" 
-			   data-confirm="是否要更新secret？ 舊的secret將無法使用" 
-			   data-method="post"
-			   class="btn btn-warning">更新secret</a>
+			<button type="submit" class="btn btn-success">更新應用服務</button>
+            <a href="<c:url value='/developer/app/secret?id=${application.id}&=${_csrf.parameterName}=${_csrf.token}' />" 
+               data-confirm="是否要更新secret？ 舊的secret將無法使用" 
+               data-method="post"
+               class="btn btn-warning">更新secret</a>
             
-            <a href="<c:url action='/developer/app/delete?id=${id}' />"
+            <a href="<c:url value='/developer/app/delete?id=${application.id}&=${_csrf.parameterName}=${_csrf.token}' />"
 			   data-confirm="是否要刪除？" 
 			   data-method="post" 
-			   class="btn btn-danger">刪除App</a>
+			   class="btn btn-danger">刪除應用服務</a>
 		</div>
 	</form:form>
 	<%--</form>--%>
@@ -59,4 +60,4 @@
 <%-- /.box --%>
 
 <script src="<c:url value='/resources/js/rails.js'/>" type="text/javascript"></script>
-7<script src="<c:url value='/resources/js/data-confirm-modal.js'/>" type="text/javascript"></script>
+<script src="<c:url value='/resources/js/data-confirm-modal.js'/>" type="text/javascript"></script>

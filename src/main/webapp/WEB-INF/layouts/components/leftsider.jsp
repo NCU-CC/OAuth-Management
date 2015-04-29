@@ -11,7 +11,7 @@
                             <img src="<c:url value='/resources/img/avatar3.png'/>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, ${sessionScope._user.account}</p>
+                            <p>你好, ${sessionScope._user.account}</p>
                             <a><i class="fa fa-circle text-success"></i>Online</a>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                                 <i class="fa fa-home"></i> <span>首頁</span>
                             </a>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-book"></i>
                                 <span>使用說明</span>
@@ -36,7 +36,7 @@
                                 <li><a href="<c:url value="/tutorial/developer"/>" ><i class="fa fa-angle-double-right"></i> 程式開發者</a></li>                          
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-user"></i>
                                 <span>使用者功能</span>
@@ -46,19 +46,19 @@
                                 <li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i>已授權軟體管理</a></li>                               
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-laptop"></i>
                                 <span>開發者功能</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> App管理</a></li>
-                                <li><a href="<c:url value="/developer/app/new"/>"><i class="fa fa-angle-double-right"></i> 註冊新App</a></li>                                 
+                                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> 應用服務管理</a></li>
+                                <li><a href="<c:url value="/developer/app/create"/>"><i class="fa fa-angle-double-right"></i> 註冊新應用服務</a></li>                                 
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-unlock-alt"></i>
                                 <span>黑名單管理</span>
