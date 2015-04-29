@@ -6,8 +6,8 @@
 			<div class="box-header">
 				<h3 class="box-title">
 					<c:choose>
-						<c:when test="${not empty appList}">App列表</c:when>
-						<c:otherwise>您尚未註冊任何App</c:otherwise>
+						<c:when test="${not empty appList}">應用服務列表</c:when>
+						<c:otherwise>您尚未註冊任何應用服務</c:otherwise>
 					</c:choose>
 				</h3>
 				<div class="box-tools">
@@ -15,7 +15,7 @@
 						<div class="input-group-btn">
 							<a href="<c:url value="/developer/app/create"/>"><button
 									class="btn btn-sm btn-default pull-right">
-									<i class="fa fa-plus">註冊新APP</i>
+									<i class="fa fa-plus">註冊新應用服務</i>
 								</button></a>
 						</div>
 					</div>
@@ -38,8 +38,8 @@
 									<td>${app.id}</td>
 									<td>${app.name}</td>
 									<td><a href="${app.url}" target="_blank">${app.url}</a></td>
-									<td>${description}</td>
-									<td><a href="<c:url value="/developer/app/edit?id=${id}"/>"><span
+									<td>${app.description}</td>
+									<td><a href="<c:url value="/developer/app/edit?id=${app.id}"/>"><span
 											class="label label-primary">修改</span></a></td>
 								</tr>
 							</c:forEach>
@@ -49,7 +49,7 @@
 						<div class="col-xs-2"></div>
 						<div class="col-xs-8">
 							<a class="btn btn-block btn-social btn-foursquare"
-								href="<c:url value="/developer/app/create"/>"> <i class="fa fa-plus"></i>註冊新App
+								href="<c:url value="/developer/app/create"/>"> <i class="fa fa-plus"></i>註冊新應用服務
 							</a>
 						</div>
 					</c:otherwise>

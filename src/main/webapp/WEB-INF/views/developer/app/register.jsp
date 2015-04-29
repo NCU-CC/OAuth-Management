@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <c:if test="${not empty errorTitle}">
 	<div class="pad margin no-print">
@@ -20,18 +21,19 @@
 	<%-- /.box-header --%>
 	<%-- form start --%>
 	<form:form role="form" action='create' method='post'>
+	   <security:csrfInput/>
 		<div class="box-body">
 			<div class="form-group">
-				<label for="name">App名稱</label>
-				<input id=name type="text" class="form-control" name="name"	placeholder="輸入app的名稱">
+				<label for="name">應用服務名稱</label>
+				<input id=name type="text" class="form-control" name="name"	placeholder="輸入應用服務的名稱">
 			</div>
 			<div class="form-group">
-				<label for="url">App網站URL</label>
+				<label for="url">應用服務網站URL</label>
 				<input id=url type="text" class="form-control" name="url" placeholder="網站完整的網址(http, https)">
 			</div>
 			<div class="form-group">
-				<label for="description">App簡述</label> 
-				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的app">
+				<label for="description">應用服務簡述</label> 
+				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的應用服務">
 			</div>
 			<div class="form-group">
 				<label for="callback">授權 callback URL</label>

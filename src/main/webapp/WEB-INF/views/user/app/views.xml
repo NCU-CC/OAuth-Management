@@ -6,8 +6,8 @@
 <tiles-definitions>
 
     <definition extends="defaultTemplate" name="user/token/list">
-        <put-attribute name="primaryTitle" value="已授權之軟體"/>
-        <put-attribute name="secondaryTitle" value="下列App有權限存取您所授權的個人資料"/>
+        <put-attribute name="primaryTitle" value="已授權之應用服務"/>
+        <put-attribute name="secondaryTitle" value="下列應用服務有權限存取您所授權的個人資料"/>
         <put-attribute name="mainContent" value="/WEB-INF/views/user/app/tokenList.jsp" />
     </definition>    
 

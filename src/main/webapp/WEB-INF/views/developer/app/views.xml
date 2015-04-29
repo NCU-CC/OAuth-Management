@@ -6,20 +6,20 @@
 <tiles-definitions>
 
     <definition extends="defaultTemplate" name="developer/app/list">
-        <put-attribute name="primaryTitle" value="程式開發App"/>
-        <put-attribute name="secondaryTitle" value="下列是您已註冊去使用API的App"/>
+        <put-attribute name="primaryTitle" value="已註冊應用服務列表"/>
+        <put-attribute name="secondaryTitle" value="下列是您已註冊使用NCU API的應用服務"/>
         <put-attribute name="mainContent" value="/WEB-INF/views/developer/app/list.jsp" />
     </definition>    
 
 	<definition extends="defaultTemplate" name="developer/app/edit">
-        <put-attribute name="primaryTitle" value="修改App"/>
-        <put-attribute name="secondaryTitle" value="修改App內容"/>
+        <put-attribute name="primaryTitle" value="修改應用服務"/>
+        <put-attribute name="secondaryTitle" value="修改內容"/>
 		<put-attribute name="mainContent" value="/WEB-INF/views/developer/app/edit.jsp" />
 	</definition>
 
     <definition extends="defaultTemplate" name="developer/app/register">
-        <put-attribute name="primaryTitle" value="註冊App"/>
-        <put-attribute name="secondaryTitle" value="註冊App將可使用API"/>
+        <put-attribute name="primaryTitle" value="註冊應用服務"/>
+        <put-attribute name="secondaryTitle" value="註冊後將可使用NCU API"/>
         <put-attribute name="mainContent" value="/WEB-INF/views/developer/app/register.jsp" />
     </definition>
     
