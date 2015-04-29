@@ -19,7 +19,7 @@
 				<c:if test="${not empty tokenList}">
 					<table class="table table-hover">
 						<tr>
-							<th>App名稱</th>
+							<th>應用服務名稱</th>
 							<th>權限</th>
 							<th>簡介</th>
 							<th>功能</th>
