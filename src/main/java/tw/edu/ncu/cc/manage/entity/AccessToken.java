@@ -4,13 +4,14 @@ import java.util.Date;
 
 import org.springframework.util.StringUtils;
 
-import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
+import tw.edu.ncu.cc.manage.entity.oauth.Application;
+
 
 public class AccessToken {
 
 	private String id;
 	private String user;
-	private IdApplication application;
+	private Application application;
 	private String[] scope;
 	private Date last_updated;
 
@@ -30,11 +31,11 @@ public class AccessToken {
 		this.user = user;
 	}
 
-	public IdApplication getApplication() {
+	public Application getApplication() {
 		return application;
 	}
 
-	public void setApplication(IdApplication application) {
+	public void setApplication(Application application) {
 		this.application = application;
 	}
 

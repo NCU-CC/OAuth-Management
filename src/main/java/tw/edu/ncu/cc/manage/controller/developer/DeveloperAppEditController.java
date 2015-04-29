@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.edu.ncu.cc.manage.entity.oauth.application.IdApplication;
+import tw.edu.ncu.cc.manage.entity.oauth.Application;
 import tw.edu.ncu.cc.manage.service.IApplicationService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
@@ -47,15 +47,30 @@ public class DeveloperAppEditController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String getEdit(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
 		
+		/* TODO
 		String username = this.userContextService.getCurrentUsername();
-		Optional<IdApplication> application = this.appService.findById(id);
+		Optional<Application> application = this.appService.findById(id);
 		if (!isAuthorized(application, username)) {
 			return "error/404";
 		}
+		*/
 		
-		model.addAttribute("application", application);
+		Optional<Application> application = Optional.ofNullable(mockApplication());
+		
+		model.addAttribute("application", application.get());
 		
 		return "developer/app/edit";
+	}
+	
+	private Application mockApplication() {
+		Application app1 = new Application();
+		app1.setId("AABBCCDDEEDD1");
+		app1.setDescription("應用服務描述1");
+		app1.setCallback("https://www.example.com/auth/callback1");
+		app1.setName("應用服務1");
+		app1.setOwner("H367245-1");
+		app1.setUrl("https://www.example.com1");
+		return app1;
 	}
 
 	/**
@@ -68,10 +83,10 @@ public class DeveloperAppEditController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String postEdit(Model model, @ModelAttribute IdApplication editedApplication) throws OAuthConnectionException, MalformedURLException, IOException {
+	public String postEdit(Model model, @ModelAttribute Application editedApplication) throws OAuthConnectionException, MalformedURLException, IOException {
 		
 		String username = this.userContextService.getCurrentUsername();
-		Optional<IdApplication> oldApplication = this.appService.findById(editedApplication.getId());
+		Optional<Application> oldApplication = this.appService.findById(editedApplication.getId());
 		if (!isAuthorized(oldApplication, username)) {
 			return "error/404";
 		}
@@ -86,7 +101,7 @@ public class DeveloperAppEditController {
 		return "common/message";
 	}
 	
-	private void copySubmitValue(IdApplication from, IdApplication to) {
+	private void copySubmitValue(Application from, Application to) {
 		to.setId(from.getId());
 		to.setOwner(from.getOwner());
 	}
@@ -104,7 +119,7 @@ public class DeveloperAppEditController {
 	public String delete(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException, OAuthConnectionException {
 		
 		String username = this.userContextService.getCurrentUsername();
-		Optional<IdApplication> application = this.appService.findById(id);
+		Optional<Application> application = this.appService.findById(id);
 		if (!isAuthorized(application, username)) {
 			return "error/404";
 		}
@@ -131,7 +146,7 @@ public class DeveloperAppEditController {
 		
 		String username = userContextService.getCurrentUsername();
 		
-		Optional<IdApplication> appInfo = this.appService.findById(id);
+		Optional<Application> appInfo = this.appService.findById(id);
 		
 		if (!appInfo.isPresent()) {
 			logger.warn("Potential hacker, trying to refresh non exist app secret.");
@@ -157,13 +172,13 @@ public class DeveloperAppEditController {
 	 * @param username
 	 * @return
 	 */
-	private boolean isAuthorized(Optional<IdApplication> application, String username) {
+	protected boolean isAuthorized(Optional<Application> application, String username) {
 		if (!application.isPresent()) {
 			logger.warn("Potential hacker, trying to edit non exist app.");
 			return false;
 		}
 		
-		if (!this.appService.isAllowToAccess(application.get(), username)) {
+		if (!application.get().isOwner(username)) {
 			logger.warn("Potential hacker, trying to edit non-authorized app.");
 			return false;
 		}
