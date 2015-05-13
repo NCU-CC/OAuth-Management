@@ -54,7 +54,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> App管理</a></li>
-                                <li><a href="<c:url value="/developer/app/new"/>"><i class="fa fa-angle-double-right"></i> 註冊新App</a></li>                                 
+                                <li><a href="<c:url value="/developer/app/create"/>"><i class="fa fa-angle-double-right"></i> 註冊新App</a></li>                                 
                             </ul>
                         </li>
 
