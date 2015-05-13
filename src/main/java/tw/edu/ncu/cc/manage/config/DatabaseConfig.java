@@ -70,7 +70,7 @@ public class DatabaseConfig {
 		Properties properties = new Properties();
 
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServer2008Dialect");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
 		properties.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
@@ -79,9 +79,9 @@ public class DatabaseConfig {
 	}
 
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory s) {
+    public HibernateTransactionManager transactionManager() {
        HibernateTransactionManager txManager = new HibernateTransactionManager();
-       txManager.setSessionFactory(s);
+       txManager.setSessionFactory(sessionFactory().getObject());
        return txManager;
     }
 
