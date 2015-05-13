@@ -25,7 +25,7 @@
                                 <i class="fa fa-home"></i> <span>首頁</span>
                             </a>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-book"></i>
                                 <span>使用說明</span>
@@ -36,7 +36,7 @@
                                 <li><a href="<c:url value="/tutorial/developer"/>" ><i class="fa fa-angle-double-right"></i> 程式開發者</a></li>                          
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-user"></i>
                                 <span>使用者功能</span>
@@ -46,7 +46,7 @@
                                 <li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i>已授權軟體管理</a></li>                               
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-laptop"></i>
                                 <span>開發者功能</span>
@@ -58,7 +58,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-unlock-alt"></i>
                                 <span>黑名單管理</span>
