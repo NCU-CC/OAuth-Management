@@ -2,9 +2,12 @@ package tw.edu.ncu.cc.manage.controller.user;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.AccessToken;
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.entity.oauth.Application;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
@@ -47,15 +51,47 @@ public class UserAppListController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) throws MalformedURLException, IOException {
 		
+		/* TODO
 		String username = this.userContextService.getCurrentUsername();
-		
 		List<AccessToken> tokenList = tokenService.findAll(username);
+		*/
 		
+		List<AccessToken> tokenList = mockTokenList();
 		model.addAttribute("tokenList", tokenList);
 		
 		return "user/token/list";
 	}
 
+	private List<AccessToken> mockTokenList() {
+		
+		AccessToken token1 = new AccessToken();
+		token1.setLast_updated(new Timestamp(DateTime.now().getMillis()));
+		token1.setUser("FAKE USER1");
+		token1.setScope(new String[] {"FAKE_SCOPE11", "FAKE_SCOPE12"});
+		token1.setId("FAKE ID1");
+		token1.setApplication(mockApplication());
+		
+		AccessToken token2 = new AccessToken();
+		token2.setLast_updated(new Timestamp(DateTime.now().getMillis()));
+		token2.setUser("FAKE USER2");
+		token2.setScope(new String[] {"FAKE_SCOPE12", "FAKE_SCOPE22"});
+		token2.setId("FAKE ID2");
+		token2.setApplication(mockApplication());
+		
+		return Arrays.asList(token1, token2);
+	}
+	
+	private Application mockApplication() {
+		Application app1 = new Application();
+		app1.setId("AABBCCDDEEDD1");
+		app1.setDescription("應用服務描述1");
+		app1.setCallback("https://www.example.com/auth/callback1");
+		app1.setName("應用服務1");
+		app1.setOwner("H367245-1");
+		app1.setUrl("https://www.example.com1");
+		return app1;
+	}
+	
 	/**
 	 * 取消授權
 	 * @param model
