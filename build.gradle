@@ -58,5 +58,6 @@ dependencies {
 	// test
     compile 'org.springframework:spring-test:4.1.5.RELEASE'
     testCompile 'junit:junit:4.8.2'
+
     providedCompile 'javax.servlet:servlet-api:2.5'
 }

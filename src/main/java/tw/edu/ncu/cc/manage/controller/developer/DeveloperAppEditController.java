@@ -94,6 +94,7 @@ public class DeveloperAppEditController {
 		copySubmitValue(editedApplication, oldApplication.get());
 		
 		this.appService.update(editedApplication);
+
 		
 		model.addAttribute("messageTitle", "修改成功")
 		     .addAttribute("messageContent", "app修改成功");
@@ -146,16 +147,9 @@ public class DeveloperAppEditController {
 		
 		String username = userContextService.getCurrentUsername();
 		
-		Optional<Application> appInfo = this.appService.findById(id);
-		
-		if (!appInfo.isPresent()) {
-			logger.warn("Potential hacker, trying to refresh non exist app secret.");
+		Optional<Application> application = this.appService.findById(id);
+		if (!isAuthorized(application, username)) {
 			return "error/404";
-		}
-		
-		if (!appService.isAllowToAccess(appInfo.get(), username)) {
-			logger.warn("Potential hacker, trying to refresh non-authorized app secret.");
-			return "error/404";			
 		}
 		
 		this.appService.refreshSecret(id);
