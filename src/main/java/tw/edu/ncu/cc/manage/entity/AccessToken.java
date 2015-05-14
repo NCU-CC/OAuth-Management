@@ -1,6 +1,6 @@
 package tw.edu.ncu.cc.manage.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import org.springframework.util.StringUtils;
 
@@ -13,7 +13,7 @@ public class AccessToken {
 	private String user;
 	private Application application;
 	private String[] scope;
-	private Date last_updated;
+	private Timestamp last_updated;
 
 	public String getId() {
 		return id;
@@ -47,11 +47,11 @@ public class AccessToken {
 		this.scope = scope;
 	}
 
-	public Date getLast_updated() {
+	public Timestamp getLast_updated() {
 		return last_updated;
 	}
 
-	public void setLast_updated(Date last_updated) {
+	public void setLast_updated(Timestamp last_updated) {
 		this.last_updated = last_updated;
 	}
 

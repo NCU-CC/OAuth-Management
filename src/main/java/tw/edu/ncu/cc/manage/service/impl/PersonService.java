@@ -48,6 +48,5 @@ public class PersonService implements IPersonService {
 	public Person createUserOnOAuthService(String username) throws IOException, OAuthConnectionException {
     	logger.debug("Create user on OAuth-Service: " + username);
     	return personDao.createUserOnOAuthService(username);
-    	
 	}
 }
