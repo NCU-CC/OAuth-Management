@@ -3,7 +3,8 @@ package tw.edu.ncu.cc.manage.security;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,7 @@ import tw.edu.ncu.cc.manage.service.IPersonService;
 @Service
 public class MyUserDetailService implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
 
-	private static final Logger logger = Logger.getLogger(MyUserDetailService.class);
+	private static final Logger logger = LoggerFactory.getLogger(MyUserDetailService.class);
 	
 	@Autowired
 	private IPersonService personService;
@@ -33,17 +34,18 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	@Override
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException, NoSuchUserRoleException {
 		
+		logger.debug("OpenID token {}", token);
 		checkRoleAvailibility(token);
 		
 		String account = ((String) token.getPrincipal()).substring(SecurityConfig.PORTAL_ENDPOINT.length());
 		
 		Optional<Person> person = this.personService.findByAccount(account);
 		if (person.isPresent()) {
-			logger.debug("User already registed, ignore registration step.");
+			logger.debug("使用者已註冊，跳過此步驟");
 			return person.get();
 		}
 		
-		throw new UsernameNotFoundException("Username not found for " + account);
+		throw new OpenIDUserNotFoundException("找不到使用者帳號 " + account, token);
 	}
 
 	/**
@@ -55,6 +57,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		List<OpenIDAttribute> attributes = token.getAttributes();
 		for (OpenIDAttribute attribute : attributes) {
 			if (isRoleAttribute(attribute)) {
+				logger.debug("使用者 OpenID roles: {}", attribute);
 				if (noSuchRoles(attribute)) {
 					throw new NoSuchUserRoleException(token, PERMIT_ROLES);
 				}
