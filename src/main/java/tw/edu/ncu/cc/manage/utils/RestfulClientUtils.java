@@ -25,12 +25,12 @@ public class RestfulClientUtils {
 	}
 	
 	public static String get(String urlString) throws IOException {
-		logger.debug("GET url={}", urlString);
+		logger.debug("GET url {}", urlString);
 		return IOUtils.toString(new URL(urlString), "UTF-8");
 	}
 
 	public static String put(String urlString, Object parametersObject) throws IOException, OAuthConnectionException {
-		logger.debug("PUT url={}, parameters={}", urlString, parametersObject);
+		logger.debug("PUT url {}", urlString);
 		return connectUrl("PUT", urlString, parametersObject);
 	}
 
@@ -39,12 +39,12 @@ public class RestfulClientUtils {
 	}
 
 	public static String post(String urlString, Object parametersObject) throws IOException, OAuthConnectionException {
-		logger.debug("POST url={}, parameters={}", urlString, parametersObject);
+		logger.debug("POST url {}", urlString);
 		return connectUrl("POST", urlString, parametersObject);
 	}
 
 	public static void delete(String urlString) throws IOException, OAuthConnectionException {
-		logger.debug("DELETE url={}", urlString);
+		logger.debug("DELETE url {}", urlString);
 		connectUrl("DELETE", urlString, null);
 	}
 
@@ -59,6 +59,8 @@ public class RestfulClientUtils {
 		if (parametersObject != null) {
 			conn.setRequestProperty("Content-Type", "application/json");
 			String parametersString = objectMapper.writeValueAsString(parametersObject);
+			logger.debug("Parameters: {}", parametersString);
+			
 			IOUtils.copy(IOUtils.toInputStream(parametersString), conn.getOutputStream());
 		}
 
