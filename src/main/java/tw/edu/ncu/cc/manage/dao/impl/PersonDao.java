@@ -38,11 +38,11 @@ public class PersonDao extends AbstractHibernateDao<Person> implements IPersonDa
 			this.setName(name);
 		}
 
-		String getName() {
+		public String getName() {
 			return name;
 		}
 
-		void setName(String name) {
+		public void setName(String name) {
 			this.name = name;
 		}
 	}
