@@ -35,9 +35,9 @@ public abstract class AbstractHibernateDao<T> {
 		return entity;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Optional<T> save(T entity) {
-		return (Optional<T>) Optional.ofNullable(this.getSession().save(entity));
+		this.getSession().persist(entity);
+		return Optional.of(entity);
 	}
 
 	public void delete(T entity) {
