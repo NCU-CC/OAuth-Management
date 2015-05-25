@@ -30,7 +30,7 @@ public interface IPersonService {
 	 * @param person
 	 * @param ip
 	 */
-	void refresh(Person person, String ip);
+	void refreshLastIp(Person person, String ip);
 
 	/**
 	 * 新增使用者

@@ -21,7 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * NCU portal 接口
 	 */
-	public static final String PORTAL_ENDPOINT = "https://portal.ncu.edu.tw/user/";
+	public static final String PORTAL_ENDPOINT = "https://portal.ncu.edu.tw/.*";
+	
+	public static final String PORTAL_USER_ENDPOINT = "https://portal.ncu.edu.tw/user/";
 	
 	@Autowired
 	private MyUserDetailService myUserDetailsService;
@@ -43,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.defaultSuccessUrl("/", true) 							//登入成功後要去的頁面
 			
 			.attributeExchange(PORTAL_ENDPOINT)	// Openid認証的網址
-				.attribute("axNameRoles").type("http://axschema.org/user/roles").required(true).and()
+				.attribute(AX_NAME_ROLE).type("http://axschema.org/user/roles").required(true).and()
 				.and()
 			.and()
 			

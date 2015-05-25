@@ -1,7 +1,6 @@
 package tw.edu.ncu.cc.manage.service.impl;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -30,18 +29,16 @@ public class PersonService implements IPersonService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void create(Person person) {
-		if (!findByAccount(person.getAccount()).isPresent()) {
-			throw new RuntimeException("Account " + person.getAccount() + "has already existed");
-		}
 		this.personDao.create(person);
 	}
 
 	@Override
-	public void refresh(Person person, String ip) {
-		person.setDateLastActived(new Date());
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void refreshLastIp(Person person, String ip) {
 		person.setIpLastActived(ip);
+		this.personDao.save(person);
 	}
 
 	@Override
