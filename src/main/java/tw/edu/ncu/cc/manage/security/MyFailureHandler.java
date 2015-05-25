@@ -93,7 +93,7 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		
 		String account = StringUtils.substringAfterLast((String) token.getPrincipal(), "/");
 
-		//this.personService.createUserOnOAuthService(account);
+		this.personService.createUserOnOAuthService(account);
 		List<String> roles = grepRoles(token);
 		Person newPerson = createPerson(request, account, roles);
 		this.personService.create(newPerson);
@@ -102,10 +102,18 @@ public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
 	private List<String> grepRoles(OpenIDAuthenticationToken token) {
 		List<OpenIDAttribute> attributes = token.getAttributes();
+		
 		for (OpenIDAttribute attribute : attributes) {
+			
 			if (isRoleAttribute(attribute)) {
+				
 				logger.debug("使用者 OpenID roles: {}", attribute);
+				
 				String roles = attribute.getValues().get(0);
+				roles = StringUtils.remove(roles, "\"");
+				roles = StringUtils.remove(roles, "[");
+				roles = StringUtils.remove(roles, "]");
+				
 				return Lists.newArrayList(roles.split(","));
 			}
 		}

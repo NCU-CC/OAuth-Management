@@ -14,4 +14,6 @@ public interface IPersonDao {
 	Serializable create(Person person);
 
 	Person createUserOnOAuthService(String username) throws IOException, OAuthConnectionException;
+
+	Optional<Person> save(Person person);
 }

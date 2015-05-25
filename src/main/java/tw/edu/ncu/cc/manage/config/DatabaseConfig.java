@@ -2,7 +2,6 @@ package tw.edu.ncu.cc.manage.config;
 
 import java.util.Properties;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;

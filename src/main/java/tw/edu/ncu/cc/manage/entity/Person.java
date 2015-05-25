@@ -2,6 +2,7 @@ package tw.edu.ncu.cc.manage.entity;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import org.joda.time.DateTime;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -72,6 +74,15 @@ public class Person implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	public Person(String userName, List<String> roles) {
+		this.setAccount(userName);
+		this.setDateCreated(DateTime.now().toDate());
+		this.setDateLastActived(DateTime.now().toDate());
+		this.setDeleted(false);
+		this.setType(RoleEnum.matchOne(roles));
+	}
+	
+	
 	public String getAccount() {
 		return account;
 	}
