@@ -2,7 +2,6 @@ package tw.edu.ncu.cc.manage.controller.user;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.AccessToken;
-
 import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
-import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 /**
  * 使用者管理
@@ -47,7 +44,7 @@ public class UserAppListController {
 	 * @throws MalformedURLException 
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) throws MalformedURLException, IOException {
+	public String list(Model model) {
 				
 		String username = this.userContextService.getCurrentUsername();
 		List<AccessToken> tokenList = this.tokenService.findAll(username);
@@ -69,7 +66,7 @@ public class UserAppListController {
 	 */
 
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
-	public String revoke(Model model, @RequestParam String tokenId) throws IOException, OAuthConnectionException {
+	public String revoke(Model model, @RequestParam String tokenId) {
 		
 		User user = this.userContextService.getCurrentUser();
 		
