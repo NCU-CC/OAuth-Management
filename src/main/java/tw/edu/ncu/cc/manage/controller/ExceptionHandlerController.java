@@ -20,24 +20,24 @@ public class ExceptionHandlerController {
 	@ExceptionHandler(value = NoSuchUserRoleException.class)
 	public ModelAndView noSuchUserRoleError(Exception exception) {
 		logger.error(exception);
-		return new ModelAndView("message", "messageContent", "目前僅限於在校生、教職員工及校友可使用本系統。");
+		return new ModelAndView("common/message", "messageContent", "目前僅限於在校生、教職員工及校友可使用本系統。");
 	}
 
 	@ExceptionHandler(value = IOException.class)
 	public ModelAndView ioError(HttpServletRequest request, Exception exception) {
 		logger.error(exception);
-		return new ModelAndView("message", "messageContent", "系統存取錯誤。");
+		return new ModelAndView("common/message", "messageContent", "系統存取錯誤。");
 	}
 	
 	@ExceptionHandler(value = OAuthConnectionException.class)
 	public ModelAndView oAuthConnectionError(Exception exception) {
 		logger.error(exception);
-		return new ModelAndView("message", "messageContent", "NCU OAuth發生錯誤。");
+		return new ModelAndView("common/message", "messageContent", "NCU OAuth發生錯誤。");
 	}
 	
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView exception(Exception exception) {
 		logger.error(exception);
-		return new ModelAndView("message", "messageContent", "系統發生錯誤。");
+		return new ModelAndView("common/message", "messageContent", "系統發生錯誤。");
 	}
 }

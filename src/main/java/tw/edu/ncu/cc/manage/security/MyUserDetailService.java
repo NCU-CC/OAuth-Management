@@ -17,13 +17,15 @@ import org.springframework.security.openid.OpenIDAttribute;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
-import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.enums.RoleEnum;
-import tw.edu.ncu.cc.manage.service.IPersonService;
+import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
+import tw.edu.ncu.cc.manage.service.IUserService;
 
 import com.google.inject.internal.Lists;
 
@@ -33,10 +35,10 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	private static final Logger logger = LoggerFactory.getLogger(MyUserDetailService.class);
 
 	@Autowired
-	private IPersonService personService;
-
+	private IUserService userService;
+	
 	/**
-	 * 允許存取本系統的role
+	 * 可存取本系統的role
 	 */
 	private static final List<String> PERMIT_ROLES = RoleEnum.availableRoles();
 
@@ -44,34 +46,28 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException, NoSuchUserRoleException {
 
 		logger.debug("OpenID token {}", token);
-
+		logger.debug("使用者IP {}, User-Agent {} ", ip(), userAgent());
+		
 		if (!isAvailableRole(token)) {
+			logger.warn("使用者role不允許存取本系統, expected {}, received {} ", PERMIT_ROLES, roles(token));
 			throw new NoSuchUserRoleException(token, PERMIT_ROLES);
 		}
 
-		String account = StringUtils.substringAfterLast((String) token.getPrincipal(), "/");
+		String username = StringUtils.substringAfterLast((String) token.getPrincipal(), "/");
 
-		if (StringUtils.isEmpty(account)) {
-			throw new UsernameNotFoundException(token.toString());
+		if (StringUtils.isEmpty(username)) {
+			logger.warn("空白的使用者帳號");
+			throw new UsernameNotFoundException((String) token.getPrincipal());
 		}
+
+		User user = findOrCreateUserIfNotExist(username);
+
+		addUsernameToSession(user);
 		
-		Optional<Person> person = this.personService.findByAccount(account);
-		if (person.isPresent()) {
-			logger.debug("使用者已註冊，回傳已儲存資料");
-			this.personService.refreshLastIp(person.get(), ip());
-			return person.get();
-		}
-
-		logger.debug("使用者未註冊，產生新資料");
-
-		Person newPerson = new Person(account, roles(token));
-		newPerson.setIpCreated(ip());
-		newPerson.setIpLastActived(ip());
-		this.personService.create(newPerson);
-		// TODO publish new user event to oauth service
-		return newPerson;
+		return user;
 	}
-
+	
+	
 	/**
 	 * 使用者ip
 	 * @return
@@ -80,6 +76,16 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 	    HttpServletRequest req = sra.getRequest();
 	    return req.getRemoteAddr();
+	}
+	
+	/**
+	 * 使用者ip
+	 * @return
+	 */
+	private String userAgent() {
+		ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+	    HttpServletRequest req = sra.getRequest();
+	    return req.getHeader("User-Agent");
 	}
 	
 	/**
@@ -118,7 +124,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	}
 
 	/**
-	 * 這個attribute是屬性role
+	 * 這個attribute是role屬性
 	 * 
 	 * @param attribute
 	 * @return
@@ -127,4 +133,38 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		return SecurityConfig.AX_NAME_ROLE.equals(attribute.getName());
 	}
 
+	/**
+	 * 尋找使用者資訊，若不存在則新增
+	 * @param username
+	 * @return
+	 */
+	private User findOrCreateUserIfNotExist(String username) {
+		User user = null;
+		
+		try {
+			
+			Optional<User> result = this.userService.find(username);
+			if (result.isPresent()) {
+				
+				user = result.get();
+				logger.debug("使用者資訊已存在 {} ", user);
+				
+			} else {
+				
+				user = new User(username);
+				logger.debug("新增使用者資訊 {} ", user);
+				this.userService.create(user);
+				
+			}
+			
+		} catch (OAuthServiceUnavailableException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	
+	private void addUsernameToSession(User user) {
+		RequestContextHolder.getRequestAttributes().setAttribute("username", user.getName(), RequestAttributes.SCOPE_SESSION);
+	}
 }
