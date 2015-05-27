@@ -7,8 +7,8 @@ import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
 
 public interface IUserService {
 
-	Optional<User> find(String account) throws OAuthServiceUnavailableException;
+	Optional<User> find(String username) throws OAuthServiceUnavailableException;
 
-	Optional<User> create(User newUser) throws OAuthServiceUnavailableException;
+	User create(User user) throws OAuthServiceUnavailableException;
 
 }

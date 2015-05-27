@@ -8,14 +8,13 @@ import org.springframework.util.Assert;
 
 import tw.edu.ncu.cc.manage.dao.IApplicationDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
-import tw.edu.ncu.cc.manage.entity.oauth.Application;
+import tw.edu.ncu.cc.manage.entity.Application;
 
 @Repository
 public class ApplicationDao extends AbstractOAuthServiceDao<Application> implements IApplicationDao {
 	
 	@Override
 	public List<Application> findAll(String username) {
-		
 		Assert.hasText(username);
 		return getList(userUrl + username + "/clients");
 	}
@@ -23,19 +22,19 @@ public class ApplicationDao extends AbstractOAuthServiceDao<Application> impleme
 	@Override
 	public Optional<Application> findById(String applicationId){
 		Assert.hasText(applicationId);
-		return Optional.ofNullable(get(clientUrl + applicationId));
+		return get(clientUrl + applicationId);
 	}
 
 	@Override
-	public Optional<Application> update(Application application){
+	public Application update(Application application){
 		Assert.notNull(application);
-		return Optional.ofNullable(put(clientUrl + application.getId(), application));
+		return put(clientUrl + application.getId(), application);
 	}
 
 	@Override
-	public Optional<Application> create(Application application){
+	public Application create(Application application){
 		Assert.notNull(application);
-		return Optional.ofNullable(post(clientUrl, application));
+		return post(clientUrl, application);
 	}
 
 	@Override
