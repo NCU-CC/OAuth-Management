@@ -2,6 +2,7 @@ package tw.edu.ncu.cc.manage.controller.user;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.AccessToken;
+
 import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
@@ -49,8 +51,9 @@ public class UserAppListController {
 				
 		String username = this.userContextService.getCurrentUsername();
 		List<AccessToken> tokenList = this.tokenService.findAll(username);
-			
+		
 		model.addAttribute("tokenList", tokenList);
+		
 		return "user/token/list";
 	}
 
@@ -64,6 +67,7 @@ public class UserAppListController {
 	 * @throws IOException 
 	 * @throws OAuthConnectionException 
 	 */
+
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
 	public String revoke(Model model, @RequestParam String tokenId) throws IOException, OAuthConnectionException {
 		
