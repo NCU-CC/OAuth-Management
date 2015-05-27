@@ -23,8 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	public static final String PORTAL_ENDPOINT = "https://portal.ncu.edu.tw/.*";
 	
-	public static final String PORTAL_USER_ENDPOINT = "https://portal.ncu.edu.tw/user/";
-	
 	@Autowired
 	private MyUserDetailService myUserDetailsService;
 	

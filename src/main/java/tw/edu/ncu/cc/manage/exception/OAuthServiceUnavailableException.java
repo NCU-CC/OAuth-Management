@@ -7,11 +7,16 @@ import java.io.IOException;
  * @author yyc1217
  *
  */
-public class RemoteServiceUnavailableException extends IOException {
+public class OAuthServiceUnavailableException extends IOException {
 
 	private static final long serialVersionUID = 1L;
 
-	public RemoteServiceUnavailableException(String message) {
+	public OAuthServiceUnavailableException(String message) {
 		super(message);
 	}
+	
+	public OAuthServiceUnavailableException(Throwable e) {
+		super(e);
+	}
+	
 }
