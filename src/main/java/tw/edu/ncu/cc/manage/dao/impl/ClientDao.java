@@ -46,6 +46,6 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 	@Override
 	public Client refreshSecret(String clientId) {
 		Assert.hasText(clientId);
-		return post(clientUrl + clientId + "/secret/", null);
+		return post(clientUrl + clientId + "/refresh_secret");
 	}
 }

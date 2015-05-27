@@ -67,6 +67,10 @@ public class AbstractRestfulClientDao<T> {
 		return parametersObject;
 	}
 	
+	protected T post(String url) {
+		return post(url, null);
+	}
+	
 	protected T post(String url, T parametersObject) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("POST {} with params {}", url);
