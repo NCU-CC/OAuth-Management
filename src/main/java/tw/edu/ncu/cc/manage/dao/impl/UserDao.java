@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import tw.edu.ncu.cc.manage.dao.IUserDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
-import tw.edu.ncu.cc.manage.entity.User;
+import tw.edu.ncu.cc.manage.domain.User;
 
 @Repository
 public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {

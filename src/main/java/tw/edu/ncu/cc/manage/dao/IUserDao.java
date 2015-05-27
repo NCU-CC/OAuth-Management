@@ -2,7 +2,7 @@ package tw.edu.ncu.cc.manage.dao;
 
 import java.util.Optional;
 
-import tw.edu.ncu.cc.manage.entity.User;
+import tw.edu.ncu.cc.manage.domain.User;
 
 public interface IUserDao {
 

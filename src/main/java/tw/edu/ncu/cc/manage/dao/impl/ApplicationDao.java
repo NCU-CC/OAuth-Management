@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 
 import tw.edu.ncu.cc.manage.dao.IApplicationDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
-import tw.edu.ncu.cc.manage.entity.Application;
+import tw.edu.ncu.cc.manage.domain.Application;
 
 @Repository
 public class ApplicationDao extends AbstractOAuthServiceDao<Application> implements IApplicationDao {

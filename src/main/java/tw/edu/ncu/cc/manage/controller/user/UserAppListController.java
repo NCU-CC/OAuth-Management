@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.edu.ncu.cc.manage.entity.AccessToken;
-import tw.edu.ncu.cc.manage.entity.User;
+import tw.edu.ncu.cc.manage.domain.AccessToken;
+import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 

@@ -2,7 +2,7 @@ package tw.edu.ncu.cc.manage.service;
 
 import java.util.Optional;
 
-import tw.edu.ncu.cc.manage.entity.User;
+import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
 
 public interface IUserService {

@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 
 import tw.edu.ncu.cc.manage.dao.IAccessTokenDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
-import tw.edu.ncu.cc.manage.entity.AccessToken;
+import tw.edu.ncu.cc.manage.domain.AccessToken;
 
 @Repository
 public class AccessTokenDao extends AbstractOAuthServiceDao<AccessToken> implements IAccessTokenDao {
