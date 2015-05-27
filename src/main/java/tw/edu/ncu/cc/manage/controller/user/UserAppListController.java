@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.entity.AccessToken;
 import tw.edu.ncu.cc.manage.entity.Person;
+import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.entity.oauth.Application;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 import tw.edu.ncu.cc.manage.service.ITokenService;
@@ -51,12 +52,12 @@ public class UserAppListController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) throws MalformedURLException, IOException {
 		
-		/* TODO
+		
 		String username = this.userContextService.getCurrentUsername();
 		List<AccessToken> tokenList = tokenService.findAll(username);
-		*/
 		
-		List<AccessToken> tokenList = mockTokenList();
+		
+		//List<AccessToken> tokenList = mockTokenList();
 		model.addAttribute("tokenList", tokenList);
 		
 		return "user/token/list";
@@ -104,18 +105,17 @@ public class UserAppListController {
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public String cancel(Model model, @RequestParam String tokenId) throws IOException, OAuthConnectionException {
 		
-		Person user = this.userContextService.getCurrentUser();
-		String userAccount = user.getAccount();
+		User user = this.userContextService.getCurrentUser();
 		
 		Optional<AccessToken> appInfo = this.tokenService.findById(tokenId);
 		
 		if (noSuchApp(appInfo)) {
-			logger.warn("Protential hacker, trying to access nonexist app. User {}, tokenId {} .", user, tokenId);
+			logger.warn("有可能是惡意行為，嘗試處理不存在且未註冊的app；User {}, tokenId {} .", user, tokenId);
 			return "error/404";
 		}
 		
-		if (!hasPermission(appInfo, userAccount)) {
-			logger.warn("Protential hacker, trying to access non-authorized app. User {}, tokenId {} .", user, tokenId);
+		if (!hasPermission(appInfo, user.getName())) {
+			logger.warn("有可能是惡意行為，嘗試操作不屬於自己的app；User {}, tokenId {} .", user, tokenId);
 			return "error/404";
 		}
 		
