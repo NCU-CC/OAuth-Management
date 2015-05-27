@@ -22,7 +22,7 @@
 	    <ul class="sidebar-menu">
 	        <li>
 	            <a href="<c:url value="/"/>">
-	                <i class="fa fa-home"></i> <span>首頁</span>
+	                <i class="fa fa-home"></i><span>首頁</span>
 	            </a>
 	        </li>
 	        <li class="treeview active">
@@ -43,7 +43,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-	                <li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i>已授權軟體管理</a></li>                               
+	                <li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i> 已授權軟體管理</a></li>                               
 	            </ul>
 	        </li>
 	        <li class="treeview active">
@@ -53,8 +53,8 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-	                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> App管理</a></li>
-	                <li><a href="<c:url value="/developer/app/create"/>"><i class="fa fa-angle-double-right"></i> 註冊新App</a></li>                                 
+	                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> 應用服務管理</a></li>
+	                <li><a href="<c:url value="/developer/app/create"/>"><i class="fa fa-angle-double-right"></i> 註冊新應用服務</a></li>                                 
 	            </ul>
 	        </li>
 	
@@ -65,7 +65,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-	                <li><a href="<c:url value="/blacklist"/>"><i class="fa fa-angle-double-right"></i>黑名單管理</a></li>                                 
+	                <li><a href="<c:url value="/blacklist"/>"><i class="fa fa-angle-double-right"></i> 黑名單管理</a></li>                                 
 	            </ul>
 	        </li>
 	

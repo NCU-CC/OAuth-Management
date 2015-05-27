@@ -4,14 +4,10 @@ import java.sql.Timestamp;
 
 import org.springframework.util.StringUtils;
 
-import tw.edu.ncu.cc.manage.entity.oauth.Application;
-
-
 public class AccessToken {
 
 	private String id;
 	private String user;
-	private Application application;
 	private String[] scope;
 	private Timestamp last_updated;
 
@@ -29,14 +25,6 @@ public class AccessToken {
 
 	public void setUser(String user) {
 		this.user = user;
-	}
-
-	public Application getApplication() {
-		return application;
-	}
-
-	public void setApplication(Application application) {
-		this.application = application;
 	}
 
 	public String[] getScope() {

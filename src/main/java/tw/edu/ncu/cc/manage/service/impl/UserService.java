@@ -1,14 +1,6 @@
 package tw.edu.ncu.cc.manage.service.impl;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +10,6 @@ import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import tw.edu.ncu.cc.manage.dao.support.TrustAllX509TrustManager;
 import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
 import tw.edu.ncu.cc.manage.service.IUserService;

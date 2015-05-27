@@ -29,8 +29,8 @@
 								<td>${token.application.name}</td>
 								<td>${token.scopeString}</td>
 								<td>${token.application.description}</td>
-								<td><a href="<c:url value="/user/app/cancel?id=${token.id}&=${_csrf.parameterName}=${_csrf.token}" />"
-									data-confirm="確定要取消此Token？ " data-method="post">
+								<td><a href="<c:url value="/user/app/revoke?id=${token.id}&=${_csrf.parameterName}=${_csrf.token}" />"
+									data-confirm="確定要取消此應用服務的授權？ " data-method="post">
 									   <span class="label label-danger">取消</span>
 									   </a>
 							     </td>
