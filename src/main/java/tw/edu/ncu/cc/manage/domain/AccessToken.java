@@ -10,7 +10,8 @@ public class AccessToken {
 	private String user;
 	private String[] scope;
 	private Timestamp last_updated;
-
+	private Client client;
+	
 	public String getId() {
 		return id;
 	}
@@ -45,5 +46,13 @@ public class AccessToken {
 
 	public String getScopeString() {
 		return StringUtils.arrayToDelimitedString(scope, " ");
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }

@@ -20,13 +20,13 @@ public class AccessTokenDao extends AbstractOAuthServiceDao<AccessToken> impleme
 	}
 
 	@Override
-	public Optional<AccessToken> findById(String tokenId) {
+	public Optional<AccessToken> find(String tokenId) {
 		Assert.hasText(tokenId);
 		return get(accessTokenUrl + tokenId);
 	}
 
 	@Override
-	public void remove(AccessToken token) {
+	public void revoke(AccessToken token) {
 		Assert.notNull(token);
 		Assert.hasText(token.getId());
 		delete(accessTokenUrl + token.getId());
