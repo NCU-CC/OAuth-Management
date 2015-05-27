@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import tw.edu.ncu.cc.manage.dao.IUserDao;
-import tw.edu.ncu.cc.manage.entity.User;
+import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.service.IUserService;
 
 @Service

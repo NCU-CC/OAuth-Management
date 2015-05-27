@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.entity;
+package tw.edu.ncu.cc.manage.domain;
 
 import java.util.Collection;
 
