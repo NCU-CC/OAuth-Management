@@ -1,14 +1,17 @@
 package tw.edu.ncu.cc.manage.service.impl;
 
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import tw.edu.ncu.cc.manage.dao.IUserDao;
 import tw.edu.ncu.cc.manage.entity.User;
 import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
 import tw.edu.ncu.cc.manage.service.IUserService;
@@ -19,13 +22,13 @@ public class UserService implements IUserService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-	private RestTemplate template = new RestTemplate();
+	@Autowired
+	private IUserDao userDao;
 
 	@Override
 	public Optional<User> find(String account) throws OAuthServiceUnavailableException {
 
 		Assert.hasText(account);
-
 		User user;
 		try {
 			user = template.getForObject(SystemConstant.OAUTH_USER_SERVICE_URL + account, User.class);
