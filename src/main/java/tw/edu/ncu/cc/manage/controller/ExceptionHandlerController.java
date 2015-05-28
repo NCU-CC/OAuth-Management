@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
-import tw.edu.ncu.cc.manage.security.NoSuchUserRoleException;
+import tw.edu.ncu.cc.manage.exception.NoSuchUserRoleException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {

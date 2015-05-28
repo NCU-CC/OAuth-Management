@@ -1,4 +1,4 @@
-package tw.edu.ncu.cc.manage.security;
+package tw.edu.ncu.cc.manage.exception;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.openid.OpenIDAuthenticationToken;

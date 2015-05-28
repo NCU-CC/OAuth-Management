@@ -12,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import tw.edu.ncu.cc.manage.exception.NoSuchUserRoleException;
+
 @Component
 public class MyFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 

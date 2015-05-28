@@ -24,6 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
 import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.enums.RoleEnum;
+import tw.edu.ncu.cc.manage.exception.NoSuchUserRoleException;
 import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
 import tw.edu.ncu.cc.manage.service.IUserService;
 
