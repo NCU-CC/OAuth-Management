@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.domain.AccessToken;
 import tw.edu.ncu.cc.manage.domain.User;
+import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
@@ -40,8 +42,6 @@ public class UserAppListController {
 	 * 已授權應用服務管理
 	 * @param model
 	 * @return
-	 * @throws IOException 
-	 * @throws MalformedURLException 
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
@@ -59,33 +59,31 @@ public class UserAppListController {
 	 * 取消授權
 	 * @param model
 	 * @param id
-	 * @param request
 	 * @return
-	 * @throws IOException 
-	 * @throws OAuthConnectionException 
+	 * @throws NotAuthorizedException 
 	 */
 
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
-	public String revoke(Model model, @RequestParam String tokenId) {
+	public String revoke(Model model, @RequestParam String tokenId) throws NotAuthorizedException {
 		
-		User user = this.userContextService.getCurrentUser();
+		String username = this.userContextService.getCurrentUsername();
 		
-		Optional<AccessToken> appInfo = this.tokenService.find(tokenId);
+		Optional<AccessToken> token = this.tokenService.find(tokenId);
 		
-		if (noSuchApp(appInfo)) {
-			logger.warn("有可能是惡意行為，嘗試處理不存在且未註冊的app；User {}, tokenId {} .", user, tokenId);
-			return "error/404";
+		if (noSuchApp(token)) {
+			String reason = String.format("嘗試處理不存在且未註冊的應用服務；username %s, tokenId %s .", username, tokenId);
+			throw new NotAuthorizedException(reason);
 		}
 		
-		if (!hasPermission(appInfo, user.getName())) {
-			logger.warn("有可能是惡意行為，嘗試操作不屬於自己的app；User {}, tokenId {} .", user, tokenId);
-			return "error/404";
+		if (!hasPermission(token, username)) {
+			String reason = String.format("嘗試操作不屬於自己的應用服務；username %s, tokenId %s .", username, tokenId);
+			throw new NotAuthorizedException(reason);
 		}
 		
-		this.tokenService.revoke(appInfo.get());
+		this.tokenService.revoke(token.get());
 		
 		model.addAttribute("messageTitlle", "刪除成功")
-		     .addAttribute("messageContent", "已成功刪除授權");
+		     .addAttribute("messageContent", "已成功取消授權");
 
 		return "common/message";
 	}
@@ -95,6 +93,6 @@ public class UserAppListController {
 	}
 	
 	private boolean hasPermission(Optional<AccessToken> token, String account) {
-		return tokenService.hasPermission(token.get(), account);
+		return StringUtils.equals(token.get().getUser(), account);
 	}
 }
