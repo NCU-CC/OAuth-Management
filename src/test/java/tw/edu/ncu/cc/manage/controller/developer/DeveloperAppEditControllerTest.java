@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
-import tw.edu.ncu.cc.manage.entity.oauth.Application;
+import tw.edu.ncu.cc.manage.domain.Client;
 
 
 public class DeveloperAppEditControllerTest {
@@ -24,10 +24,10 @@ public class DeveloperAppEditControllerTest {
 		
 		String username = "fakeowner";
 		
-		Application app = new Application();
-		app.setOwner(username);
+		Client client = new Client();
+		client.setOwner(username);
 		
-		Optional<Application> mockAppOptional = Optional.of(app); 
+		Optional<Client> mockAppOptional = Optional.of(client); 
 		assertTrue(controller.isAuthorized(mockAppOptional, username));
 	}
 

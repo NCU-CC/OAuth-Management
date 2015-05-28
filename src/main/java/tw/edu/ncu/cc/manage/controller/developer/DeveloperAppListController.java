@@ -8,11 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.google.inject.internal.Lists;
-
-import tw.edu.ncu.cc.manage.entity.oauth.Application;
+import tw.edu.ncu.cc.manage.domain.Client;
+import tw.edu.ncu.cc.manage.service.IClientService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
-import tw.edu.ncu.cc.manage.service.IApplicationService;
 
 /**
  * 開發者的app清單
@@ -24,7 +22,7 @@ import tw.edu.ncu.cc.manage.service.IApplicationService;
 public class DeveloperAppListController {
 	
 	@Autowired
-	private IApplicationService applicationService;
+	private IClientService clientService;
 
 	@Autowired
 	private IUserContextService userContextService;
@@ -38,36 +36,13 @@ public class DeveloperAppListController {
 	@RequestMapping("/list")
 	public String list(Model model) throws IOException {
 		
-		/* TODO
-		String username = this.userContextService.getCurrentUsername();
-		List<Application> applicationList = this.applicationService.findAll(username);
-		*/
-		 
-		List<Application> applicationList = mockApps();
 		
-		model.addAttribute("appList", applicationList);
+		String username = this.userContextService.getCurrentUsername();
+		List<Client> applicationList = this.clientService.findAll(username);
+		
+		 		model.addAttribute("appList", applicationList);
 		
 		return "developer/app/list";
 	}
 	
-	private List<Application> mockApps() {
-		
-		Application app1 = new Application();
-		app1.setId("AABBCCDDEEDD1");
-		app1.setDescription("應用服務描述1");
-		app1.setCallback("https://www.example.com/auth/callback1");
-		app1.setName("應用服務1");
-		app1.setOwner("H367245-1");
-		app1.setUrl("https://www.example.com1");
-		
-		Application app2 = new Application();
-		app2.setId("AABBCCDDEEDD2");
-		app2.setDescription("應用服務描述2");
-		app2.setCallback("https://www.example.com/auth/callback2");
-		app2.setName("應用服務2");
-		app2.setOwner("H367245-2");
-		app2.setUrl("https://www.example.com2");
-		
-		return Lists.newArrayList(app1, app2);
-	}
 }

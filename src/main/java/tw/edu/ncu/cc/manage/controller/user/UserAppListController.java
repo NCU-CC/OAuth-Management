@@ -70,7 +70,7 @@ public class UserAppListController {
 		
 		User user = this.userContextService.getCurrentUser();
 		
-		Optional<AccessToken> appInfo = this.tokenService.findById(tokenId);
+		Optional<AccessToken> appInfo = this.tokenService.find(tokenId);
 		
 		if (noSuchApp(appInfo)) {
 			logger.warn("有可能是惡意行為，嘗試處理不存在且未註冊的app；User {}, tokenId {} .", user, tokenId);
@@ -82,7 +82,7 @@ public class UserAppListController {
 			return "error/404";
 		}
 		
-		this.tokenService.remove(appInfo.get());
+		this.tokenService.revoke(appInfo.get());
 		
 		model.addAttribute("messageTitlle", "刪除成功")
 		     .addAttribute("messageContent", "已成功刪除授權");
