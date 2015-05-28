@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.edu.ncu.cc.manage.entity.oauth.Application;
-import tw.edu.ncu.cc.manage.service.IApplicationService;
+import tw.edu.ncu.cc.manage.domain.Client;
+import tw.edu.ncu.cc.manage.service.IClientService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
-import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
 
 /**
  * 開發者app編輯
@@ -31,7 +30,7 @@ public class DeveloperAppEditController {
 	private static final Logger logger = LoggerFactory.getLogger(DeveloperAppEditController.class);
 	
 	@Autowired
-	private IApplicationService appService;
+	private IClientService clientService;
 
 	@Autowired
 	private IUserContextService userContextService;
@@ -47,53 +46,38 @@ public class DeveloperAppEditController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String getEdit(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
 		
-		/* TODO
+
 		String username = this.userContextService.getCurrentUsername();
-		Optional<Application> application = this.appService.findById(id);
-		if (!isAuthorized(application, username)) {
+		Optional<Client> client = this.clientService.find(id);
+		if (!isAuthorized(client, username)) {
 			return "error/404";
 		}
-		*/
+
 		
-		Optional<Application> application = Optional.ofNullable(mockApplication());
-		
-		model.addAttribute("application", application.get());
+		model.addAttribute("client", client.get());
 		
 		return "developer/app/edit";
 	}
 	
-	private Application mockApplication() {
-		Application app1 = new Application();
-		app1.setId("AABBCCDDEEDD1");
-		app1.setDescription("應用服務描述1");
-		app1.setCallback("https://www.example.com/auth/callback1");
-		app1.setName("應用服務1");
-		app1.setOwner("H367245-1");
-		app1.setUrl("https://www.example.com1");
-		return app1;
-	}
 
 	/**
 	 * 按下「更新App」
 	 * @param model
-	 * @param editedApplication
+	 * @param editedClient
 	 * @return
-	 * @throws OAuthConnectionException
-	 * @throws MalformedURLException
-	 * @throws IOException
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String postEdit(Model model, @ModelAttribute Application editedApplication) throws OAuthConnectionException, MalformedURLException, IOException {
+	public String postEdit(Model model, @ModelAttribute Client editedClient) {
 		
 		String username = this.userContextService.getCurrentUsername();
-		Optional<Application> oldApplication = this.appService.findById(editedApplication.getId());
+		Optional<Client> oldApplication = this.clientService.find(editedClient.getId());
 		if (!isAuthorized(oldApplication, username)) {
 			return "error/404";
 		}
 
-		copySubmitValue(editedApplication, oldApplication.get());
+		copySubmitValue(editedClient, oldApplication.get());
 		
-		this.appService.update(editedApplication);
+		this.clientService.update(editedClient);
 
 		
 		model.addAttribute("messageTitle", "修改成功")
@@ -102,7 +86,7 @@ public class DeveloperAppEditController {
 		return "common/message";
 	}
 	
-	private void copySubmitValue(Application from, Application to) {
+	private void copySubmitValue(Client from, Client to) {
 		to.setId(from.getId());
 		to.setOwner(from.getOwner());
 	}
@@ -117,15 +101,15 @@ public class DeveloperAppEditController {
 	 * @throws OAuthConnectionException 
 	 */
 	@RequestMapping("/delete")
-	public String delete(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException, OAuthConnectionException {
+	public String delete(Model model, @RequestParam(value = "id", required = true) String id) {
 		
 		String username = this.userContextService.getCurrentUsername();
-		Optional<Application> application = this.appService.findById(id);
-		if (!isAuthorized(application, username)) {
+		Optional<Client> client = this.clientService.find(id);
+		if (!isAuthorized(client, username)) {
 			return "error/404";
 		}
 		
-		this.appService.remove(application.get());
+		this.clientService.remove(client.get());
 
 		model.addAttribute("messageTitle", "刪除成功")
 	         .addAttribute("messageContent", "app刪除成功");
@@ -143,16 +127,16 @@ public class DeveloperAppEditController {
 	 * @throws OAuthConnectionException 
 	 */
 	@RequestMapping("/secret")
-	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException, OAuthConnectionException {
+	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) {
 		
 		String username = userContextService.getCurrentUsername();
 		
-		Optional<Application> application = this.appService.findById(id);
-		if (!isAuthorized(application, username)) {
+		Optional<Client> client = this.clientService.find(id);
+		if (!isAuthorized(client, username)) {
 			return "error/404";
 		}
 		
-		this.appService.refreshSecret(id);
+		this.clientService.refreshSecret(id);
 		
 		model.addAttribute("messageTitle", "更新成功")
 	     	 .addAttribute("messageContent", "更新secret成功");
@@ -162,17 +146,17 @@ public class DeveloperAppEditController {
 	
 	/**
 	 * 是有權限處理的{@link IdApplication}
-	 * @param application
+	 * @param client
 	 * @param username
 	 * @return
 	 */
-	protected boolean isAuthorized(Optional<Application> application, String username) {
-		if (!application.isPresent()) {
+	protected boolean isAuthorized(Optional<Client> client, String username) {
+		if (!client.isPresent()) {
 			logger.warn("Potential hacker, trying to edit non exist app.");
 			return false;
 		}
 		
-		if (!application.get().isOwner(username)) {
+		if (!client.get().isOwned(username)) {
 			logger.warn("Potential hacker, trying to edit non-authorized app.");
 			return false;
 		}

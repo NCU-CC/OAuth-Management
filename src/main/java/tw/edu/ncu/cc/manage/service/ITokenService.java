@@ -1,20 +1,17 @@
 package tw.edu.ncu.cc.manage.service;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 
-import tw.edu.ncu.cc.manage.entity.AccessToken;
-import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
+import tw.edu.ncu.cc.manage.domain.AccessToken;
 
 public interface ITokenService {
 
-	List<AccessToken> findAll(String account) throws MalformedURLException, IOException;
+	List<AccessToken> findAll(String account);
+	
+	Optional<AccessToken> find(String id) ;
 
-	Optional<AccessToken> findById(String id) throws IOException;
-
-	void remove(AccessToken app) throws IOException, OAuthConnectionException;
+	void revoke(AccessToken app);
 
 	boolean hasPermission(AccessToken app, String userid);
 }
