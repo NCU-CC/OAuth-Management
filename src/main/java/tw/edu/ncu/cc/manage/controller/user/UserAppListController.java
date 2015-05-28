@@ -1,7 +1,5 @@
 package tw.edu.ncu.cc.manage.controller.user;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.domain.AccessToken;
-import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;

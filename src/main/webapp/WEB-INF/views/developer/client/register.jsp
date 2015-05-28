@@ -38,7 +38,7 @@
 			<div class="form-group">
 				<label for="callback">授權 callback URL</label>
 				<input id=callback type="text" class="form-control" name="callback"	placeholder="OAuth callback url">
-				<p class="help-block">Your application's callback URL. Read our	OAuth documentation for more information</p>
+				<p class="help-block">應用服務的callback URL，用以在認證成功後要導向的位址。<a href="https://github.com/NCU-CC/API-Documentation">瞭解更多</a></p>
 			</div>
 		</div>
 		<%-- /.box-body --%>

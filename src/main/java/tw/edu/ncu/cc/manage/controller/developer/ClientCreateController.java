@@ -17,8 +17,8 @@ import tw.edu.ncu.cc.manage.service.IUserContextService;
  *
  */
 @Controller
-@RequestMapping("/developer/app")
-public class DeveloperAppCreateController {
+@RequestMapping("/developer/client")
+public class ClientCreateController {
 	
 	@Autowired
 	private IClientService clientService;
@@ -32,7 +32,7 @@ public class DeveloperAppCreateController {
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String index() {
-		return "developer/app/register";
+		return "developer/client/register";
 	}
 
 	/**
@@ -40,8 +40,6 @@ public class DeveloperAppCreateController {
 	 * @param model
 	 * @param application
 	 * @return
-	 * @throws OAuthConnectionException OAuth Service 發生錯誤
-	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String create(Model model, @ModelAttribute Client client) {
@@ -50,6 +48,6 @@ public class DeveloperAppCreateController {
 
 		this.clientService.create(client);
 		
-		return "developer/app/register";
+		return "redirect:../client/list";
 	}
 }
