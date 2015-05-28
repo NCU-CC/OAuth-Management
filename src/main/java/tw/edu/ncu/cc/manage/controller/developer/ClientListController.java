@@ -13,13 +13,13 @@ import tw.edu.ncu.cc.manage.service.IClientService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
 /**
- * 開發者的app清單
+ * 開發者的client清單
  * @author yyc1217
  *
  */
 @Controller
-@RequestMapping("/developer/app")
-public class DeveloperAppListController {
+@RequestMapping("/developer/client")
+public class ClientListController {
 	
 	@Autowired
 	private IClientService clientService;
@@ -28,21 +28,20 @@ public class DeveloperAppListController {
 	private IUserContextService userContextService;
 	
 	/**
-	 * 開發者app清單首頁
+	 * 開發者client清單首頁
 	 * @param model
 	 * @return
 	 * @throws IOException Remote OAuth service down.
 	 */
 	@RequestMapping("/list")
-	public String list(Model model) throws IOException {
-		
+	public String list(Model model) {
 		
 		String username = this.userContextService.getCurrentUsername();
-		List<Client> applicationList = this.clientService.findAll(username);
+		List<Client> clientList = this.clientService.findAll(username);
 		
-		 		model.addAttribute("appList", applicationList);
+		model.addAttribute("clientList", clientList);
 		
-		return "developer/app/list";
+		return "developer/client/list";
 	}
 	
 }

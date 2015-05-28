@@ -27,23 +27,13 @@
 	        </li>
 	        <li class="treeview active">
 	            <a href="#">
-	                <i class="fa fa-book"></i>
-	                <span>使用說明</span>
-	                <i class="fa fa-angle-left pull-right"></i>
-	            </a>
-	            <ul class="treeview-menu">
-	                <li><a href="<c:url value="/tutorial/user"/>" ><i class="fa fa-angle-double-right"></i> 一般使用者</a></li>         
-	                <li><a href="<c:url value="/tutorial/developer"/>" ><i class="fa fa-angle-double-right"></i> 程式開發者</a></li>                          
-	            </ul>
-	        </li>
-	        <li class="treeview active">
-	            <a href="#">
 	                <i class="fa fa-user"></i>
 	                <span>使用者功能</span>
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-	                <li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i> 已授權軟體管理</a></li>                               
+	            	<li><a href="<c:url value="/tutorial/user"/>" ><i class="fa fa-angle-double-right"></i>使用說明</a></li>
+	                <li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i>已授權軟體管理</a></li>                               
 	            </ul>
 	        </li>
 	        <li class="treeview active">
@@ -53,8 +43,8 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-	                <li><a href="<c:url value="/developer/app/list"/>"><i class="fa fa-angle-double-right"></i> 應用服務管理</a></li>
-	                <li><a href="<c:url value="/developer/app/create"/>"><i class="fa fa-angle-double-right"></i> 註冊新應用服務</a></li>                                 
+					<li><a href="<c:url value="/tutorial/developer"/>" ><i class="fa fa-angle-double-right"></i>使用說明</a></li>
+	                <li><a href="<c:url value="/developer/client/list"/>"><i class="fa fa-angle-double-right"></i>應用服務管理</a></li>
 	            </ul>
 	        </li>
 	

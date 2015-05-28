@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.domain;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Client {
 
@@ -74,8 +75,12 @@ public class Client {
 		this.owner = owner;
 	}
 
-	public boolean isOwned(String name) {
-		return StringUtils.equals(this.name, name);
+	public boolean isOwned(String username) {
+		return StringUtils.equals(this.owner, username);
 	}
 
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}	
 }

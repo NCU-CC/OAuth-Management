@@ -1,7 +1,5 @@
 package tw.edu.ncu.cc.manage.controller.developer;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.domain.Client;
+import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 import tw.edu.ncu.cc.manage.service.IClientService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
@@ -24,10 +23,10 @@ import tw.edu.ncu.cc.manage.service.IUserContextService;
  *
  */
 @Controller
-@RequestMapping("/developer/app")
-public class DeveloperAppEditController {
+@RequestMapping("/developer/client")
+public class ClientEditController {
 
-	private static final Logger logger = LoggerFactory.getLogger(DeveloperAppEditController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClientEditController.class);
 	
 	@Autowired
 	private IClientService clientService;
@@ -36,85 +35,71 @@ public class DeveloperAppEditController {
 	private IUserContextService userContextService;
 	
 	/**
-	 * app編輯首頁
+	 * 應用服務編輯首頁
 	 * @param model
 	 * @param id
 	 * @return
-	 * @throws IOException 
-	 * @throws MalformedURLException 
+	 * @throws NotAuthorizedException 
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String getEdit(Model model, @RequestParam(value = "id", required = true) String id) throws MalformedURLException, IOException {
+	public String getEdit(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
-
 		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> client = this.clientService.find(id);
 		if (!isAuthorized(client, username)) {
-			return "error/404";
+			throw new NotAuthorizedException("未經允許的操作");
 		}
-
 		
 		model.addAttribute("client", client.get());
 		
-		return "developer/app/edit";
+		return "developer/client/edit";
 	}
 	
 
 	/**
-	 * 按下「更新App」
+	 * 在修改頁面按下「更新」
 	 * @param model
 	 * @param editedClient
 	 * @return
+	 * @throws NotAuthorizedException 
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String postEdit(Model model, @ModelAttribute Client editedClient) {
+	public String postEdit(@ModelAttribute Client editedClient) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
-		Optional<Client> oldApplication = this.clientService.find(editedClient.getId());
-		if (!isAuthorized(oldApplication, username)) {
-			return "error/404";
+		Optional<Client> oldClient = this.clientService.find(editedClient.getId());
+		if (!isAuthorized(oldClient, username)) {
+			throw new NotAuthorizedException("未經允許的操作");
 		}
 
-		copySubmitValue(editedClient, oldApplication.get());
+		editedClient.setId(oldClient.get().getId());
+		editedClient.setOwner(username);
 		
 		this.clientService.update(editedClient);
 
-		
-		model.addAttribute("messageTitle", "修改成功")
-		     .addAttribute("messageContent", "app修改成功");
-		
-		return "common/message";
+		return "redirect:../client/list";
 	}
-	
-	private void copySubmitValue(Client from, Client to) {
-		to.setId(from.getId());
-		to.setOwner(from.getOwner());
-	}
+
 	
 	/**
 	 * 按下「刪除App」
 	 * @param model
 	 * @param id
 	 * @return
-	 * @throws MalformedURLException
-	 * @throws IOException
-	 * @throws OAuthConnectionException 
+	 * @throws NotAuthorizedException 
 	 */
-	@RequestMapping("/delete")
-	public String delete(Model model, @RequestParam(value = "id", required = true) String id) {
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String delete(@RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> client = this.clientService.find(id);
 		if (!isAuthorized(client, username)) {
-			return "error/404";
+			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
 		this.clientService.remove(client.get());
 
-		model.addAttribute("messageTitle", "刪除成功")
-	         .addAttribute("messageContent", "app刪除成功");
-		
-		return "common/message";
+		return "redirect:../client/list";
 	}
 	
 	/**
@@ -122,18 +107,16 @@ public class DeveloperAppEditController {
 	 * @param model
 	 * @param id
 	 * @return
-	 * @throws IOException 
-	 * @throws MalformedURLException 
-	 * @throws OAuthConnectionException 
+	 * @throws NotAuthorizedException 
 	 */
-	@RequestMapping("/secret")
-	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) {
+	@RequestMapping(value = "/secret", method = RequestMethod.GET)
+	public String refreshSecret(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = userContextService.getCurrentUsername();
 		
 		Optional<Client> client = this.clientService.find(id);
 		if (!isAuthorized(client, username)) {
-			return "error/404";
+			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
 		this.clientService.refreshSecret(id);
@@ -145,19 +128,19 @@ public class DeveloperAppEditController {
 	}
 	
 	/**
-	 * 是有權限處理的{@link IdApplication}
+	 * 有權限處理{@link Client}
 	 * @param client
 	 * @param username
 	 * @return
 	 */
 	protected boolean isAuthorized(Optional<Client> client, String username) {
 		if (!client.isPresent()) {
-			logger.warn("Potential hacker, trying to edit non exist app.");
+			logger.warn("嘗試操作不存在的" + Client.class.getSimpleName());
 			return false;
 		}
 		
 		if (!client.get().isOwned(username)) {
-			logger.warn("Potential hacker, trying to edit non-authorized app.");
+			logger.warn("嘗試操作不屬於自己的" + Client.class.getSimpleName());
 			return false;
 		}
 		return true;
