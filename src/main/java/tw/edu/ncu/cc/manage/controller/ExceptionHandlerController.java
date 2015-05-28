@@ -11,6 +11,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.exception.NoSuchUserRoleException;
+import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -35,6 +36,12 @@ public class ExceptionHandlerController {
 		return new ModelAndView("common/message", "messageContent", "OAuth Service存取發生錯誤");
 	}
 
+	@ExceptionHandler(value = NotAuthorizedException.class)
+	public ModelAndView notAuthorizedException(Exception exception) {
+		logger.error(exception);
+		return new ModelAndView("common/message", "messageContent", "系統存取錯誤");
+	}
+	
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView exception(Exception exception) {
 		logger.error(exception);

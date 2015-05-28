@@ -148,7 +148,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 			if (result.isPresent()) {
 				
 				user = result.get();
-				logger.debug("使用者資訊已存在 {} ", user);
+				logger.debug("使用者資訊 {} ", user);
 				
 			} else {
 				

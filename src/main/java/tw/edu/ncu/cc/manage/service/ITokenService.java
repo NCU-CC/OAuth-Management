@@ -12,6 +12,4 @@ public interface ITokenService {
 	Optional<AccessToken> find(String id) ;
 
 	void revoke(AccessToken app);
-
-	boolean hasPermission(AccessToken app, String userid);
 }

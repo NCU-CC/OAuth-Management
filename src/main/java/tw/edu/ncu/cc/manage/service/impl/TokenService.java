@@ -30,9 +30,4 @@ public class TokenService implements ITokenService {
 	public void revoke(AccessToken token) {
 		this.tokenDao.revoke(token);
 	}
-	
-	@Override
-	public boolean hasPermission(AccessToken app, String userid) {
-		return app.getUser().equals(userid);
-	}
 }
