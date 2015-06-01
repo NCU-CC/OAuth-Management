@@ -24,9 +24,9 @@ import tw.edu.ncu.cc.manage.service.IUserContextService;
  */
 @Controller
 @RequestMapping("/developer/client")
-public class ClientEditController {
+public class ClientDetailController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ClientEditController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClientDetailController.class);
 	
 	@Autowired
 	private IClientService clientService;
@@ -35,14 +35,14 @@ public class ClientEditController {
 	private IUserContextService userContextService;
 	
 	/**
-	 * 應用服務編輯首頁
+	 * 應用服務詳細首頁
 	 * @param model
 	 * @param id
 	 * @return
 	 * @throws NotAuthorizedException 
 	 */
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String getEdit(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String getDetail(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> client = this.clientService.find(id);
@@ -52,19 +52,19 @@ public class ClientEditController {
 		
 		model.addAttribute("client", client.get());
 		
-		return "developer/client/edit";
+		return "developer/client/detail";
 	}
 	
 
 	/**
-	 * 在修改頁面按下「更新」
+	 * 在詳細頁面按下「更新」
 	 * @param model
 	 * @param editedClient
 	 * @return
 	 * @throws NotAuthorizedException 
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String postEdit(@ModelAttribute Client editedClient) throws NotAuthorizedException {
+	public String postDetail(@ModelAttribute Client editedClient) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> oldClient = this.clientService.find(editedClient.getId());
@@ -121,10 +121,7 @@ public class ClientEditController {
 		
 		this.clientService.refreshSecret(id);
 		
-		model.addAttribute("messageTitle", "更新成功")
-	     	 .addAttribute("messageContent", "更新secret成功");
-		
-		return "common/message";
+		return "redirect:../client/list";
 	}
 	
 	/**

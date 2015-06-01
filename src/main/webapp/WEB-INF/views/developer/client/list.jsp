@@ -27,25 +27,21 @@
 					<table class="table table-hover">
 						<tr>
 							<th>名稱</th>
-							<th>網站URL</th>
-							<th>簡介</th>
-							<th>功能</th>
 						</tr>
 						<c:forEach var="client" items="${clientList}">
 							<tr>
-								<td>${client.name}</td>
-								<td><a href="${client.url}" target="_blank">${client.url}</a></td>
-								<td>${client.description}</td>
 								<td>
-									<a href="<c:url value="/developer/client/edit?id=${client.id}"/>">
-										<span class="label label-primary">修改</span>
+									<a href="<c:url value="/developer/client/detail?id=${client.id}"/>">
+										${client.name}
 									</a>
+									<%--
 									<a href="<c:url value="/developer/client/secret?id=${client.id}"/>">
 										<span class="label label-primary">secret</span>
 									</a>
 									<a href="<c:url value="/developer/client/delete?id=${client.id}"/>">
 										<span class="label label-danger">刪除</span>
 									</a>
+									 --%>
 								</td>
 							</tr>
 						</c:forEach>
