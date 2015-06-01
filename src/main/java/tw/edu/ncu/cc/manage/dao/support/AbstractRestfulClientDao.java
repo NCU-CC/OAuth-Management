@@ -116,7 +116,7 @@ public class AbstractRestfulClientDao<T> {
 		template.delete(url);
 	}
 
-	protected String joinUrl(String... strs) {
+	protected String withUrl(String... strs) {
 		return StringUtils.join(strs, "/");
 	}
 }

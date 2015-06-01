@@ -15,7 +15,7 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 	@Override
 	public List<ApiToken> findByClient(String clientId) {
 		Assert.hasText(clientId);
-		return getList(joinUrl(clientUrl, clientId, "api_tokens"));
+		return getList(withUrl(clientUrl, clientId, "api_tokens"));
 	}
 
 }

@@ -16,19 +16,19 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 	@Override
 	public List<Client> findAll(String username) {
 		Assert.hasText(username);
-		return getList(joinUrl(userUrl, username, "clients"));
+		return getList(withUrl(userUrl, username, "clients"));
 	}
 
 	@Override
 	public Optional<Client> find(String clientId){
 		Assert.hasText(clientId);
-		return get(joinUrl(clientUrl, clientId));
+		return get(withUrl(clientUrl, clientId));
 	}
 
 	@Override
 	public Client update(Client client){
 		Assert.notNull(client);
-		return put(joinUrl(clientUrl, client.getId()), client);
+		return put(withUrl(clientUrl, client.getId()), client);
 	}
 
 	@Override
@@ -40,12 +40,12 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 	@Override
 	public void remove(Client client) {
 		Assert.notNull(client);
-		delete(joinUrl(clientUrl, client.getId()));
+		delete(withUrl(clientUrl, client.getId()));
 	}
 
 	@Override
 	public Client refreshSecret(String clientId) {
 		Assert.hasText(clientId);
-		return post(joinUrl(clientUrl, clientId, "refresh_secret"));
+		return post(withUrl(clientUrl, clientId, "refresh_secret"));
 	}
 }
