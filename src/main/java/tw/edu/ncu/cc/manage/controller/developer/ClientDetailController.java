@@ -121,7 +121,7 @@ public class ClientDetailController {
 		
 		this.clientService.refreshSecret(id);
 		
-		return "redirect:../client/list";
+		return "redirect:../client/detail?id=" + id;
 	}
 	
 	/**
