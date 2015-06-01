@@ -12,11 +12,11 @@ import tw.edu.ncu.cc.manage.domain.Client;
 
 public class DeveloperAppEditControllerTest {
 
-	private ClientEditController controller;
+	private ClientDetailController controller;
 	
 	@Before
 	public void setUp() throws Exception {
-		controller = new ClientEditController();
+		controller = new ClientDetailController();
 	}
 
 	@Test

@@ -33,7 +33,7 @@
 			</div>
 			<div class="form-group">
 				<label for="description">應用服務簡述</label> 
-				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的應用服務">
+				<input id=description type="text" class="form-control" name="description" placeholder="簡單地描述你的應用服務">
 			</div>
 			<div class="form-group">
 				<label for="callback">授權 callback URL</label>

@@ -13,8 +13,8 @@
 </c:if>
 <%-- left column --%>
 <div class="box box-primary invoice">
-	<div class="box-header">
-		<h3 class="box-title">修改</h3>
+	<div class="box-header with-border">
+		<h3 class="box-title">一般操作</h3>
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
@@ -31,7 +31,7 @@
 			</div>
 			<div class="form-group">
 				<label for="description">應用服務簡述</label> 
-				<input id=description type="text" class="form-control" name="description" placeholder="簡單的描述你的應用服務" value="${client.description}">
+				<input id=description type="text" class="form-control" name="description" placeholder="簡單地描述你的應用服務" value="${client.description}">
 			</div>
 			<div class="form-group">
 				<label for="callback">授權 callback URL</label>
@@ -46,10 +46,38 @@
 			<input type=hidden name=id value="${client.id}"/>
 			<button type="submit" class="btn btn-success">更新</button>
 		</div>
+
 	</form:form>
 	<%--</form>--%>
 </div>
 <%-- /.box --%>
+
+<div class="box box-info invoice">
+	<div class="box-header with-border">
+		<h3 class="box-title">Secret</h3>
+	</div>
+	<div class="box-body">
+		<dl class="dl-horizontal">
+			<dt>Client Id</dt>
+			<dd>${client.id}</dd>
+			<dt>Client Secret</dt>
+			<dd>${client.secret}</dd>
+			
+		</dl>
+	</div>
+	<div class="box-footer">
+		<button class="btn btn-info" onClick="location.href='secret?id=${client.id}'">更新secret</button>
+	</div>
+</div>
+
+<div class="box box-danger invoice">
+	<div class="box-header with-border">
+		<h3 class="box-title">危險操作</h3>
+	</div>
+	<div class="box-footer">
+		<button class="btn btn-danger" onClick="location.href='delete?id=${client.id}'">刪除本應用服務</button>
+	</div>
+</div>
 
 <script src="<c:url value='/resources/js/rails.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/js/data-confirm-modal.js'/>" type="text/javascript"></script>
