@@ -11,10 +11,10 @@
 		</div>
 	</div>
 </c:if>
-<%-- left column --%>
+<h2 class="page-header">一般</h2>
 <div class="box box-primary invoice">
 	<div class="box-header with-border">
-		<h3 class="box-title">一般操作</h3>
+		<h3 class="box-title">基本資料</h3>
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
@@ -51,7 +51,7 @@
 	<%--</form>--%>
 </div>
 <%-- /.box --%>
-
+<h2 class="page-header">ID 和 Secret</h2>
 <div class="box box-info invoice">
 	<div class="box-header with-border">
 		<h3 class="box-title">Secret</h3>
@@ -70,9 +70,10 @@
 	</div>
 </div>
 
+<h2 class="page-header">無法回復的操作</h2>
 <div class="box box-danger invoice">
 	<div class="box-header with-border">
-		<h3 class="box-title">危險操作</h3>
+		<h3 class="box-title">刪除</h3>
 	</div>
 	<div class="box-footer">
 		<button class="btn btn-danger" onClick="location.href='delete?id=${client.id}'">刪除本應用服務</button>

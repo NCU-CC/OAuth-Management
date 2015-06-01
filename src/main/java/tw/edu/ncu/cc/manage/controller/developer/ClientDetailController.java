@@ -18,7 +18,7 @@ import tw.edu.ncu.cc.manage.service.IClientService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
 /**
- * 開發者app編輯
+ * 開發者檢視應用服務
  * @author yyc1217
  *
  */
