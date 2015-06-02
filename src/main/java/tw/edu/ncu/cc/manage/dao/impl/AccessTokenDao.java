@@ -1,38 +1,34 @@
 package tw.edu.ncu.cc.manage.dao.impl;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import tw.edu.ncu.cc.manage.dao.AbstractRestfulClientDao;
 import tw.edu.ncu.cc.manage.dao.IAccessTokenDao;
-import tw.edu.ncu.cc.manage.entity.AccessToken;
-import tw.edu.ncu.cc.manage.service.oauth.exception.OAuthConnectionException;
-import tw.edu.ncu.cc.manage.utils.SystemConstant;
+import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
+import tw.edu.ncu.cc.manage.domain.AccessToken;
 
 @Repository
-public class AccessTokenDao extends AbstractRestfulClientDao<AccessToken> implements IAccessTokenDao {
+public class AccessTokenDao extends AbstractOAuthServiceDao<AccessToken> implements IAccessTokenDao {
 
 	@Override
-	public List<AccessToken> findAll(String username) throws MalformedURLException, IOException {
+	public List<AccessToken> findAll(String username) {
 		Assert.hasText(username);
-		return getList(SystemConstant.OAUTH_USER_SERVICE_URL + username + "/access_tokens");
+		return getList(withUrl(userUrl, username, "access_tokens"));
 	}
 
 	@Override
-	public Optional<AccessToken> findById(String tokenId) throws IOException {
-		Assert.hasText(tokenId, "Token id must not be null or empty.");
-		return Optional.ofNullable(get(SystemConstant.OAUTH_TOKEN_SERVICE_URL + tokenId));
+	public Optional<AccessToken> find(String tokenId) {
+		Assert.hasText(tokenId);
+		return get(withUrl(accessTokenUrl, tokenId));
 	}
 
 	@Override
-	public void remove(AccessToken token) throws IOException, OAuthConnectionException {
+	public void revoke(AccessToken token) {
 		Assert.notNull(token);
 		Assert.hasText(token.getId());
-		delete(SystemConstant.OAUTH_TOKEN_SERVICE_URL + token.getId());
+		delete(withUrl(accessTokenUrl, token.getId()));
 	}
 }
