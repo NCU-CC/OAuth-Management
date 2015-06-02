@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +24,7 @@ import tw.edu.ncu.cc.manage.service.IUserContextService;
 @Controller
 @RequestMapping("/user/app")
 public class UserAppListController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserAppListController.class);
-	
+
 	@Autowired
 	private ITokenService tokenService;
 
@@ -61,28 +57,25 @@ public class UserAppListController {
 	 */
 
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
-	public String revoke(Model model, @RequestParam String tokenId) throws NotAuthorizedException {
+	public String revoke(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		
-		Optional<AccessToken> token = this.tokenService.find(tokenId);
+		Optional<AccessToken> token = this.tokenService.find(id);
 		
 		if (noSuchApp(token)) {
-			String reason = String.format("嘗試處理不存在且未註冊的應用服務；username %s, tokenId %s .", username, tokenId);
+			String reason = String.format("嘗試處理不存在且未註冊的應用服務；username %s, tokenId %s .", username, id);
 			throw new NotAuthorizedException(reason);
 		}
 		
 		if (!hasPermission(token, username)) {
-			String reason = String.format("嘗試操作不屬於自己的應用服務；username %s, tokenId %s .", username, tokenId);
+			String reason = String.format("嘗試操作不屬於自己的應用服務；username %s, tokenId %s .", username, id);
 			throw new NotAuthorizedException(reason);
 		}
 		
 		this.tokenService.revoke(token.get());
-		
-		model.addAttribute("messageTitlle", "刪除成功")
-		     .addAttribute("messageContent", "已成功取消授權");
 
-		return "common/message";
+		return "redirect:../app/list";
 	}
 
 	private boolean noSuchApp(Optional<AccessToken> appInfo) {
