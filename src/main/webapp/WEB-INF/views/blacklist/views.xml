@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition extends="defaultTemplate" name="blacklist/list">
+        <put-attribute name="primaryTitle" value="黑名單管理"/>
+        <put-attribute name="secondaryTitle" value="提供系統管理者管理黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/list.jsp" />
+    </definition>
+ 
+    <definition extends="defaultTemplate" name="blacklist/create">
+        <put-attribute name="primaryTitle" value="新增黑名單"/>
+        <put-attribute name="secondaryTitle" value="新增黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/detail.jsp" />
+    </definition>
+    
+    <definition extends="defaultTemplate" name="blacklist/edit">
+        <put-attribute name="primaryTitle" value="修改黑名單"/>
+        <put-attribute name="secondaryTitle" value="修改黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/detail.jsp" />
+    </definition> 
+  
+</tiles-definitions>
