@@ -44,7 +44,7 @@
 
 		<div class="box-footer">
 			<input type=hidden name=id value="${client.id}"/>
-			<button type="submit" class="btn btn-success">更新</button>
+			<button type="submit" class="btn btn-success">更新資訊</button>
 		</div>
 
 	</form:form>
