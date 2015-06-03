@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <!-- 使用者黑名單 -->
+    <definition extends="defaultTemplate" name="blacklist/user/list">
+        <put-attribute name="primaryTitle" value="使用者黑名單管理"/>
+        <put-attribute name="secondaryTitle" value="提供系統管理者管理使用者黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/user/list.jsp" />
+    </definition>
+ 
+    <definition extends="defaultTemplate" name="blacklist/user/create">
+        <put-attribute name="primaryTitle" value="新增使用者黑名單"/>
+        <put-attribute name="secondaryTitle" value="新增使用者黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/user/detail.jsp" />
+    </definition>
+    
+    <definition extends="defaultTemplate" name="blacklist/user/edit">
+        <put-attribute name="primaryTitle" value="修改使用者黑名單"/>
+        <put-attribute name="secondaryTitle" value="修改使用者黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/user/detail.jsp" />
+    </definition> 
+  
+    <!-- 應用服務黑名單 -->
+    <definition extends="defaultTemplate" name="blacklist/client/list">
+       <put-attribute name="primaryTitle" value="應用服務黑名單管理"/>
+       <put-attribute name="secondaryTitle" value="提供系統管理者管理應用服務黑名單"/>
+       <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/client/list.jsp" />
+    </definition>
+ 
+    <definition extends="defaultTemplate" name="blacklist/client/create">
+        <put-attribute name="primaryTitle" value="新增應用服務黑名單"/>
+        <put-attribute name="secondaryTitle" value="新增應用服務黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/client/detail.jsp" />
+    </definition>
+    
+    <definition extends="defaultTemplate" name="blacklist/client/edit">
+        <put-attribute name="primaryTitle" value="修改應用服務黑名單"/>
+        <put-attribute name="secondaryTitle" value="修改應用服務黑名單"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/blacklist/client/detail.jsp" />
+    </definition> 
+  
+</tiles-definitions>

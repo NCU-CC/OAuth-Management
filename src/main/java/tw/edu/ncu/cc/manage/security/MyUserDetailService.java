@@ -61,6 +61,8 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 			throw new UsernameNotFoundException((String) token.getPrincipal());
 		}
 
+		// TODO 若是黑名單，則不給登入
+		
 		User user = findOrCreateUserIfNotExist(username);
 
 		addUsernameToSession(user);

@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<h2 class="page-header">
-			<i class="fa fa-user-md"></i> 使用者教學<small class="pull-right">修改日期:2014-10-02</small>
+			<i class="fa fa-user-md"></i>一般使用者說明<small class="pull-right">修改日期:2015-06-03</small>
 		</h2>
 	</div>
 	<%-- /.col --%>

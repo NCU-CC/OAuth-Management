@@ -5,13 +5,13 @@
 
 <tiles-definitions>
 
-    <definition extends="defaultTemplate" name="manager/list">
+    <definition extends="defaultTemplate" name="manager/index">
         <put-attribute name="primaryTitle" value="系統管理員管理"/>
-        <put-attribute name="mainContent" value="/WEB-INF/views/manager/list.jsp" />
+        <put-attribute name="mainContent" value="/WEB-INF/views/manager/index.jsp" />
     </definition>
     
     <definition extends="defaultTemplate" name="manager/create">
-        <put-attribute name="primaryTitle" value="系統管理員管理"/>
+        <put-attribute name="primaryTitle" value="新增系統管理員"/>
         <put-attribute name="mainContent" value="/WEB-INF/views/manager/create.jsp" />
     </definition>
 </tiles-definitions>
