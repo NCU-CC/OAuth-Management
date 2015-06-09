@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.edu.ncu.cc.manage.domain.AccessToken;
+import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 import tw.edu.ncu.cc.manage.service.ITokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
@@ -40,7 +40,7 @@ public class UserAppListController {
 	public String list(Model model) {
 				
 		String username = this.userContextService.getCurrentUsername();
-		List<AccessToken> tokenList = this.tokenService.findAll(username);
+		List<AuthorizedToken> tokenList = this.tokenService.findAll(username);
 		
 		model.addAttribute("tokenList", tokenList);
 		
@@ -61,7 +61,7 @@ public class UserAppListController {
 		
 		String username = this.userContextService.getCurrentUsername();
 		
-		Optional<AccessToken> token = this.tokenService.find(id);
+		Optional<AuthorizedToken> token = this.tokenService.find(id);
 		
 		if (noSuchApp(token)) {
 			String reason = String.format("嘗試處理不存在且未註冊的應用服務；username %s, tokenId %s .", username, id);
@@ -78,11 +78,11 @@ public class UserAppListController {
 		return "redirect:../app/list";
 	}
 
-	private boolean noSuchApp(Optional<AccessToken> appInfo) {
+	private boolean noSuchApp(Optional<AuthorizedToken> appInfo) {
 		return !appInfo.isPresent();
 	}
 	
-	private boolean hasPermission(Optional<AccessToken> token, String account) {
+	private boolean hasPermission(Optional<AuthorizedToken> token, String account) {
 		return StringUtils.equals(token.get().getUser(), account);
 	}
 }
