@@ -3,14 +3,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-<c:if test="${not empty errorTitle}">
-	<div class="pad margin no-print">
-		<div class="alert alert-danger alert-dismissable"
-			style="margin-bottom: 0 !important;">
-			<i class="fa fa-ban"></i> <b>${errorTitle}:</b> ${errorContent}
-		</div>
-	</div>
-</c:if>
 <h2 class="page-header">一般</h2>
 <div class="box box-primary invoice">
 	<div class="box-header with-border">
