@@ -40,13 +40,26 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <p>每個NCU API皆有每月使用量限制，超過使用量則列入黑名單，若需要解除或有特殊需求者請<a href="mailto:mobile@cc.ncu.edu.tw">來信</a>告知。</p>
-		            <h5>一般API</h5>
-		            <p>每月使用量：25000次 Requests</p>
-		            <h5>Personnel-Service</h5>
-		            <ul>
-		                <li>一分鐘試誤次數不得超過5次。</li>
-		                <li>每月使用量：25000次 Requests。</li>
-		            </ul>
+                    <ul>
+                    	<li>
+                    		<ul>
+		            			<li><h4>一般API</h4></li>
+		            			<li>每月使用量：25000次 Requests</li>
+		            		</ul>
+		            	</li>
+                    	<li>
+                    		<ul>
+		            			<li><h4>Personnel-Service</h4></li>
+		            			<li>
+		            				<ul>
+						                <li>一分鐘試誤次數不得超過5次。</li>
+						                <li>每月使用量：25000次 Requests。</li>
+		           					</ul>
+		           				</li>
+		            		</ul>
+		            	</li>
+                    </ul>
+		            
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>
