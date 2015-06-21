@@ -21,11 +21,11 @@ dependencies {
 	// springframework
     compile 'org.springframework:spring-orm:4.1.5.RELEASE'
     compile 'org.springframework:spring-tx:4.1.5.RELEASE'
-
 	compile 'org.springframework:spring-webmvc:4.1.5.RELEASE'
+	compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
 	compile 'jstl:jstl:1.2'
 	compile 'javax.inject:javax.inject:1'
-    
+	
 	// json
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
 	
@@ -42,6 +42,7 @@ dependencies {
 	compile 'org.apache.commons:commons-lang3:3.3.2'
 	compile 'commons-io:commons-io:2.4'
 	compile 'joda-time:joda-time:2.7'
+	compile 'com.google.guava:guava:18.0'
 	
 	// tiles
 	compile 'org.apache.tiles:tiles-core:3.0.4'

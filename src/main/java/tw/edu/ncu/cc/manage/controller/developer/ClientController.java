@@ -75,7 +75,7 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String create(Model model, @ModelAttribute Client client) {
-
+		//TODO use validator
 		client.setOwner(userContextService.getCurrentUsername());
 		this.clientService.create(client);
 

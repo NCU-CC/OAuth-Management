@@ -19,24 +19,19 @@
 			<%-- /.box-header --%>
 			<div class="box-body table-responsive no-padding">
 				<table class="table table-hover">
-					<tr>
-						<th>編號</th>
-						<th>帳號</th>
-                        <th>新增者</th>
-						<th>功能</th>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>1000101009</td>
-						<td>王小明</td>
-						<td><a href="<c:url value='/godmode/manager/delete'/>"><span class="label label-primary">刪除</span></a></td>
-					</tr>
-                    <tr>
-                        <td>2</td>
-                        <td>A020202</td>
-                        <td>李小美</td>
-                        <td><a href="<c:url value='/godmode/manager/delete'/>"><span class="label label-primary">刪除</span></a></td>
+				    <tr>
+                        <th>編號</th>
+                        <th>帳號</th>
+                        <th>功能</th>
                     </tr>
+				    <c:forEach items="${managerList}" var="manager" varStatus="status">
+				        <tr>
+				            <td>${status.index + 1}</td>
+				            <td>${manager.id}</td>
+				            <td>${manager.name}</td>
+				            <td><a href="<c:url value='/godmode/manager/delete/${manager.id}'/>"><span class="label label-primary">刪除</span></a></td>
+				        </tr>
+				    </c:forEach>
 				</table>
 			</div>
 			<%-- /.box-body --%>

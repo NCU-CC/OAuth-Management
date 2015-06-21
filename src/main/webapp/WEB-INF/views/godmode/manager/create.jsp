@@ -9,11 +9,13 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-	<form:form role="form" action='#' method='post'>
+	<form:form role="form" action='create' method='post'>
 		<div class="box-body">
 			<div class="form-group">
-				<label for="account">系統管理者帳號</label>
-				<input id=account type="text" class="form-control" name="account">
+				<label for="account">帳號</label>
+				<input id=id type="text" class="form-control" name="id">
+				<label for="name">姓名</label>
+                <input id=name type="text" class="form-control" name="name">
 			</div>
 		</div>
 		<%-- /.box-body --%>
