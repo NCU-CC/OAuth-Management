@@ -46,22 +46,24 @@
 	                <li><a href="<c:url value="/developer/client/list"/>"><i class="fa fa-angle-double-right"></i>應用服務管理</a></li>
 	            </ul>
 	        </li>
-	
-	        <li class="treeview active">
-	            <a href="#">
-	                <i class="fa fa-unlock-alt"></i>
-	                <span>管理者功能</span>
-	                <i class="fa fa-angle-left pull-right"></i>
-	            </a>
-	            <ul class="treeview-menu">
-                    <li><a href="<c:url value="/godmode/user"/>"><i class="fa fa-angle-double-right"></i>使用者授權管理</a></li>
-	                <li><a href="<c:url value="/godmode/client"/>"><i class="fa fa-angle-double-right"></i>應用服務管理</a></li>
-                    <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單管理</a></li>
-                    <li><a href="<c:url value="/godmode/blacklist/client"/>"><i class="fa fa-angle-double-right"></i>應用服務黑名單管理</a></li>
-                    <li><a href="<c:url value="/godmode/statistic"/>"><i class="fa fa-angle-double-right"></i>統計報表</a></li>
-                    <li><a href="<c:url value="/godmode/manager"/>"><i class="fa fa-angle-double-right"></i>系統管理者管理</a></li>
-	            </ul>
-	        </li>
+
+			<security:authorize access="hasRole('ADMIN')">	
+		        <li class="treeview active">
+		            <a href="#">
+		                <i class="fa fa-unlock-alt"></i>
+		                <span>管理者功能</span>
+		                <i class="fa fa-angle-left pull-right"></i>
+		            </a>
+		            <ul class="treeview-menu">
+	                    <li><a href="<c:url value="/godmode/user"/>"><i class="fa fa-angle-double-right"></i>使用者授權管理</a></li>
+		                <li><a href="<c:url value="/godmode/client"/>"><i class="fa fa-angle-double-right"></i>應用服務管理</a></li>
+	                    <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單管理</a></li>
+	                    <li><a href="<c:url value="/godmode/blacklist/client"/>"><i class="fa fa-angle-double-right"></i>應用服務黑名單管理</a></li>
+	                    <li><a href="<c:url value="/godmode/statistic"/>"><i class="fa fa-angle-double-right"></i>統計報表</a></li>
+	                    <li><a href="<c:url value="/godmode/manager"/>"><i class="fa fa-angle-double-right"></i>系統管理者管理</a></li>
+		            </ul>
+		        </li>
+	        </security:authorize>
 	    </ul>
 	</section>
 	<%-- /.sidebar --%>

@@ -1,10 +1,14 @@
 package tw.edu.ncu.cc.manage.domain;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.CollectionUtils;
 
 import com.google.inject.internal.Sets;
 
@@ -15,6 +19,8 @@ public class User implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private String id;
+	
 	private String name;
 
 	private transient Collection<? extends GrantedAuthority> authorities;
@@ -23,7 +29,7 @@ public class User implements UserDetails {
 		this.authorities = Sets.newHashSet();
 	}
 	
-	public User(String name) {
+	public User(String name, List<String> roles) {
 		super();
 		this.name = name;
 	}
@@ -34,6 +40,14 @@ public class User implements UserDetails {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
@@ -74,5 +88,14 @@ public class User implements UserDetails {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public void setRoles(List<String> roles) {
+		
+		if (CollectionUtils.isEmpty(roles)) {
+			return;
+		}
+		
+		this.authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
 	}	
 }
