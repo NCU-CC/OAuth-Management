@@ -22,6 +22,8 @@ public class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDao<T> {
 	
 	protected String managerUrl;
 	
+	protected String apiTokenUrl;
+	
 	@PostConstruct
 	private void init() {
 		rootUrl = env.getRequiredProperty("oauth.root");
@@ -29,5 +31,6 @@ public class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDao<T> {
 		clientUrl = rootUrl + "clients";
 		tokenUrl = rootUrl + "authorized_tokens";
 		managerUrl = rootUrl + "managers";
+		apiTokenUrl = rootUrl + "api_tokens";
 	}
 }

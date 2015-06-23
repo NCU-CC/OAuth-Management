@@ -6,6 +6,8 @@ public class ApiToken {
 
 	private String token;
 
+	private String client_id;
+	
 	public String getId() {
 		return id;
 	}
@@ -20,5 +22,13 @@ public class ApiToken {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getClient_id() {
+		return client_id;
+	}
+
+	public void setClient_id(String client_id) {
+		this.client_id = client_id;
 	}
 }

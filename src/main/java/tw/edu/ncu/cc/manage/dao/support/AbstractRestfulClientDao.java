@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.net.ssl.HostnameVerifier;
@@ -71,7 +72,7 @@ public class AbstractRestfulClientDao<T> {
 		}
 		return Optional.ofNullable(t);
 	}
-
+	
 	private boolean is404(HttpClientErrorException e) {
 		return HttpStatus.NOT_FOUND.equals(e.getStatusCode());
 	}
@@ -97,17 +98,25 @@ public class AbstractRestfulClientDao<T> {
 	}
 
 	protected T post(String url) {
-		return post(url, null);
+		return post(url, null, null);
 	}
 
 	protected T post(String url, T parametersObject) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("POST {} with params {}", url, parametersObject);
-		}
-
-		return template.postForObject(url, parametersObject, clazz);
+		return post(url, parametersObject, null);
 	}
 
+	protected T post(String url, Map<String, ?> uriParameters) {
+		return post(url, null, uriParameters);
+	}
+	
+	protected T post(String url, T parametersObject, Map<String, ?> uriParameters) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("POST {} with uri params {}, body params {} ", url, uriParameters, parametersObject);
+		}
+		
+		return template.postForObject(url, parametersObject, clazz, uriParameters);
+	}
+	
 	protected void delete(String url) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("DELETE {}", url);
@@ -118,5 +127,33 @@ public class AbstractRestfulClientDao<T> {
 
 	protected String withUrl(String... strs) {
 		return StringUtils.join(strs, "/");
+	}
+	
+	public static void main(String[] args) { 
+		RestTemplate t = new RestTemplate();
+		
+		M m = new M();
+		m.id = "H367245";
+		m.name = "張業永";
+		System.out.println(t.postForObject("https://140.115.3.188/oauth/management/v1/managers", m, String.class));
+		
+	}
+	
+	static class M {
+		String id;
+		String name;
+		public String getId() {
+			return id;
+		}
+		public void setId(String id) {
+			this.id = id;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		
 	}
 }
