@@ -16,12 +16,12 @@ import tw.edu.ncu.cc.manage.domain.Manager;
 public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IManagerDao {
 
 	@Override
-	@Cacheable("managers")
 	public List<Manager> findAll() {
 		return getList(managerUrl);
 	}
 
 	@Override
+	@Cacheable("managers")
 	public Optional<Manager> find(String id) {
 		Assert.hasText(id);
 		return get(withUrl(managerUrl, id));
@@ -31,7 +31,7 @@ public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IMan
 	@CachePut("managers")
 	public Manager create(Manager manager) {
 		Assert.notNull(manager);
-		return post(withUrl(managerUrl, manager.getId()));
+		return post(managerUrl, manager);
 	}
 
 	@Override

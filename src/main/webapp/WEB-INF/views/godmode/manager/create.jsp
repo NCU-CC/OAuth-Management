@@ -9,13 +9,16 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-	<form:form role="form" action='create' method='post'>
+	<form:form role="form" action='create' commandName="manager">
 		<div class="box-body">
 			<div class="form-group">
-				<label for="account">帳號</label>
-				<input id=id type="text" class="form-control" name="id">
-				<label for="name">姓名</label>
-                <input id=name type="text" class="form-control" name="name">
+				<form:label path="id">帳號</form:label>
+				<form:input path="id" cssClass="form-control"/>
+				<form:errors path="id"/>
+				
+				<form:label path="name">姓名</form:label>
+				<form:input path="name" cssClass="form-control"/>
+				<form:errors path="name"/>
 			</div>
 		</div>
 		<%-- /.box-body --%>

@@ -58,6 +58,8 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		String username = StringUtils.substringAfterLast((String) token.getPrincipal(), "/");
 		List<String> roles = ListUtils.union(roles(token), roles(username));
 		
+		logger.debug("使用者 OpenID roles: {}", roles);
+		
 		if (!isAvailableRole(roles)) {
 			logger.warn("使用者role不允許存取本系統, expected {}, received {} ", PERMIT_ROLES, roles);
 			throw new NoSuchUserRoleException(token, PERMIT_ROLES);
@@ -119,8 +121,6 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		for (OpenIDAttribute attribute : attributes) {
 
 			if (isRoleAttribute(attribute)) {
-
-				logger.debug("使用者 OpenID roles: {}", attribute);
 
 				String roles = attribute.getValues().get(0);
 				roles = StringUtils.remove(roles, "\"");

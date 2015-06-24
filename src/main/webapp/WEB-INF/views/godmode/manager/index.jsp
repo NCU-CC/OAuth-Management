@@ -4,7 +4,9 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3>系統管理者管理</h3>
+				<div class="box-title">
+					系統管理員清單
+				</div>
 				<div class="box-tools">
                     <div class="input-group">
                         <div class="input-group-btn">
@@ -22,6 +24,7 @@
 				    <tr>
                         <th>編號</th>
                         <th>帳號</th>
+                        <th>姓名</th>
                         <th>功能</th>
                     </tr>
 				    <c:forEach items="${managerList}" var="manager" varStatus="status">

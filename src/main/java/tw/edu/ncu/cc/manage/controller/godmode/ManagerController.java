@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,8 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create() {
+	public String create(Model model) {
+		model.addAttribute("manager", new Manager());
 		return "manager/create";
 	}
 	
@@ -52,10 +54,16 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createSubmit(@ModelAttribute Manager manager) {
-		//TODO use validator
+	public String createSubmit(Model model, @ModelAttribute Manager manager, BindingResult result) {
+		
+		//TODO validator
+		if (result.hasErrors()) {
+			model.addAttribute("manager", manager);
+			return "manager/create";
+		}
+		
 		this.managerService.create(manager);
-		return "redirect:../manager/index";
+		return "redirect:../manager";
 	}
 	
 	// 刪除
@@ -65,7 +73,7 @@ public class ManagerController {
 		Manager manager = this.managerService.find(id).get();
 		this.managerService.delete(manager);
 		
-		return "redirect:../manager/index";
+		return "redirect:../";
 	}
 	
 }

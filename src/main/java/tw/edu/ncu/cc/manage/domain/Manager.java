@@ -1,5 +1,7 @@
 package tw.edu.ncu.cc.manage.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class Manager {
 	private String id;
 	private String name;
@@ -20,4 +22,8 @@ public class Manager {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 }

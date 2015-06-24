@@ -3,6 +3,7 @@ package tw.edu.ncu.cc.manage.dao.support;
 import java.lang.reflect.ParameterizedType;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -98,11 +99,11 @@ public class AbstractRestfulClientDao<T> {
 	}
 
 	protected T post(String url) {
-		return post(url, null, null);
+		return post(url, null, Collections.emptyMap());
 	}
 
 	protected T post(String url, T parametersObject) {
-		return post(url, parametersObject, null);
+		return post(url, parametersObject, Collections.emptyMap());
 	}
 
 	protected T post(String url, Map<String, ?> uriParameters) {
@@ -127,33 +128,5 @@ public class AbstractRestfulClientDao<T> {
 
 	protected String withUrl(String... strs) {
 		return StringUtils.join(strs, "/");
-	}
-	
-	public static void main(String[] args) { 
-		RestTemplate t = new RestTemplate();
-		
-		M m = new M();
-		m.id = "H367245";
-		m.name = "張業永";
-		System.out.println(t.postForObject("https://140.115.3.188/oauth/management/v1/managers", m, String.class));
-		
-	}
-	
-	static class M {
-		String id;
-		String name;
-		public String getId() {
-			return id;
-		}
-		public void setId(String id) {
-			this.id = id;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
-		
 	}
 }
