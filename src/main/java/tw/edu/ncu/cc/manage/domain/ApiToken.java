@@ -1,5 +1,7 @@
 package tw.edu.ncu.cc.manage.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class ApiToken {
 	
 	private String id;
@@ -30,5 +32,10 @@ public class ApiToken {
 
 	public void setClient_id(String client_id) {
 		this.client_id = client_id;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

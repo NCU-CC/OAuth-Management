@@ -42,9 +42,9 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 	}
 
 	@Override
-	public ApiToken refresh(ApiToken token) {
-		Assert.notNull(token);
-		return post(withUrl(apiTokenUrl, "token", token.getId()));
+	public ApiToken refresh(String tokenId) {
+		Assert.hasText(tokenId);
+		return post(withUrl(apiTokenUrl, tokenId, "refresh"));
 	}
 	
 }

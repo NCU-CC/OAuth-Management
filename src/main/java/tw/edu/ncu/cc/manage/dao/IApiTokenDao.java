@@ -15,6 +15,6 @@ public interface IApiTokenDao {
 
 	Optional<ApiToken> findByToken(String token);
 
-	ApiToken refresh(ApiToken token);
+	ApiToken refresh(String tokenId);
 
 }

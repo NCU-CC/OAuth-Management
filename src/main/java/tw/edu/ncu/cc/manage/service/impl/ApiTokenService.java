@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,30 @@ public class ApiTokenService implements IApiTokenService {
 	@Autowired
 	private IApiTokenDao apiTokenDao;
 	
-	public List<ApiToken> findByClient(String clientId) {
+	@Override
+	public List<ApiToken> findAllByClient(String clientId) {
 		return this.apiTokenDao.findByClient(clientId);
+	}
+
+	@Override
+	public ApiToken createOrFindByClient(String clientId) {
+		
+		Optional<ApiToken> result = findAllByClient(clientId).stream().findFirst();
+		
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return this.apiTokenDao.create(clientId);
+		}
+	}
+
+	@Override
+	public ApiToken refresh(String tokenId) {
+		return this.apiTokenDao.refresh(tokenId);
+	}
+
+	@Override
+	public Optional<ApiToken> find(String tokenId) {
+		return this.apiTokenDao.findByToken(tokenId);
 	}
 }

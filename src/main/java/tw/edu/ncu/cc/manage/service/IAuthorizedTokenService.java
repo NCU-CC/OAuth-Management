@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
 
-public interface ITokenService {
+public interface IAuthorizedTokenService {
 
 	List<AuthorizedToken> findAll(String account);
 	

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tw.edu.ncu.cc.manage.domain.ApiToken;
 import tw.edu.ncu.cc.manage.domain.Client;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
+import tw.edu.ncu.cc.manage.service.IApiTokenService;
 import tw.edu.ncu.cc.manage.service.IClientService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
@@ -34,6 +36,9 @@ public class ClientController {
 	@Autowired
 	private IClientService clientService;
 
+	@Autowired
+	private IApiTokenService apiTokenService;
+	
 	@Autowired
 	private IUserContextService userContextService;
 
@@ -98,7 +103,10 @@ public class ClientController {
 			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
-		model.addAttribute("client", client.get());
+		ApiToken apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
+		
+		model.addAttribute("client", client.get())
+			 .addAttribute("apiToken", apiToken);
 		
 		return "developer/client/detail";
 	}
@@ -128,7 +136,6 @@ public class ClientController {
 		return "redirect:../client/list";
 	}
 
-	
 	/**
 	 * 按下「刪除App」
 	 * @param model
@@ -191,4 +198,28 @@ public class ClientController {
 		return true;
 	}
 
+	/**
+	 * 在編輯頁面按下「更新API Token」
+	 * @param model
+	 * @param id
+	 * @return
+	 * @throws NotAuthorizedException 
+	 */
+	@RequestMapping(value = "/apiToken", method = RequestMethod.GET)
+	public String refreshApiToken(Model model, @RequestParam(value = "id", required = true) String tokenId) throws NotAuthorizedException {
+		
+		String username = userContextService.getCurrentUsername();
+		
+		Optional<ApiToken> apiToken = this.apiTokenService.find(tokenId);
+		
+		Optional<Client> client = this.clientService.find(apiToken.get().getClient_id());
+		if (!isAuthorized(client, username)) {
+			throw new NotAuthorizedException("未經允許的操作");
+		}
+		
+		this.apiTokenService.refresh(apiToken.get().getId());
+		
+		return "redirect:../client/detail?id=" + client.get().getId();
+	}
+	
 }

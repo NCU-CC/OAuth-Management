@@ -43,7 +43,7 @@
 	<%--</form>--%>
 </div>
 <%-- /.box --%>
-<h2 class="page-header">ID 和 Secret</h2>
+<h2 class="page-header">Token</h2>
 <div class="box box-info invoice">
 	<div class="box-header with-border">
 		<h3 class="box-title">Secret</h3>
@@ -61,6 +61,21 @@
 		<button class="btn btn-info" onClick="location.href='secret?id=${client.id}'">更新secret</button>
 	</div>
 </div>
+<div class="box box-info invoice">
+	<div class="box-header with-border">
+		<h3 class="box-title">API Token</h3>
+	</div>
+	<div class="box-body">
+		<dl class="dl-horizontal">
+			<dt>API Token</dt>
+			<dd>${apiToken.token}</dd>
+		</dl>
+	</div>
+	<div class="box-footer">
+		<button class="btn btn-info" onClick="location.href='apiToken?id=${apiToken.id}'">更新API Token</button>
+	</div>
+</div>
+
 
 <h2 class="page-header">無法回復的操作</h2>
 <div class="box box-danger invoice">

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import tw.edu.ncu.cc.manage.dao.IAuthorizedTokenDao;
 import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
-import tw.edu.ncu.cc.manage.service.ITokenService;
+import tw.edu.ncu.cc.manage.service.IAuthorizedTokenService;
 
 @Service
-public class TokenService implements ITokenService {
+public class AuthorizedTokenService implements IAuthorizedTokenService {
 	
 	@Autowired
 	private IAuthorizedTokenDao tokenDao;

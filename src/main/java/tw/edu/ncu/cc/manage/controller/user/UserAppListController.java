@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
-import tw.edu.ncu.cc.manage.service.ITokenService;
+import tw.edu.ncu.cc.manage.service.IAuthorizedTokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
 /**
@@ -26,7 +26,7 @@ import tw.edu.ncu.cc.manage.service.IUserContextService;
 public class UserAppListController {
 
 	@Autowired
-	private ITokenService tokenService;
+	private IAuthorizedTokenService autorizedTokenService;
 
 	@Autowired
 	private IUserContextService userContextService;
@@ -40,7 +40,7 @@ public class UserAppListController {
 	public String list(Model model) {
 				
 		String username = this.userContextService.getCurrentUsername();
-		List<AuthorizedToken> tokenList = this.tokenService.findAll(username);
+		List<AuthorizedToken> tokenList = this.autorizedTokenService.findAll(username);
 		
 		model.addAttribute("tokenList", tokenList);
 		
@@ -61,7 +61,7 @@ public class UserAppListController {
 		
 		String username = this.userContextService.getCurrentUsername();
 		
-		Optional<AuthorizedToken> token = this.tokenService.find(id);
+		Optional<AuthorizedToken> token = this.autorizedTokenService.find(id);
 		
 		if (noSuchApp(token)) {
 			String reason = String.format("嘗試處理不存在且未註冊的應用服務；username %s, tokenId %s .", username, id);
@@ -73,7 +73,7 @@ public class UserAppListController {
 			throw new NotAuthorizedException(reason);
 		}
 		
-		this.tokenService.revoke(token.get());
+		this.autorizedTokenService.revoke(token.get());
 
 		return "redirect:../app/list";
 	}
