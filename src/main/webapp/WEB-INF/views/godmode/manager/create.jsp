@@ -15,10 +15,6 @@
 				<form:label path="id">帳號</form:label>
 				<form:input path="id" cssClass="form-control"/>
 				<form:errors path="id"/>
-				
-				<form:label path="name">姓名</form:label>
-				<form:input path="name" cssClass="form-control"/>
-				<form:errors path="name"/>
 			</div>
 		</div>
 		<%-- /.box-body --%>
