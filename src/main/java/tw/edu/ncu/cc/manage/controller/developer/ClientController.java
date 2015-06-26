@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,8 +81,8 @@ public class ClientController {
 	 * @return
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(Model model, @ModelAttribute Client client) {
-		//TODO use validator
+	public String create(Model model, @Valid @ModelAttribute Client client) {
+
 		client.setOwner(userContextService.getCurrentUsername());
 		this.clientService.create(client);
 
@@ -98,10 +100,9 @@ public class ClientController {
 	public String getDetail(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
+		
 		Optional<Client> client = this.clientService.find(id);
-		if (!isAuthorized(client, username)) {
-			throw new NotAuthorizedException("未經允許的操作");
-		}
+		validateClient(client, username);
 		
 		ApiToken apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
 		
@@ -124,9 +125,7 @@ public class ClientController {
 		
 		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> oldClient = this.clientService.find(editedClient.getId());
-		if (!isAuthorized(oldClient, username)) {
-			throw new NotAuthorizedException("未經允許的操作");
-		}
+		validateClient(oldClient, username);
 
 		editedClient.setId(oldClient.get().getId());
 		editedClient.setOwner(username);
@@ -147,10 +146,9 @@ public class ClientController {
 	public String delete(@RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
+		
 		Optional<Client> client = this.clientService.find(id);
-		if (!isAuthorized(client, username)) {
-			throw new NotAuthorizedException("未經允許的操作");
-		}
+		validateClient(client, username);
 		
 		this.clientService.remove(client.get());
 
@@ -170,9 +168,7 @@ public class ClientController {
 		String username = userContextService.getCurrentUsername();
 		
 		Optional<Client> client = this.clientService.find(id);
-		if (!isAuthorized(client, username)) {
-			throw new NotAuthorizedException("未經允許的操作");
-		}
+		validateClient(client, username);
 		
 		this.clientService.refreshSecret(id);
 		
@@ -180,22 +176,22 @@ public class ClientController {
 	}
 	
 	/**
-	 * 有權限處理{@link Client}
+	 * 確認有權限處理{@link Client}
 	 * @param client
 	 * @param username
 	 * @return
+	 * @throws NotAuthorizedException 
 	 */
-	protected boolean isAuthorized(Optional<Client> client, String username) {
+	protected void validateClient(Optional<Client> client, String username) throws NotAuthorizedException {
 		if (!client.isPresent()) {
 			logger.warn("嘗試操作不存在的" + Client.class.getSimpleName());
-			return false;
+			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
 		if (!client.get().isOwned(username)) {
 			logger.warn("嘗試操作不屬於自己的" + Client.class.getSimpleName());
-			return false;
+			throw new NotAuthorizedException("未經允許的操作");
 		}
-		return true;
 	}
 
 	/**
@@ -213,9 +209,7 @@ public class ClientController {
 		Optional<ApiToken> apiToken = this.apiTokenService.find(tokenId);
 		
 		Optional<Client> client = this.clientService.find(apiToken.get().getClient_id());
-		if (!isAuthorized(client, username)) {
-			throw new NotAuthorizedException("未經允許的操作");
-		}
+		validateClient(client, username);
 		
 		this.apiTokenService.refresh(apiToken.get().getId());
 		
