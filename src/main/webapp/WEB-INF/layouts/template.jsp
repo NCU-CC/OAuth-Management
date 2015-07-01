@@ -4,7 +4,7 @@
 
 <div class="wrapper row-offcanvas row-offcanvas-left">
 	<%-- Left side column. contains the logo and sidebar --%>
-	<tiles:insertAttribute name="leftsider" />
+	<tiles:insertAttribute name="menu" />
 
 	<%-- Right side column. Contains the navbar and content of the page --%>
 	<aside class="right-side">
