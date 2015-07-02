@@ -83,9 +83,6 @@
 
 <h2 class="page-header">無法回復的操作</h2>
 <div class="box box-danger invoice">
-	<div class="box-header with-border">
-		<h3 class="box-title">刪除</h3>
-	</div>
 	<div class="box-footer">
 		<button class="btn btn-danger" onClick="location.href='delete?id=${client.id}'">刪除本應用服務</button>
 	</div>
