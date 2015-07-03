@@ -3,6 +3,7 @@ package tw.edu.ncu.cc.manage.dao.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -22,7 +23,7 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 	@Override
 	public Optional<ApiToken> findByToken(String token) {
 		Assert.hasText(token);
-		return get(withUrl(apiTokenUrl, token));
+		return get(withUrl(apiTokenUrl, "token", token));
 	}
 	
 	@Override
@@ -38,9 +39,15 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 	}
 
 	@Override
-	public ApiToken refresh(String tokenId) {
-		Assert.hasText(tokenId);
-		return post(withUrl(apiTokenUrl, tokenId, "refresh"));
+	public ApiToken refresh(String token) {
+		Assert.hasText(token);
+		return post(withUrl(apiTokenUrl, token, "refresh"));
 	}
+
+	private static final ParameterizedTypeReference<List<ApiToken>> parameterizedTypeReference = new ParameterizedTypeReference<List<ApiToken>>() {};
 	
+	@Override
+	protected ParameterizedTypeReference<List<ApiToken>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}	
 }

@@ -11,8 +11,8 @@ import java.util.Optional;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-public class AbstractRestfulClientDao<T> {
+public abstract class AbstractRestfulClientDao<T> {
 
 	private static final Logger logger = LoggerFactory.getLogger(AbstractRestfulClientDao.class);
 
@@ -82,12 +82,12 @@ public class AbstractRestfulClientDao<T> {
 		if (logger.isDebugEnabled()) {
 			logger.debug("GET {}", url);
 		}
-
-		ParameterizedTypeReference<List<T>> myBean = new ParameterizedTypeReference<List<T>>() {
-		};
-		ResponseEntity<List<T>> response = template.exchange(url, HttpMethod.GET, null, myBean);
+		
+		ResponseEntity<List<T>> response = template.exchange(url, HttpMethod.GET, null, parameterizedTypeReferenceForList());
 		return response.getBody();
 	}
+	
+	protected abstract ParameterizedTypeReference<List<T>> parameterizedTypeReferenceForList();
 
 	protected T put(String url, T parametersObject) {
 		if (logger.isDebugEnabled()) {

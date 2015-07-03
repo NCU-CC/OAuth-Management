@@ -3,6 +3,7 @@ package tw.edu.ncu.cc.manage.dao.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -30,5 +31,12 @@ public class AuthorizedTokenDao extends AbstractOAuthServiceDao<AuthorizedToken>
 		Assert.notNull(token);
 		Assert.hasText(token.getId());
 		delete(withUrl(tokenUrl, token.getId()));
+	}
+
+	private static final ParameterizedTypeReference<List<AuthorizedToken>> parameterizedTypeReference = new ParameterizedTypeReference<List<AuthorizedToken>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<AuthorizedToken>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -40,5 +41,12 @@ public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IMan
 		Assert.notNull(manager);
 		delete(withUrl(managerUrl, manager.getId()));
 	}
+	
+	private static final ParameterizedTypeReference<List<Manager>> parameterizedTypeReference = new ParameterizedTypeReference<List<Manager>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<Manager>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}	
 
 }

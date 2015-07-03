@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @PropertySource("classpath:OAuth-service.properties")
-public class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDao<T> {
+public abstract class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDao<T> {
 
 	@Autowired
 	private Environment env;
