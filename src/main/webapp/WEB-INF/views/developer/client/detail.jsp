@@ -76,7 +76,7 @@
 		</dl>
 	</div>
 	<div class="box-footer">
-		<button class="btn btn-info" onClick="location.href='apiToken?id=${apiToken.id}'">更新API Token</button>
+		<button class="btn btn-info" onClick="location.href='apiToken?d=${apiToken.token}'">更新API Token</button>
 	</div>
 </div>
 

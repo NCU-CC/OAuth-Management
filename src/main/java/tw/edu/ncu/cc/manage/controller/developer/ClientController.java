@@ -97,7 +97,7 @@ public class ClientController {
 	 * @throws NotAuthorizedException 
 	 */
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String getDetail(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
+	public String getDetail(Model model, @RequestParam(value = "g", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		
@@ -202,11 +202,11 @@ public class ClientController {
 	 * @throws NotAuthorizedException 
 	 */
 	@RequestMapping(value = "/apiToken", method = RequestMethod.GET)
-	public String refreshApiToken(Model model, @RequestParam(value = "id", required = true) String tokenId) throws NotAuthorizedException {
+	public String refreshApiToken(Model model, @RequestParam(value = "d", required = true) String token) throws NotAuthorizedException {
 		
 		String username = userContextService.getCurrentUsername();
 		
-		Optional<ApiToken> apiToken = this.apiTokenService.find(tokenId);
+		Optional<ApiToken> apiToken = this.apiTokenService.find(token);
 		
 		Optional<Client> client = this.clientService.find(apiToken.get().getClient_id());
 		validateClient(client, username);

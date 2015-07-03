@@ -23,6 +23,6 @@ public interface IApiTokenService {
 	 */
 	ApiToken refresh(String tokenId);
 
-	Optional<ApiToken> find(String tokenId);
+	Optional<ApiToken> find(String token);
 
 }
