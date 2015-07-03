@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			
 		.authorizeRequests()
+			.antMatchers("/godmode/**").hasRole("ADMIN")
 			.antMatchers("/resources/**").permitAll()
 			.antMatchers("/error/**").permitAll()
 			.antMatchers("/login**").permitAll()

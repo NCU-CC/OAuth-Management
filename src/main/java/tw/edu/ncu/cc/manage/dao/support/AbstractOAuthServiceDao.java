@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @PropertySource("classpath:OAuth-service.properties")
-public class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDao<T> {
+public abstract class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDao<T> {
 
 	@Autowired
 	private Environment env;
@@ -18,13 +18,19 @@ public class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDao<T> {
 	
 	protected String clientUrl;
 	
-	protected String accessTokenUrl;
+	protected String tokenUrl;
+	
+	protected String managerUrl;
+	
+	protected String apiTokenUrl;
 	
 	@PostConstruct
 	private void init() {
 		rootUrl = env.getRequiredProperty("oauth.root");
-		userUrl = rootUrl + env.getRequiredProperty("oauth.users");
-		clientUrl = rootUrl + env.getRequiredProperty("oauth.clients");
-		accessTokenUrl = rootUrl + env.getRequiredProperty("oauth.access_tokens");
+		userUrl = rootUrl + "users";
+		clientUrl = rootUrl + "clients";
+		tokenUrl = rootUrl + "authorized_tokens";
+		managerUrl = rootUrl + "managers";
+		apiTokenUrl = rootUrl + "api_tokens";
 	}
 }

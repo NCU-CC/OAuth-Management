@@ -5,7 +5,7 @@
 <tiles-definitions>
   <definition name="defaultTemplate" template="/WEB-INF/layouts/template.jsp">
   	<put-attribute name="header" value="/WEB-INF/layouts/components/header.jsp" />
-  	<put-attribute name="leftsider" value="/WEB-INF/layouts/components/leftsider.jsp" />
+  	<put-attribute name="menu" value="/WEB-INF/layouts/components/menu.jsp" />
   	<put-attribute name="jsFiles" value="/WEB-INF/layouts/components/jsFiles.jsp" />
   </definition>
   <definition name="popup" template="/WEB-INF/layouts/components/popup.jspx"></definition>

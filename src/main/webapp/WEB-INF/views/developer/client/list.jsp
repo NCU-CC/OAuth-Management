@@ -31,17 +31,9 @@
 						<c:forEach var="client" items="${clientList}">
 							<tr>
 								<td>
-									<a href="<c:url value="/developer/client/detail?id=${client.id}"/>">
+									<a href="<c:url value="/developer/client/detail?g=${client.id}"/>">
 										${client.name}
 									</a>
-									<%--
-									<a href="<c:url value="/developer/client/secret?id=${client.id}"/>">
-										<span class="label label-primary">secret</span>
-									</a>
-									<a href="<c:url value="/developer/client/delete?id=${client.id}"/>">
-										<span class="label label-danger">刪除</span>
-									</a>
-									 --%>
 								</td>
 							</tr>
 						</c:forEach>
@@ -53,5 +45,3 @@
 		<%-- /.box --%>
 	</div>
 </div>
-<script src="<c:url value='/resources/js/rails.js'/>" type="text/javascript"></script>
-<script src="<c:url value='/resources/js/data-confirm-modal.js'/>" type="text/javascript"></script>

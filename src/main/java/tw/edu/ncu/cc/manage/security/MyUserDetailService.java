@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import tw.edu.ncu.cc.manage.config.SecurityConfig;
+import tw.edu.ncu.cc.manage.domain.Manager;
 import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.enums.RoleEnum;
 import tw.edu.ncu.cc.manage.exception.NoSuchUserRoleException;
 import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
+import tw.edu.ncu.cc.manage.service.IManagerService;
 import tw.edu.ncu.cc.manage.service.IUserService;
 
 import com.google.inject.internal.Lists;
@@ -38,6 +41,9 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	@Autowired
 	private IUserService userService;
 	
+	@Autowired
+	private IManagerService managerService;
+	
 	/**
 	 * 可存取本系統的role
 	 */
@@ -49,19 +55,24 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		logger.debug("OpenID token {}", token);
 		logger.debug("使用者IP {}, User-Agent {} ", ip(), userAgent());
 		
-		if (!isAvailableRole(token)) {
-			logger.warn("使用者role不允許存取本系統, expected {}, received {} ", PERMIT_ROLES, roles(token));
+		String username = StringUtils.substringAfterLast((String) token.getPrincipal(), "/");
+		List<String> roles = ListUtils.union(roles(token), roles(username));
+		
+		logger.debug("使用者 OpenID roles: {}", roles);
+		
+		if (!isAvailableRole(roles)) {
+			logger.warn("使用者role不允許存取本系統, expected {}, received {} ", PERMIT_ROLES, roles);
 			throw new NoSuchUserRoleException(token, PERMIT_ROLES);
 		}
-
-		String username = StringUtils.substringAfterLast((String) token.getPrincipal(), "/");
 
 		if (StringUtils.isEmpty(username)) {
 			logger.warn("空白的使用者帳號");
 			throw new UsernameNotFoundException((String) token.getPrincipal());
 		}
 
-		User user = findOrCreateUserIfNotExist(username);
+		// TODO 若是黑名單，則不給登入
+		
+		User user = findOrCreateUserIfNotExist(username, roles);
 
 		addUsernameToSession(user);
 		
@@ -80,7 +91,7 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	}
 	
 	/**
-	 * 使用者ip
+	 * 使用者user-agent
 	 * @return
 	 */
 	private String userAgent() {
@@ -94,8 +105,8 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	 * 
 	 * @param token
 	 */
-	private boolean isAvailableRole(OpenIDAuthenticationToken token) {
-		return CollectionUtils.containsAny(PERMIT_ROLES, roles(token));
+	private boolean isAvailableRole(List<String> roles) {
+		return CollectionUtils.containsAny(PERMIT_ROLES, roles);
 	}
 
 	/**
@@ -111,8 +122,6 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 
 			if (isRoleAttribute(attribute)) {
 
-				logger.debug("使用者 OpenID roles: {}", attribute);
-
 				String roles = attribute.getValues().get(0);
 				roles = StringUtils.remove(roles, "\"");
 				roles = StringUtils.remove(roles, "[");
@@ -125,6 +134,19 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	}
 
 	/**
+	 * 提取角色屬性
+	 * @param username
+	 * @return
+	 */
+	private List<String> roles(String username) {
+		Optional<Manager> manager = this.managerService.find(username);
+		if (manager.isPresent()) {
+			return Lists.newArrayList(RoleEnum.ROLE_ADMIN.name());
+		}
+		return Collections.emptyList();
+	}
+	
+	/**
 	 * 這個attribute是role屬性
 	 * 
 	 * @param attribute
@@ -136,10 +158,11 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 
 	/**
 	 * 尋找使用者資訊，若不存在則新增
-	 * @param username
+	 * @param username 使用者帳號
+	 * @param roles 角色
 	 * @return
 	 */
-	private User findOrCreateUserIfNotExist(String username) {
+	private User findOrCreateUserIfNotExist(String username, List<String> roles) {
 		User user = null;
 		
 		try {
@@ -148,11 +171,13 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 			if (result.isPresent()) {
 				
 				user = result.get();
+				user.setRoles(roles);
+				
 				logger.debug("使用者資訊 {} ", user);
 				
 			} else {
 				
-				user = new User(username);
+				user = new User(username, roles);
 				logger.debug("新增使用者資訊 {} ", user);
 				this.userService.create(user);
 				

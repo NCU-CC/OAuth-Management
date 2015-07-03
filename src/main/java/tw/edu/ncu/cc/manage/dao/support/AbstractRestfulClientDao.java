@@ -3,14 +3,16 @@ package tw.edu.ncu.cc.manage.dao.support;
 import java.lang.reflect.ParameterizedType;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,7 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-public class AbstractRestfulClientDao<T> {
+public abstract class AbstractRestfulClientDao<T> {
 
 	private static final Logger logger = LoggerFactory.getLogger(AbstractRestfulClientDao.class);
 
@@ -71,7 +73,7 @@ public class AbstractRestfulClientDao<T> {
 		}
 		return Optional.ofNullable(t);
 	}
-
+	
 	private boolean is404(HttpClientErrorException e) {
 		return HttpStatus.NOT_FOUND.equals(e.getStatusCode());
 	}
@@ -80,12 +82,12 @@ public class AbstractRestfulClientDao<T> {
 		if (logger.isDebugEnabled()) {
 			logger.debug("GET {}", url);
 		}
-
-		ParameterizedTypeReference<List<T>> myBean = new ParameterizedTypeReference<List<T>>() {
-		};
-		ResponseEntity<List<T>> response = template.exchange(url, HttpMethod.GET, null, myBean);
+		
+		ResponseEntity<List<T>> response = template.exchange(url, HttpMethod.GET, null, parameterizedTypeReferenceForList());
 		return response.getBody();
 	}
+	
+	protected abstract ParameterizedTypeReference<List<T>> parameterizedTypeReferenceForList();
 
 	protected T put(String url, T parametersObject) {
 		if (logger.isDebugEnabled()) {
@@ -97,17 +99,25 @@ public class AbstractRestfulClientDao<T> {
 	}
 
 	protected T post(String url) {
-		return post(url, null);
+		return post(url, null, Collections.emptyMap());
 	}
 
 	protected T post(String url, T parametersObject) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("POST {} with params {}", url, parametersObject);
-		}
-
-		return template.postForObject(url, parametersObject, clazz);
+		return post(url, parametersObject, Collections.emptyMap());
 	}
 
+	protected T post(String url, Map<String, ?> uriParameters) {
+		return post(url, null, uriParameters);
+	}
+	
+	protected T post(String url, T parametersObject, Map<String, ?> uriParameters) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("POST {} with uri params {}, body params {} ", url, uriParameters, parametersObject);
+		}
+		
+		return template.postForObject(url, parametersObject, clazz, uriParameters);
+	}
+	
 	protected void delete(String url) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("DELETE {}", url);

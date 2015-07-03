@@ -3,6 +3,7 @@ package tw.edu.ncu.cc.manage.dao.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -48,4 +49,11 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 		Assert.hasText(clientId);
 		return post(withUrl(clientUrl, clientId, "refresh_secret"));
 	}
+	
+	private static final ParameterizedTypeReference<List<Client>> parameterizedTypeReference = new ParameterizedTypeReference<List<Client>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<Client>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}	
 }

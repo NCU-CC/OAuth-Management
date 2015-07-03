@@ -1,26 +1,25 @@
 package tw.edu.ncu.cc.manage.controller.developer;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import tw.edu.ncu.cc.manage.domain.Client;
+import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 
 
 public class DeveloperAppEditControllerTest {
 
-	private ClientDetailController controller;
+	private ClientController controller;
 	
 	@Before
 	public void setUp() throws Exception {
-		controller = new ClientDetailController();
+		controller = new ClientController();
 	}
 
 	@Test
-	public void testIsAuthorized() {
+	public void testIsAuthorized() throws NotAuthorizedException {
 		
 		String username = "fakeowner";
 		
@@ -28,7 +27,7 @@ public class DeveloperAppEditControllerTest {
 		client.setOwner(username);
 		
 		Optional<Client> mockAppOptional = Optional.of(client); 
-		assertTrue(controller.isAuthorized(mockAppOptional, username));
+		controller.validateClient(mockAppOptional, username);
 	}
 
 }
