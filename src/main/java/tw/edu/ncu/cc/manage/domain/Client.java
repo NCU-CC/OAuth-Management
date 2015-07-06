@@ -19,6 +19,8 @@ public class Client {
 	
 	private String owner;
 
+	private boolean deleted;
+	
 	public String getId() {
 		return id;
 	}
@@ -79,8 +81,16 @@ public class Client {
 		return StringUtils.equals(this.owner, username);
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
-	}	
+	}
 }

@@ -14,6 +14,13 @@ import tw.edu.ncu.cc.manage.domain.Client;
 @Repository
 public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClientDao {
 	
+	private static final ParameterizedTypeReference<List<Client>> parameterizedTypeReference = new ParameterizedTypeReference<List<Client>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<Client>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}
+	
 	@Override
 	public List<Client> findAll(String username) {
 		Assert.hasText(username);
@@ -49,11 +56,17 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 		Assert.hasText(clientId);
 		return post(withUrl(clientUrl, clientId, "refresh_secret"));
 	}
-	
-	private static final ParameterizedTypeReference<List<Client>> parameterizedTypeReference = new ParameterizedTypeReference<List<Client>>() {};
-	
+
 	@Override
-	protected ParameterizedTypeReference<List<Client>> parameterizedTypeReferenceForList() {
-		return parameterizedTypeReference;
-	}	
+	public List<Client> search(Client dto) {
+		
+		String name = dto.getName();
+		String id = dto.getId();
+		String owner = dto.getOwner();
+		boolean deleted = dto.isDeleted();
+		
+		StringBuilder url;
+		
+		return null;
+	}
 }

@@ -19,4 +19,6 @@ public interface IClientService {
 
 	Client create(Client client);
 
+	List<Client> search(Client dto);
+
 }
