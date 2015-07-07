@@ -188,10 +188,14 @@ public class ClientController {
 			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
-		if (!client.get().isOwned(username)) {
+		if (!client.get().isOwned(username) && !isAdmin()) {
 			logger.warn("嘗試操作不屬於自己的" + Client.class.getSimpleName());
 			throw new NotAuthorizedException("未經允許的操作");
 		}
+	}
+	
+	private boolean isAdmin() {
+		return this.userContextService.getCurrentUser().isAdmin();
 	}
 
 	/**

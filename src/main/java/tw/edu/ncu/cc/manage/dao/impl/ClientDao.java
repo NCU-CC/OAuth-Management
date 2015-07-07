@@ -66,7 +66,7 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 				.queryParam("id", dto.getId())
 				.queryParam("owner", dto.getOwner())
 				.queryParam("deleted", dto.isDeleted())
-				.build(false).encode().toUriString();
+				.build(false).toUriString();
 		
 		return getList(url);
 	}
