@@ -7,35 +7,27 @@
 				<h3 class="box-title ">搜尋</h3>		
 			</div>
 			<%-- /.box-header --%>
-			<div class="box-body table-responsive no-padding">
+			<div class="box-tools table-responsive no-padding">
 				<form class="form-horizontal" method="GET" action="">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">名稱</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="name" placeholder="應用服務名稱" name="name">
-							</div>
+							<label for="name" class="control-label">名稱</label>
+							<input class="form-control" id="name" placeholder="應用服務名稱" name="name">
 						</div>
 						<div class="form-group">
-							<label for="id" class="col-sm-2 control-label">client id</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="id" placeholder="應用服務的client id" name="id">
-							</div>
+							<label for="id" class="control-label">client id</label>
+							<input class="form-control" id="id" placeholder="應用服務的client id" name="id">
 						</div>
 						<div class="form-group">
-							<label for="owner" class="col-sm-2 control-label">開發者</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="owner" placeholder="開發者姓名" name="owner">
-							</div>
+							<label for="owner" class="control-label">開發者</label>
+							<input class="form-control" id="owner" placeholder="開發者姓名" name="owner">
 						</div>
 						<div class="form-group">
-							<label for="deleted" class="col-sm-2 control-label">是否刪除</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="deleted" name="deleted">
-									<option selected value="false">未刪除</option>
-									<option value="true">已刪除</option>
-								</select>
-							</div>
+							<label for="deleted" class="control-label">是否刪除</label>
+							<select class="form-control" id="deleted" name="deleted">
+								<option selected value="false">未刪除</option>
+								<option value="true">已刪除</option>
+							</select>
 						</div>
 					</div>
 					<!-- /.box-body -->
