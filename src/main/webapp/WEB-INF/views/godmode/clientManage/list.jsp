@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
-	<div class="col-xs-4 col-md-4">
+	<div class="col-md-8">
 		<div class="box box-solid box-info">
 			<div class="box-header">
-				<h3 class="box-title ">搜尋</h3>		
+				<h3 class="box-title">搜尋</h3>		
 			</div>
 			<%-- /.box-header --%>
-			<div class="box-body table-responsive no-padding">
-				<form class="form-horizontal" method="GET" action="">
+
+				<form class="form-horizontal" role="form" method="GET" action="">
 					<div class="box-body">
 						<div class="form-group">
 							<label for="name" class="col-sm-2 control-label">名稱</label>
@@ -44,11 +44,11 @@
 					</div>
 					<!-- /.box-footer -->
 				</form>
-			</div>
 			<%-- /.box-body --%>
 		</div>
 		<%-- /.box --%>
-		
+	</div>
+	<div class="col-xs-12 col-md-12">
 		<div class="box box-info">
 			<div class="box-header">
 				<h3 class="box-title">搜尋結果</h3>
@@ -71,12 +71,12 @@
 						<c:forEach var="client" items="${clientList}">
 							<tr>
 								<td>
-									<a href="<c:url value="/developer/client/detail?g=${client.id}"/>">${client.name}</a>
+								    <a href="<c:url value="/developer/client/detail?g=${client.id}"/>">${client.name}</a>
 								</td>
 								<td>
-									<c:choose>
+								    <c:choose>
 										<c:when test="${client.deleted}">已刪除</c:when>
-										<c:otherwise>未刪除</c:otherwise> 
+										<c:otherwise>未刪除</c:otherwise>
 									</c:choose>
 								</td>
 							</tr>
@@ -86,6 +86,5 @@
 			</div>
 			<%-- /.box-body --%>
 		</div>
-		<%-- /.box --%>
 	</div>
 </div>
