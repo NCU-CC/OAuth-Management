@@ -63,9 +63,9 @@ public class ClientBlackListController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createSubmit(@ModelAttribute BlacklistClient client) {
 		
-		client = this.blacklistClientService.create(client);
+		this.blacklistClientService.create(client);
 		
-		return "redirect:../blacklist/client?id=" + client.getClient().getId();
+		return "redirect:../blacklist/client?id=" + client.getClientId();
 	}
 	
 	// 編輯黑名單
