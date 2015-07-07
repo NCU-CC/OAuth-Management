@@ -8,7 +8,7 @@
     <definition extends="defaultTemplate" name="clientManage/list">
         <put-attribute name="primaryTitle" value="應用服務管理"/>
         <put-attribute name="secondaryTitle" value="提供系統管理者管理應用服務"/>
-        <put-attribute name="mainContent" value="/WEB-INF/views/godmode/blacklist/user/list.jsp" />
+        <put-attribute name="mainContent" value="/WEB-INF/views/godmode/clientManage/list.jsp" />
     </definition>
 
 </tiles-definitions>

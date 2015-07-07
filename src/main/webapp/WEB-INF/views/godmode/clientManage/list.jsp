@@ -8,7 +8,7 @@
 			</div>
 			<%-- /.box-header --%>
 			<div class="box-body table-responsive no-padding">
-				<form class="form-horizontal" method="POST" action="">
+				<form class="form-horizontal" method="GET" action="">
 					<div class="box-body">
 						<div class="form-group">
 							<label for="name" class="col-sm-2 control-label">名稱</label>
@@ -25,7 +25,7 @@
 						<div class="form-group">
 							<label for="owner" class="col-sm-2 control-label">開發者</label>
 							<div class="col-sm-10">
-								<input class="form-control" id="owner" placeholder="開發者姓名" type="owner" name="owner">
+								<input class="form-control" id="owner" placeholder="開發者姓名" name="owner">
 							</div>
 						</div>
 						<div class="form-group">
@@ -37,9 +37,10 @@
 								</select>
 							</div>
 						</div>
+					</div>
 					<!-- /.box-body -->
 					<div class="box-footer">
-						<button type="submit" class="btn btn-default">搜尋</button>
+						<button type="submit" class="btn btn-primary">搜尋</button>
 					</div>
 					<!-- /.box-footer -->
 				</form>
@@ -54,7 +55,13 @@
 			</div>
 			<%-- /.box-header --%>
 			<div class="box-body table-responsive no-padding">
-			
+				<c:if test="${empty clientList}">
+					<table class="table table-hover">
+						<tr>
+							<th>無結果</th>
+						</tr>
+					</table>
+				</c:if>
 				<c:if test="${not empty clientList}">
 					<table class="table table-hover">
 						<tr>

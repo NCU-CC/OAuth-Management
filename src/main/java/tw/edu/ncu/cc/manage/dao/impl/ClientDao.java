@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import tw.edu.ncu.cc.manage.dao.IClientDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
@@ -59,14 +60,14 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 
 	@Override
 	public List<Client> search(Client dto) {
+
+		String url = UriComponentsBuilder.fromHttpUrl(clientUrl)
+				.queryParam("name", dto.getName())
+				.queryParam("id", dto.getId())
+				.queryParam("owner", dto.getOwner())
+				.queryParam("deleted", dto.isDeleted())
+				.build(false).encode().toUriString();
 		
-		String name = dto.getName();
-		String id = dto.getId();
-		String owner = dto.getOwner();
-		boolean deleted = dto.isDeleted();
-		
-		StringBuilder url;
-		
-		return null;
+		return getList(url);
 	}
 }
