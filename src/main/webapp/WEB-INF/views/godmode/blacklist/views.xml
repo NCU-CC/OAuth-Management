@@ -34,7 +34,7 @@
     <definition extends="defaultTemplate" name="blacklist/client/create">
         <put-attribute name="primaryTitle" value="新增應用服務黑名單"/>
         <put-attribute name="secondaryTitle" value="新增應用服務黑名單"/>
-        <put-attribute name="mainContent" value="/WEB-INF/views/godmode/blacklist/client/detail.jsp" />
+        <put-attribute name="mainContent" value="/WEB-INF/views/godmode/blacklist/client/create.jsp" />
     </definition>
     
     <definition extends="defaultTemplate" name="blacklist/client/edit">

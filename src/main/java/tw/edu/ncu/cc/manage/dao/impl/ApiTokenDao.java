@@ -14,6 +14,13 @@ import tw.edu.ncu.cc.manage.domain.ApiToken;
 @Repository
 public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IApiTokenDao {
 
+	private static final ParameterizedTypeReference<List<ApiToken>> parameterizedTypeReference = new ParameterizedTypeReference<List<ApiToken>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<ApiToken>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}
+	
 	@Override
 	public List<ApiToken> findByClient(String clientId) {
 		Assert.hasText(clientId);
@@ -43,11 +50,4 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 		Assert.hasText(token);
 		return post(withUrl(apiTokenUrl, token, "refresh"));
 	}
-
-	private static final ParameterizedTypeReference<List<ApiToken>> parameterizedTypeReference = new ParameterizedTypeReference<List<ApiToken>>() {};
-	
-	@Override
-	protected ParameterizedTypeReference<List<ApiToken>> parameterizedTypeReferenceForList() {
-		return parameterizedTypeReference;
-	}	
 }

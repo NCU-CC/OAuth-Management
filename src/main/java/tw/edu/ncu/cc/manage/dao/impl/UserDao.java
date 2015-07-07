@@ -13,7 +13,14 @@ import tw.edu.ncu.cc.manage.domain.User;
 
 @Repository
 public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {
-
+	
+	private static final ParameterizedTypeReference<List<User>> parameterizedTypeReference = new ParameterizedTypeReference<List<User>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<User>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}	
+	
 	@Override
 	public Optional<User> find(String username) {
 		Assert.hasText(username);
@@ -26,12 +33,4 @@ public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {
 		post(userUrl, user);
 		return user;
 	}
-	
-	private static final ParameterizedTypeReference<List<User>> parameterizedTypeReference = new ParameterizedTypeReference<List<User>>() {};
-	
-	@Override
-	protected ParameterizedTypeReference<List<User>> parameterizedTypeReferenceForList() {
-		return parameterizedTypeReference;
-	}	
-
 }

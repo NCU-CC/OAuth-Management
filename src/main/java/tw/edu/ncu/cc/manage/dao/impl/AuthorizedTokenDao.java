@@ -14,6 +14,13 @@ import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
 @Repository
 public class AuthorizedTokenDao extends AbstractOAuthServiceDao<AuthorizedToken> implements IAuthorizedTokenDao {
 
+	private static final ParameterizedTypeReference<List<AuthorizedToken>> parameterizedTypeReference = new ParameterizedTypeReference<List<AuthorizedToken>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<AuthorizedToken>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}
+	
 	@Override
 	public List<AuthorizedToken> findAll(String username) {
 		Assert.hasText(username);
@@ -31,12 +38,5 @@ public class AuthorizedTokenDao extends AbstractOAuthServiceDao<AuthorizedToken>
 		Assert.notNull(token);
 		Assert.hasText(token.getId());
 		delete(withUrl(tokenUrl, token.getId()));
-	}
-
-	private static final ParameterizedTypeReference<List<AuthorizedToken>> parameterizedTypeReference = new ParameterizedTypeReference<List<AuthorizedToken>>() {};
-	
-	@Override
-	protected ParameterizedTypeReference<List<AuthorizedToken>> parameterizedTypeReferenceForList() {
-		return parameterizedTypeReference;
 	}
 }

@@ -24,11 +24,21 @@ public class ClientManageController {
 	@Autowired
 	private IClientService clientService;
 	
+	/**
+	 * 應用服務管理首頁
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
 		return "clientManage/list";
 	}
 	
+	/**
+	 * 應用服務管理搜尋
+	 * @param model
+	 * @param dto 一個Data Transfer Object，搜尋client的id、名稱、開發者和是否刪除
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, params = "deleted")
 	public String search(Model model, @ModelAttribute Client dto) {
 		

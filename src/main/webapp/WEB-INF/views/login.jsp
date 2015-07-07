@@ -48,8 +48,8 @@
 
 				<c:if test="${not empty errorMsg}">
 					<p align="center">
-						<span style="font-size: 20px; background-color: black; color: white; padding: 5px;"> <spring:message
-								code="${errorMsg}" />
+						<span style="font-size: 20px; background-color: black; color: white; padding: 5px;">
+							<spring:message	code="${errorMsg}" />
 						</span>
 					</p>
 				</c:if>

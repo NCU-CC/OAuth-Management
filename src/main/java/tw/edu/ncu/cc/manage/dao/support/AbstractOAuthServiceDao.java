@@ -24,6 +24,8 @@ public abstract class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDa
 	
 	protected String apiTokenUrl;
 	
+	protected String blacklistClientUrl;
+	
 	@PostConstruct
 	private void init() {
 		rootUrl = env.getRequiredProperty("oauth.root");
@@ -32,5 +34,6 @@ public abstract class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDa
 		tokenUrl = rootUrl + "authorized_tokens";
 		managerUrl = rootUrl + "managers";
 		apiTokenUrl = rootUrl + "api_tokens";
+		blacklistClientUrl = rootUrl + "blacklist/clients";
 	}
 }
