@@ -22,8 +22,8 @@ import tw.edu.ncu.cc.manage.service.IUserContextService;
  *
  */
 @Controller
-@RequestMapping("/user/app")
-public class UserAppListController {
+@RequestMapping("/user/token")
+public class UserTokenManageController {
 
 	@Autowired
 	private IAuthorizedTokenService autorizedTokenService;
@@ -64,18 +64,18 @@ public class UserAppListController {
 		Optional<AuthorizedToken> token = this.autorizedTokenService.find(id);
 		
 		if (noSuchApp(token)) {
-			String reason = String.format("嘗試處理不存在且未註冊的應用服務；username %s, tokenId %s .", username, id);
+			String reason = String.format("嘗試存取不存在且未註冊的應用服務；username %s, tokenId %s .", username, id);
 			throw new NotAuthorizedException(reason);
 		}
 		
 		if (!hasPermission(token, username)) {
-			String reason = String.format("嘗試操作不屬於自己的應用服務；username %s, tokenId %s .", username, id);
+			String reason = String.format("嘗試存取不屬於自己的應用服務；username %s, tokenId %s .", username, id);
 			throw new NotAuthorizedException(reason);
 		}
 		
 		this.autorizedTokenService.revoke(token.get());
 
-		return "redirect:../app/list";
+		return "redirect:../token/list";
 	}
 
 	private boolean noSuchApp(Optional<AuthorizedToken> appInfo) {

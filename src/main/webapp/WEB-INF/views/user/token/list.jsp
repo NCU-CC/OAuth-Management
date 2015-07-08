@@ -7,9 +7,9 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">
-					<c:choose>
-						<c:when test="${not empty tokenList}">Token列表</c:when>
-						<c:otherwise>您無任何授權</c:otherwise>
+                    <c:choose>
+                        <c:when test="${not empty tokenList}">授權列表</c:when>
+                        <c:otherwise>您無任何授權</c:otherwise>
 					</c:choose>
 				</h3>
 
@@ -30,7 +30,7 @@
 									<c:forEach items="${token.scope}" var="scope">
 										${scope}<br/>
 									</c:forEach></td>
-								<td><a href="<c:url value="/user/app/revoke?id=${token.id}&=${_csrf.parameterName}=${_csrf.token}" />"
+								<td><a href="<c:url value="/user/token/revoke?id=${token.id}&=${_csrf.parameterName}=${_csrf.token}" />"
 									data-confirm="確定要撤銷此應用服務的授權？ " data-method="post">
 									   <span class="label label-danger">撤銷</span>
 									   </a>

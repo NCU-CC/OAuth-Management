@@ -30,7 +30,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-	            	<li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i>授權管理</a></li>                               
+	            	<li><a href="<c:url value="/user/token/list"/>"><i class="fa fa-angle-double-right"></i>授權管理</a></li>                               
 	            </ul>
 	        </li>
 	        <li class="treeview active">
