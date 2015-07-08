@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import tw.edu.ncu.cc.manage.dao.IUserDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
@@ -32,5 +33,18 @@ public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {
 		Assert.notNull(user);
 		post(userUrl, user);
 		return user;
+	}
+
+	@Override
+	public List<User> search(User dto) {
+		
+		Assert.notNull(dto);
+		
+		String url = UriComponentsBuilder.fromHttpUrl(userUrl)
+				.queryParam("name", dto.getName())
+				.queryParam("id", dto.getId())
+				.build(false).toUriString();
+		
+		return getList(url);
 	}
 }

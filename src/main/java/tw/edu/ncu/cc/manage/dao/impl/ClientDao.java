@@ -60,7 +60,9 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 
 	@Override
 	public List<Client> search(Client dto) {
-
+		
+		Assert.notNull(dto);
+		
 		String url = UriComponentsBuilder.fromHttpUrl(clientUrl)
 				.queryParam("name", dto.getName())
 				.queryParam("id", dto.getId())

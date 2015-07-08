@@ -17,7 +17,7 @@ import tw.edu.ncu.cc.manage.service.IAuthorizedTokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
 /**
- * 使用者管理
+ * 使用者授權管理
  * @author yyc1217
  *
  */
