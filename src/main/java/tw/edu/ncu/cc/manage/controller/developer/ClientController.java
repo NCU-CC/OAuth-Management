@@ -183,14 +183,20 @@ public class ClientController {
 	 * @throws NotAuthorizedException 
 	 */
 	protected void validateClient(Optional<Client> client, String username) throws NotAuthorizedException {
+		
 		if (!client.isPresent()) {
-			logger.warn("嘗試操作不存在的" + Client.class.getSimpleName());
+			logger.warn("嘗試存取不存在的" + Client.class.getSimpleName());
 			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
 		if (!client.get().isOwned(username) && !isAdmin()) {
-			logger.warn("嘗試操作不屬於自己的" + Client.class.getSimpleName());
+			logger.warn("嘗試存取不屬於自己的" + Client.class.getSimpleName());
 			throw new NotAuthorizedException("未經允許的操作");
+		}
+		
+		if (client.get().isDeleted() && !isAdmin()) {
+			logger.warn("嘗試存取已刪除的" + Client.class.getSimpleName());
+			throw new NotAuthorizedException("未經允許的操作");			
 		}
 	}
 	
