@@ -30,11 +30,13 @@ public class ClientBlackListController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
-		return "blacklist/client/list";
+		return "clientBlacklist/list";
 	}
 	
 	/**
 	 * 應用服務黑名單搜尋
+	 * @param model
+	 * @param dto
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, params = "deleted")
@@ -44,7 +46,7 @@ public class ClientBlackListController {
 		
 		model.addAttribute("clientList", clientList);
 		
-		return "blacklist/client/list";
+		return "clientBlacklist/list";
 	}
 	
 	/**
@@ -53,11 +55,12 @@ public class ClientBlackListController {
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create() {
-		return "blacklist/client/create";
+		return "clientBlacklist/create";
 	}
 	
 	/**
 	 * 在「新增應用服務黑名單」頁面按下新增
+	 * @param client
 	 * @return
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -71,13 +74,13 @@ public class ClientBlackListController {
 	// 編輯黑名單
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit() {
-		return "blacklist/client/edit";
+		return "clientBlacklist/edit";
 	}
 	
 	// 刪除黑名單
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String delete() {
-		return "blacklist/client/list";
+		return "clientBlacklist/list";
 	}
 	
 }

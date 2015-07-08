@@ -9,12 +9,12 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-	<form:form role="form" action='create' commandName="manager">
-		<div class="box-body">
-			<div class="form-group">
-				<form:label path="id">帳號</form:label>
-				<form:input path="id" cssClass="form-control"/>
-				<form:errors path="id"/>
+    <form:form role="form" action='create' commandName="manager">
+        <div class="box-body">
+            <div class="form-group">
+                <form:label path="id">帳號</form:label>
+                <form:input path="id" cssClass="form-control"/>
+                <form:errors path="id"/>
 			</div>
 		</div>
 		<%-- /.box-body --%>
