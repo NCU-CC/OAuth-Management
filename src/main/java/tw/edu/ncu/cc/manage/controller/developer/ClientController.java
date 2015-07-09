@@ -145,11 +145,11 @@ public class ClientController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String postDetail(@ModelAttribute Client editedClient) throws NotAuthorizedException {
 		
-		//TODO 若已被加入黑名單，則不得更新
 		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> oldClient = this.clientService.find(editedClient.getId());
 		validateClient(oldClient, username);
-
+		checkBlacklist(oldClient);
+		
 		editedClient.setId(oldClient.get().getId());
 		editedClient.setOwner(username);
 		
@@ -192,10 +192,34 @@ public class ClientController {
 		
 		Optional<Client> client = this.clientService.find(id);
 		validateClient(client, username);
+		checkBlacklist(client);
 		
 		this.clientService.refreshSecret(id);
 		
 		return "redirect:../client/detail?id=" + id;
+	}
+	
+	/**
+	 * 在編輯頁面按下「更新API Token」
+	 * @param model
+	 * @param id
+	 * @return
+	 * @throws NotAuthorizedException 
+	 */
+	@RequestMapping(value = "/apiToken", method = RequestMethod.GET)
+	public String refreshApiToken(Model model, @RequestParam(value = "d", required = true) String token) throws NotAuthorizedException {
+		
+		String username = userContextService.getCurrentUsername();
+		
+		Optional<ApiToken> apiToken = this.apiTokenService.find(token);
+		
+		Optional<Client> client = this.clientService.find(apiToken.get().getClient_id());
+		validateClient(client, username);
+		checkBlacklist(client);
+		
+		this.apiTokenService.refresh(apiToken.get().getId());
+		
+		return "redirect:../client/detail?id=" + client.get().getId();
 	}
 	
 	/**
@@ -228,25 +252,14 @@ public class ClientController {
 	}
 
 	/**
-	 * 在編輯頁面按下「更新API Token」
-	 * @param model
-	 * @param id
-	 * @return
-	 * @throws NotAuthorizedException 
+	 * 確認{@link Client}是否被加入黑名單
+	 * @param client
+	 * @throws NotAuthorizedException
 	 */
-	@RequestMapping(value = "/apiToken", method = RequestMethod.GET)
-	public String refreshApiToken(Model model, @RequestParam(value = "d", required = true) String token) throws NotAuthorizedException {
-		
-		String username = userContextService.getCurrentUsername();
-		
-		Optional<ApiToken> apiToken = this.apiTokenService.find(token);
-		
-		Optional<Client> client = this.clientService.find(apiToken.get().getClient_id());
-		validateClient(client, username);
-		
-		this.apiTokenService.refresh(apiToken.get().getId());
-		
-		return "redirect:../client/detail?id=" + client.get().getId();
+	private void checkBlacklist(Optional<Client> client) throws NotAuthorizedException {
+		Optional<BlacklistClient> blacklistClient = this.blacklistClientService.search(client.get()).stream().findAny();
+		if (blacklistClient.isPresent()) {
+			throw new NotAuthorizedException("已被加入黑名單");
+		}		
 	}
-	
 }
