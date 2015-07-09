@@ -105,12 +105,22 @@ public class ClientController {
 	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	public String getDetail(Model model, @PathVariable String id) throws NotAuthorizedException {
 		
-		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> client = this.clientService.find(id);
-		validateClient(client, username);
-		model.addAttribute("client", client.get());
-
 		
+		addClient(model, id, client);
+		addBlackListIfExist(model, client);
+		addApiToken(model, client);
+
+		return "developer/client/detail";
+	}
+	
+	private void addClient(Model model, String id, Optional<Client> client) throws NotAuthorizedException {
+		String username = this.userContextService.getCurrentUsername();
+		validateClient(client, username);
+		model.addAttribute("client", client.get());		
+	}
+
+	private void addBlackListIfExist(Model model, Optional<Client> client) {
 		this.blacklistClientService
 		.search(client.get())
 		.stream()
@@ -118,15 +128,13 @@ public class ClientController {
 		.ifPresent(
 				b -> model.addAttribute("isInBlacklist", true)
 		);
-
-		
-		ApiToken apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
-		model.addAttribute("apiToken", apiToken);
-
-		return "developer/client/detail";
 	}
 	
-
+	private void addApiToken(Model model, Optional<Client> client) {
+		ApiToken apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
+		model.addAttribute("apiToken", apiToken);
+	}
+	
 	/**
 	 * 在詳細頁面按下「更新」
 	 * @param model
