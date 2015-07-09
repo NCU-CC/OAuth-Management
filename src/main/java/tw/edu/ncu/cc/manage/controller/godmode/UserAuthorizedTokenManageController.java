@@ -18,7 +18,7 @@ import tw.edu.ncu.cc.manage.service.IUserService;
  *
  */
 @Controller
-@RequestMapping("/godmode/authorizedTokenManage")
+@RequestMapping("/godmode/userAuthorizedTokenManage")
 public class UserAuthorizedTokenManageController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class UserAuthorizedTokenManageController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
-		return "authorizedTokenManage/list";
+		return "userAuthorizedTokenManage/list";
 	}
 	
 	/**
@@ -46,6 +46,6 @@ public class UserAuthorizedTokenManageController {
 		
 		model.addAttribute("userList", userList);
 		
-		return "authorizedTokenManage/list";
+		return "userAuthorizedTokenManage/list";
 	}
 }

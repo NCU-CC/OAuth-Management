@@ -52,7 +52,7 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<c:url value="/godmode/authorizedTokenManage"/>"><i class="fa fa-angle-double-right"></i>使用者授權</a></li>
+                        <li><a href="<c:url value="/godmode/userAuthorizedTokenManage"/>"><i class="fa fa-angle-double-right"></i>使用者授權</a></li>
                         <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單</a></li>
                     </ul>
                 </li>
