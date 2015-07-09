@@ -34,6 +34,9 @@
 									<a href="<c:url value="/developer/client/detail/${client.id}"/>">
 										${client.name}
 									</a>
+									<c:if test="${isInBlacklist}">
+										<span class='badge bg-red'>黑名單</span>
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>

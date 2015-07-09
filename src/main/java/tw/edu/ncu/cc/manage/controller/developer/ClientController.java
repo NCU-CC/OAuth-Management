@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.edu.ncu.cc.manage.domain.ApiToken;
+import tw.edu.ncu.cc.manage.domain.BlacklistClient;
 import tw.edu.ncu.cc.manage.domain.Client;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 import tw.edu.ncu.cc.manage.service.IApiTokenService;
+import tw.edu.ncu.cc.manage.service.IBlacklistClientService;
 import tw.edu.ncu.cc.manage.service.IClientService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
@@ -44,6 +46,9 @@ public class ClientController {
 	
 	@Autowired
 	private IUserContextService userContextService;
+	
+	@Autowired
+	private IBlacklistClientService blacklistClientService;
 
 	/**
 	 * 開發者client清單首頁
@@ -100,19 +105,24 @@ public class ClientController {
 	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	public String getDetail(Model model, @PathVariable String id) throws NotAuthorizedException {
 		
-		
-		//TODO 若已被加入黑名單需註記
 		String username = this.userContextService.getCurrentUsername();
-		
 		Optional<Client> client = this.clientService.find(id);
 		validateClient(client, username);
+		model.addAttribute("client", client.get());
+
 		
-		//TODO 若已被加入黑名單，則不得更新apitoken
+		this.blacklistClientService
+		.search(client.get())
+		.stream()
+		.findAny()
+		.ifPresent(
+				b -> model.addAttribute("isInBlacklist", true)
+		);
+
+		
 		ApiToken apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
-		
-		model.addAttribute("client", client.get())
-			 .addAttribute("apiToken", apiToken);
-		
+		model.addAttribute("apiToken", apiToken);
+
 		return "developer/client/detail";
 	}
 	
