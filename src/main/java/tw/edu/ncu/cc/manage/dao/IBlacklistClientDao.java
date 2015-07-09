@@ -11,4 +11,6 @@ public interface IBlacklistClientDao {
 
 	BlacklistClient create(BlacklistClient client);
 
+	void delete(BlacklistClient client);
+
 }

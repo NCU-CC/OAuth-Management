@@ -1,13 +1,14 @@
 package tw.edu.ncu.cc.manage.controller.godmode;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import tw.edu.ncu.cc.manage.domain.BlacklistClient;
 import tw.edu.ncu.cc.manage.domain.Client;
 import tw.edu.ncu.cc.manage.service.IBlacklistClientService;
@@ -59,7 +60,7 @@ public class ClientBlackListController {
 	}
 	
 	/**
-	 * 在「新增應用服務黑名單」頁面按下新增
+	 * 在新增頁面按下「新增」
 	 * @param client
 	 * @return
 	 */
@@ -68,19 +69,20 @@ public class ClientBlackListController {
 		
 		this.blacklistClientService.create(client);
 		
-		return "redirect:../blacklist/client?id=" + client.getClientId();
+		return "redirect:../client?deleted=false&id=" + client.getClient_id();
 	}
 	
-	// 編輯黑名單
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String edit() {
-		return "clientBlacklist/edit";
-	}
-	
-	// 刪除黑名單
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete() {
-		return "clientBlacklist/list";
+	/**
+	 * 在搜尋後，按下「刪除」
+	 * @return
+	 */
+	@RequestMapping(value = "/delete/{clientId}", method = RequestMethod.GET)
+	public String delete(@PathVariable String clientId) {
+
+		BlacklistClient blacklistClient = this.blacklistClientService.search(new Client(clientId)).stream().findAny().get();
+		this.blacklistClientService.delete(blacklistClient);
+		
+		return "redirect:..";
 	}
 	
 }

@@ -12,9 +12,9 @@
 			<form class="form-horizontal" method="POST" action="">
 				<div class="box-body">
 					<div class="form-group">
-						<label for="id" class="col-sm-2 control-label">client id</label>
+						<label for="client_id" class="col-sm-2 control-label">client id</label>
 						<div class="col-sm-10">
-							<input class="form-control" id="id" placeholder="應用服務的client id" name="client.id" value="${param.id}">
+							<input class="form-control" id="client_id" placeholder="應用服務的client id" name="client_id" value="${param.client_id}">
 						</div>
 					</div>
 					<div class="form-group">

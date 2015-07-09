@@ -25,5 +25,9 @@ public class BlacklistClientService implements IBlacklistClientService {
 	public BlacklistClient create(BlacklistClient client) {
 		return this.blacklistClientDao.create(client);
 	}
-	
+
+	@Override
+	public void delete(BlacklistClient client) {
+		this.blacklistClientDao.delete(client);
+	}
 }

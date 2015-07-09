@@ -39,4 +39,9 @@ public class BlacklistClientDao  extends AbstractOAuthServiceDao<BlacklistClient
 		return post(blacklistClientUrl, client);
 	}
 
+	@Override
+	public void delete(BlacklistClient client) {
+		delete(withUrl(blacklistClientUrl, client.getClient_id()));
+	}
+
 }

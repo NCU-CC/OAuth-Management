@@ -21,6 +21,13 @@ public class Client {
 
 	private boolean deleted;
 	
+	public Client() {
+	}
+	
+	public Client(String id) {
+		this.id = id;
+	}
+
 	public String getId() {
 		return id;
 	}

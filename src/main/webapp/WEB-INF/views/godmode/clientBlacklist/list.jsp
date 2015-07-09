@@ -76,13 +76,19 @@
 						<tr>
 							<th>client id</th>
 							<th>原因</th>
+							<th>功能</th>
 						</tr>
 						<c:forEach var="blacklistClient" items="${clientList}">
 							<tr>
 								<td>
-									<a href="<c:url value="/developer/client/detail?g=${blacklistClient.clientId}"/>">${blacklistClient.clientId}</a>
+									<a href="<c:url value="/developer/client/detail/${blacklistClient.client_id}"/>">${blacklistClient.client_id}</a>
 								</td>
-								<td>${blacklistClient.reason}</td>
+								<td>
+									${blacklistClient.reason}
+								</td>
+								<td>
+									<a href="<c:url value='/godmode/blacklist/client/delete/${blacklistClient.client_id}'/>"><span class="label label-danger">刪除</span></a>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,14 +97,17 @@ public class ClientController {
 	 * @return
 	 * @throws NotAuthorizedException 
 	 */
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String getDetail(Model model, @RequestParam(value = "g", required = true) String id) throws NotAuthorizedException {
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+	public String getDetail(Model model, @PathVariable String id) throws NotAuthorizedException {
 		
+		
+		//TODO 若已被加入黑名單需註記
 		String username = this.userContextService.getCurrentUsername();
 		
 		Optional<Client> client = this.clientService.find(id);
 		validateClient(client, username);
 		
+		//TODO 若已被加入黑名單，則不得更新apitoken
 		ApiToken apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
 		
 		model.addAttribute("client", client.get())
@@ -123,6 +127,7 @@ public class ClientController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String postDetail(@ModelAttribute Client editedClient) throws NotAuthorizedException {
 		
+		//TODO 若已被加入黑名單，則不得更新
 		String username = this.userContextService.getCurrentUsername();
 		Optional<Client> oldClient = this.clientService.find(editedClient.getId());
 		validateClient(oldClient, username);
@@ -189,19 +194,19 @@ public class ClientController {
 			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
-		if (!client.get().isOwned(username) && !isAdmin()) {
+		if (this.userContextService.getCurrentUser().isAdmin()) {
+			return;
+		}
+		
+		if (!client.get().isOwned(username)) {
 			logger.warn("嘗試存取不屬於自己的" + Client.class.getSimpleName());
 			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
-		if (client.get().isDeleted() && !isAdmin()) {
+		if (client.get().isDeleted()) {
 			logger.warn("嘗試存取已刪除的" + Client.class.getSimpleName());
 			throw new NotAuthorizedException("未經允許的操作");			
 		}
-	}
-	
-	private boolean isAdmin() {
-		return this.userContextService.getCurrentUser().isAdmin();
 	}
 
 	/**

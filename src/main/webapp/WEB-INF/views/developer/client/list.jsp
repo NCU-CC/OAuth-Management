@@ -31,7 +31,7 @@
 						<c:forEach var="client" items="${clientList}">
 							<tr>
 								<td>
-									<a href="<c:url value="/developer/client/detail?g=${client.id}"/>">
+									<a href="<c:url value="/developer/client/detail/${client.id}"/>">
 										${client.name}
 									</a>
 								</td>
