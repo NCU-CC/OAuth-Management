@@ -16,7 +16,7 @@
 			</div>
 			<%-- /.box-header --%>
 			<div class="box-body table-responsive no-padding">
-				<c:if test="${not empty tokenList}">
+                <c:if test="${not empty tokenList}">
 					<table class="table table-hover">
 						<tr>
 							<th>應用服務名稱</th>
@@ -30,11 +30,11 @@
 									<c:forEach items="${token.scope}" var="scope">
 										${scope}<br/>
 									</c:forEach></td>
-								<td><a href="<c:url value="/user/token/revoke?id=${token.id}&=${_csrf.parameterName}=${_csrf.token}" />"
-									data-confirm="確定要撤銷此應用服務的授權？ " data-method="post">
-									   <span class="label label-danger">撤銷</span>
-									   </a>
-							     </td>
+                                <td><a href="<c:url value="/user/token/revoke?id=${token.id}&=${_csrf.parameterName}=${_csrf.token}" />"
+                                    data-confirm="確定要撤銷此應用服務的授權？ " data-method="post">
+                                       <span class="label label-danger">撤銷</span>
+                                       </a>
+                                 </td>
 							</tr>
 						</c:forEach>
 					</table>

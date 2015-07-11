@@ -32,7 +32,7 @@
 				            <td>${status.index + 1}</td>
 				            <td>${manager.id}</td>
 				            <td>${manager.name}</td>
-				            <td><a href="<c:url value='/godmode/manager/delete/${manager.id}'/>"><span class="label label-primary">刪除</span></a></td>
+				            <td><a href="<c:url value='/godmode/manager/delete/${manager.id}'/>"><span class="label label-danger">刪除</span></a></td>
 				        </tr>
 				    </c:forEach>
 				</table>

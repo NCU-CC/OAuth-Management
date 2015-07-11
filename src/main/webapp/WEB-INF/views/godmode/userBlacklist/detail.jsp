@@ -9,7 +9,7 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-	<form:form role="form" action='#' method='post'>
+    <form:form role="form" action='#' method='post'>
 		<div class="box-body">
 			<div class="form-group">
 				<label for="account">開發者帳號</label>

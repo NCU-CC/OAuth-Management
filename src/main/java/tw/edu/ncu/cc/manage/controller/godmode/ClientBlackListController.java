@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.controller.godmode;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.BlacklistClient;
 import tw.edu.ncu.cc.manage.domain.Client;
@@ -41,13 +43,11 @@ public class ClientBlackListController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, params = "deleted")
-	public String search(Model model, @ModelAttribute Client dto) {
+	public ModelAndView search(@ModelAttribute Client dto) {
 		
 		List<BlacklistClient> clientList = this.blacklistClientService.search(dto);
 		
-		model.addAttribute("clientList", clientList);
-		
-		return "clientBlacklist/list";
+		return new ModelAndView("clientBlacklist/list", "clientList", clientList);
 	}
 	
 	/**
