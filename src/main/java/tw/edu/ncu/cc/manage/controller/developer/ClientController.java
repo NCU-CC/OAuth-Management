@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.ApiToken;
 import tw.edu.ncu.cc.manage.domain.BlacklistClient;
@@ -53,20 +54,15 @@ public class ClientController {
 	/**
 	 * 開發者client清單首頁
 	 * 
-	 * @param model
 	 * @return
-	 * @throws IOException
-	 *             Remote OAuth service down.
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) {
+	public ModelAndView list() {
 
 		String username = this.userContextService.getCurrentUsername();
 		List<Client> clientList = this.clientService.findAll(username);
 
-		model.addAttribute("clientList", clientList);
-
-		return "developer/client/list";
+		return new ModelAndView("developer/client/list", "clientList", clientList);
 	}
 
 	/**
