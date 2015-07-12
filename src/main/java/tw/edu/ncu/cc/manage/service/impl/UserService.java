@@ -1,5 +1,6 @@
 package tw.edu.ncu.cc.manage.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,11 @@ public class UserService implements IUserService {
 	public User create(User user) {
 		Assert.notNull(user);
 		return this.userDao.create(user);
+	}
+
+	@Override
+	public List<User> search(User dto) {
+		Assert.notNull(dto);
+		return this.userDao.search(dto);
 	}
 }

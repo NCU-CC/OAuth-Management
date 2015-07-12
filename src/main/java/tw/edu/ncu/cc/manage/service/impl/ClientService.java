@@ -46,4 +46,8 @@ public class ClientService implements IClientService {
 		return this.clientDao.create(client);
 	}
 
+	@Override
+	public List<Client> search(Client dto) {
+		return this.clientDao.search(dto);
+	}
 }

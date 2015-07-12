@@ -15,7 +15,14 @@ import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
 import tw.edu.ncu.cc.manage.domain.Manager;
 @Repository
 public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IManagerDao {
-
+	
+	private static final ParameterizedTypeReference<List<Manager>> parameterizedTypeReference = new ParameterizedTypeReference<List<Manager>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<Manager>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}	
+	
 	@Override
 	public List<Manager> findAll() {
 		return getList(managerUrl);
@@ -41,12 +48,4 @@ public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IMan
 		Assert.notNull(manager);
 		delete(withUrl(managerUrl, manager.getId()));
 	}
-	
-	private static final ParameterizedTypeReference<List<Manager>> parameterizedTypeReference = new ParameterizedTypeReference<List<Manager>>() {};
-	
-	@Override
-	protected ParameterizedTypeReference<List<Manager>> parameterizedTypeReferenceForList() {
-		return parameterizedTypeReference;
-	}	
-
 }

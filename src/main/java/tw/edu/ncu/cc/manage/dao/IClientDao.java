@@ -19,4 +19,6 @@ public interface IClientDao {
 
 	Client create(Client client);
 
+	List<Client> search(Client dto);
+
 }

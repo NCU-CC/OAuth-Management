@@ -12,23 +12,37 @@ import org.springframework.web.servlet.ModelAndView;
 import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.service.IUserService;
 
+/**
+ * 使用者管理
+ * @author yyc1217
+ *
+ */
 @Controller
-@RequestMapping("/godmode/userManage")
-public class UserManageController {
-	
+@RequestMapping("/godmode/userAuthorizedTokenManage")
+public class UserAuthorizedTokenManageController {
+
 	@Autowired
 	private IUserService userService;
 	
+	/**
+	 * 使用者管理首頁
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String list() {
-		return "userManage/list";
+	public String index() {
+		return "userAuthorizedTokenManage/list";
 	}
 	
+	/**
+	 * 在使用者管理首頁按下「搜尋」
+	 * @param dto
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, params = "action=search")
 	public ModelAndView search(@ModelAttribute User dto) {
 		
 		List<User> userList = this.userService.search(dto);
 		
-		return new ModelAndView("userManage/list", "userList", userList);
+		return new ModelAndView("userAuthorizedTokenManage/list", "userList", userList);
 	}
 }

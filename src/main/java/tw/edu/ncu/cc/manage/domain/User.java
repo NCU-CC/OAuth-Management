@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.domain;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,8 +10,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.CollectionUtils;
-
-import com.google.inject.internal.Sets;
 
 public class User implements UserDetails {
 	
@@ -26,7 +25,7 @@ public class User implements UserDetails {
 	private transient Collection<? extends GrantedAuthority> authorities;
 	
 	public User() {
-		this.authorities = Sets.newHashSet();
+		this.authorities = Collections.emptySet();
 	}
 	
 	public User(String name, List<String> roles) {
@@ -97,5 +96,11 @@ public class User implements UserDetails {
 		}
 		
 		this.authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
-	}	
+	}
+	
+	private static final GrantedAuthority ADMIN = new SimpleGrantedAuthority("ROLE_ADMIN");
+	
+	public boolean isAdmin() {
+		return this.authorities.contains(ADMIN);
+	}
 }

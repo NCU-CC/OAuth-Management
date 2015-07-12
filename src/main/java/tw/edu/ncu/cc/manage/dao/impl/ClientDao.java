@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import tw.edu.ncu.cc.manage.dao.IClientDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
@@ -13,6 +14,13 @@ import tw.edu.ncu.cc.manage.domain.Client;
 
 @Repository
 public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClientDao {
+	
+	private static final ParameterizedTypeReference<List<Client>> parameterizedTypeReference = new ParameterizedTypeReference<List<Client>>() {};
+	
+	@Override
+	protected ParameterizedTypeReference<List<Client>> parameterizedTypeReferenceForList() {
+		return parameterizedTypeReference;
+	}
 	
 	@Override
 	public List<Client> findAll(String username) {
@@ -49,11 +57,19 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 		Assert.hasText(clientId);
 		return post(withUrl(clientUrl, clientId, "refresh_secret"));
 	}
-	
-	private static final ParameterizedTypeReference<List<Client>> parameterizedTypeReference = new ParameterizedTypeReference<List<Client>>() {};
-	
+
 	@Override
-	protected ParameterizedTypeReference<List<Client>> parameterizedTypeReferenceForList() {
-		return parameterizedTypeReference;
-	}	
+	public List<Client> search(Client dto) {
+		
+		Assert.notNull(dto);
+		
+		String url = UriComponentsBuilder.fromHttpUrl(clientUrl)
+				.queryParam("name", dto.getName())
+				.queryParam("id", dto.getId())
+				.queryParam("owner", dto.getOwner())
+				.queryParam("deleted", dto.isDeleted())
+				.build(false).toUriString();
+		
+		return getList(url);
+	}
 }

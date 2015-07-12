@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.Manager;
 import tw.edu.ncu.cc.manage.service.IManagerService;
@@ -32,10 +33,9 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String index(Model model) {
+	public ModelAndView index() {
 		List<Manager> managerList = this.managerService.findAll();
-		model.addAttribute("managerList", managerList);
-		return "manager/index";
+		return new ModelAndView("manager/index", "managerList", managerList);
 	}
 	
 	/**
@@ -43,9 +43,8 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("manager", new Manager());
-		return "manager/create";
+	public ModelAndView create() {
+		return new ModelAndView("manager/create", "manager", new Manager());
 	}
 	
 	/**
@@ -75,5 +74,4 @@ public class ManagerController {
 		
 		return "redirect:../";
 	}
-	
 }

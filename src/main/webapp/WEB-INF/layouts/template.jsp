@@ -19,9 +19,13 @@
 		<%-- Main content --%>
 		<section class="content"><tiles:insertAttribute name="mainContent"/></section>
 		<%-- /.content --%>
-		
+
 		<footer class="main-footer">
-		   <strong>Copyright © 2015 Computer Center, National Central University.　</strong>All rights reserved.　<a href="mailto:mobile@cc.ncu.edu.tw"><i class="fa fa-envelope-o"></i>寄信給我們</a>
+			<div class="container">
+                <strong>Copyright © 2015 Computer Center, National Central University. </strong>All rights reserved. 
+                <a href="mailto:mobile@cc.ncu.edu.tw"><i class="fa fa-envelope-o"></i>寄信給我們</a>
+			</div>
+			<!-- /.container -->
 		</footer>
 
 	</aside>

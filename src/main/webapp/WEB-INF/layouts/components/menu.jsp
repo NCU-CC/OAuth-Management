@@ -12,12 +12,9 @@
 	        </div>
 	        <div class="pull-left info">
 	            <p>Hello, ${sessionScope._user.name}</p>
-	            <a><i class="fa fa-circle text-success"></i>Online</a>
 	        </div>
 	    </div>
-	    <%-- search form --%>
-	    
-	    <%-- /.search form --%>
+
 	    <%-- sidebar menu: : style can be found in sidebar.less --%>
 	    <ul class="sidebar-menu">
 	        <li>
@@ -32,7 +29,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-	            	<li><a href="<c:url value="/user/app/list"/>"><i class="fa fa-angle-double-right"></i>授權管理</a></li>                               
+	            	<li><a href="<c:url value="/user/token/list"/>"><i class="fa fa-angle-double-right"></i>授權管理</a></li>                               
 	            </ul>
 	        </li>
 	        <li class="treeview active">
@@ -47,7 +44,32 @@
 	            </ul>
 	        </li>
 
-			<security:authorize access="hasRole('ADMIN')">	
+			<security:authorize access="hasRole('ADMIN')">
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-unlock-alt"></i>
+                        <span>使用者管理</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<c:url value="/godmode/userManage"/>"><i class="fa fa-angle-double-right"></i>使用者管理</a></li>
+                        <li><a href="<c:url value="/godmode/userAuthorizedTokenManage"/>"><i class="fa fa-angle-double-right"></i>使用者授權管理(未完成)</a></li>
+                        <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單(未完成)</a></li>
+                    </ul>
+                </li>
+                
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-unlock-alt"></i>
+                        <span>應用服務管理</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<c:url value="/godmode/clientManage"/>"><i class="fa fa-angle-double-right"></i>應用服務</a></li>
+                        <li><a href="<c:url value="/godmode/blacklist/client"/>"><i class="fa fa-angle-double-right"></i>應用服務黑名單</a></li>
+                    </ul>
+                </li>
+                
 		        <li class="treeview active">
 		            <a href="#">
 		                <i class="fa fa-unlock-alt"></i>
@@ -55,11 +77,7 @@
 		                <i class="fa fa-angle-left pull-right"></i>
 		            </a>
 		            <ul class="treeview-menu">
-	                    <li><a href="<c:url value="/godmode/user"/>"><i class="fa fa-angle-double-right"></i>使用者授權管理</a></li>
-		                <li><a href="<c:url value="/godmode/client"/>"><i class="fa fa-angle-double-right"></i>應用服務管理</a></li>
-	                    <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單管理</a></li>
-	                    <li><a href="<c:url value="/godmode/blacklist/client"/>"><i class="fa fa-angle-double-right"></i>應用服務黑名單管理</a></li>
-	                    <li><a href="<c:url value="/godmode/statistic"/>"><i class="fa fa-angle-double-right"></i>統計報表</a></li>
+	                    <li><a href="<c:url value="/godmode/statistic"/>"><i class="fa fa-angle-double-right"></i>統計報表(未完成)</a></li>
 	                    <li><a href="<c:url value="/godmode/manager"/>"><i class="fa fa-angle-double-right"></i>系統管理者管理</a></li>
 		            </ul>
 		        </li>

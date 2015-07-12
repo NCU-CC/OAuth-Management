@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
-	<div class="col-xs-12">
+	<div class="col-md-8">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">
@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<%-- /.box-header --%>
-			<div class="box-body table-responsive no-padding">
+			<div class="box-body">
 				<c:if test="${not empty clientList}">
 					<table class="table table-hover">
 						<tr>
@@ -31,9 +31,12 @@
 						<c:forEach var="client" items="${clientList}">
 							<tr>
 								<td>
-									<a href="<c:url value="/developer/client/detail?g=${client.id}"/>">
+									<a href="<c:url value="/developer/client/detail/${client.id}"/>">
 										${client.name}
 									</a>
+									<c:if test="${isInBlacklist}">
+										<span class='badge bg-red'>黑名單</span>
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>

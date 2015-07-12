@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
@@ -17,13 +17,13 @@ import tw.edu.ncu.cc.manage.service.IAuthorizedTokenService;
 import tw.edu.ncu.cc.manage.service.IUserContextService;
 
 /**
- * 使用者管理
+ * 使用者授權管理
  * @author yyc1217
  *
  */
 @Controller
-@RequestMapping("/user/app")
-public class UserAppListController {
+@RequestMapping("/user/token")
+public class UserTokenManageController {
 
 	@Autowired
 	private IAuthorizedTokenService autorizedTokenService;
@@ -37,45 +37,42 @@ public class UserAppListController {
 	 * @return
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) {
+	public ModelAndView list() {
 				
 		String username = this.userContextService.getCurrentUsername();
 		List<AuthorizedToken> tokenList = this.autorizedTokenService.findAll(username);
 		
-		model.addAttribute("tokenList", tokenList);
-		
-		return "user/token/list";
+		return new ModelAndView("user/token/list", "tokenList", tokenList);
 	}
 
 	
 	/**
 	 * 取消授權
-	 * @param model
 	 * @param id
 	 * @return
 	 * @throws NotAuthorizedException 
 	 */
 
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
-	public String revoke(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
+	public String revoke(@RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		
 		Optional<AuthorizedToken> token = this.autorizedTokenService.find(id);
 		
 		if (noSuchApp(token)) {
-			String reason = String.format("嘗試處理不存在且未註冊的應用服務；username %s, tokenId %s .", username, id);
+			String reason = String.format("嘗試存取不存在且未註冊的應用服務；username %s, tokenId %s .", username, id);
 			throw new NotAuthorizedException(reason);
 		}
 		
 		if (!hasPermission(token, username)) {
-			String reason = String.format("嘗試操作不屬於自己的應用服務；username %s, tokenId %s .", username, id);
+			String reason = String.format("嘗試存取不屬於自己的應用服務；username %s, tokenId %s .", username, id);
 			throw new NotAuthorizedException(reason);
 		}
 		
 		this.autorizedTokenService.revoke(token.get());
 
-		return "redirect:../app/list";
+		return "redirect:../token/list";
 	}
 
 	private boolean noSuchApp(Optional<AuthorizedToken> appInfo) {

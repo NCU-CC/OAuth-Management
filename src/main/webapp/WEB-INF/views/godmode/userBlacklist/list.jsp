@@ -32,7 +32,7 @@
 						<td>王小明</td>
 						<td>散播垃圾訊息</td>
 						<td><a href="<c:url value='/godemode/blacklist/edit'/>"><span class="label label-primary">修改</span></a>
-						<a href="<c:url value='/godemode/blacklist/delete'/>"><span class="label label-primary">刪除</span></a></td>
+						<a href="<c:url value='/godemode/blacklist/delete'/>"><span class="label label-danger">刪除</span></a></td>
 					</tr>
                     <tr>
                         <td>2</td>
@@ -40,7 +40,7 @@
                         <td>李小美</td>
                         <td>將token給其他開發者使用</td>
                         <td><a href="<c:url value='/godmode/blacklist/edit'/>"><span class="label label-primary">修改</span></a>
-                        <a href="<c:url value='/godmode/blacklist/delete'/>"><span class="label label-primary">刪除</span></a></td>
+                        <a href="<c:url value='/godmode/blacklist/delete'/>"><span class="label label-danger">刪除</span></a></td>
                     </tr>
 				</table>
 			</div>
