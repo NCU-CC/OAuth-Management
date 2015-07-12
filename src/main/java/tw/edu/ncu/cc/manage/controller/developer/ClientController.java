@@ -231,7 +231,7 @@ public class ClientController {
 			throw new NotAuthorizedException("未經允許的操作");
 		}
 		
-		if (this.userContextService.getCurrentUser().isAdmin()) {
+		if (isAdmin()) {
 			return;
 		}
 		
@@ -244,6 +244,10 @@ public class ClientController {
 			logger.warn("嘗試存取已刪除的" + Client.class.getSimpleName());
 			throw new NotAuthorizedException("未經允許的操作");			
 		}
+	}
+	
+	protected boolean isAdmin() {
+		return this.userContextService.getCurrentUser().isAdmin();
 	}
 
 	/**
