@@ -8,6 +8,7 @@ import org.junit.Test;
 import tw.edu.ncu.cc.manage.domain.Client;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
 
+import static org.mockito.Mockito.*;
 
 public class DeveloperAppEditControllerTest {
 
@@ -15,7 +16,8 @@ public class DeveloperAppEditControllerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		controller = new ClientController();
+		controller = mock(ClientController.class);
+		when(controller.isAdmin()).thenReturn(true);
 	}
 
 	@Test
@@ -26,8 +28,7 @@ public class DeveloperAppEditControllerTest {
 		Client client = new Client();
 		client.setOwner(username);
 		
-		Optional<Client> mockAppOptional = Optional.of(client); 
+		Optional<Client> mockAppOptional = Optional.of(client);
 		controller.validateClient(mockAppOptional, username);
 	}
-
 }
