@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
 import tw.edu.ncu.cc.manage.exception.NotAuthorizedException;
@@ -37,27 +37,24 @@ public class UserTokenManageController {
 	 * @return
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) {
+	public ModelAndView list() {
 				
 		String username = this.userContextService.getCurrentUsername();
 		List<AuthorizedToken> tokenList = this.autorizedTokenService.findAll(username);
 		
-		model.addAttribute("tokenList", tokenList);
-		
-		return "user/token/list";
+		return new ModelAndView("user/token/list", "tokenList", tokenList);
 	}
 
 	
 	/**
 	 * 取消授權
-	 * @param model
 	 * @param id
 	 * @return
 	 * @throws NotAuthorizedException 
 	 */
 
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
-	public String revoke(Model model, @RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
+	public String revoke(@RequestParam(value = "id", required = true) String id) throws NotAuthorizedException {
 		
 		String username = this.userContextService.getCurrentUsername();
 		

@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.Client;
 import tw.edu.ncu.cc.manage.service.IClientService;
@@ -40,11 +40,10 @@ public class ClientManageController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, params = "deleted")
-	public String search(Model model, @ModelAttribute Client dto) {
+	public ModelAndView search(@ModelAttribute Client dto) {
 		
 		List<Client> clientList = this.clientService.search(dto);
-		model.addAttribute("clientList", clientList);
 		
-		return "clientManage/list";
+		return new ModelAndView("clientManage/list", "clientList", clientList);
 	}
 }

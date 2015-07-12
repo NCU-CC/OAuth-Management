@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.ApiToken;
 import tw.edu.ncu.cc.manage.service.IApiTokenService;
@@ -22,9 +22,8 @@ public class ClientTutorialController {
 	 * 開發者說明
 	 */
 	@RequestMapping(value = "/tutorial", method = RequestMethod.GET)
-	public String list(Model model) {
+	public ModelAndView list() {
 		List<ApiToken> list = this.apiTokenService.findAllByClient("8RnbKwp8RjZeGLkx");
-		model.addAttribute("list", list);
-		return "developer/tutorial";
+		return new ModelAndView("developer/tutorial", "list", list);
 	}
 }

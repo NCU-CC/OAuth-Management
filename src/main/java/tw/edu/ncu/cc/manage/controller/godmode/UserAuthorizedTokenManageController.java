@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.service.IUserService;
@@ -35,17 +35,14 @@ public class UserAuthorizedTokenManageController {
 	
 	/**
 	 * 在使用者管理首頁按下「搜尋」
-	 * @param model
 	 * @param dto
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, params = "action=search")
-	public String search(Model model, @ModelAttribute User dto) {
+	public ModelAndView search(@ModelAttribute User dto) {
 		
 		List<User> userList = this.userService.search(dto);
 		
-		model.addAttribute("userList", userList);
-		
-		return "userAuthorizedTokenManage/list";
+		return new ModelAndView("userAuthorizedTokenManage/list", "userList", userList);
 	}
 }
