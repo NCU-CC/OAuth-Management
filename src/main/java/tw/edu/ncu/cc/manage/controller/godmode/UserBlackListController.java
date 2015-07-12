@@ -1,6 +1,5 @@
 package tw.edu.ncu.cc.manage.controller.godmode;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tw.edu.ncu.cc.manage.domain.User;
-import tw.edu.ncu.cc.manage.service.IUserService;
 
 /**
  * 使用者黑名單管理
@@ -25,6 +23,7 @@ public class UserBlackListController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String list() {
+		//TODO
 		return "blacklist/user/list";
 	}
 	

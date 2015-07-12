@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="box box-solid box-info">
 			<div class="box-header">
 				<h3 class="box-title">搜尋</h3>
@@ -46,10 +46,12 @@
 					<table class="table table-hover">
 						<tr>
 							<th>帳號</th>
+							<th>姓名</th>
 						</tr>
 						<c:forEach var="user" items="${userList}">
 							<tr>
 								<td>${user.name}</td>
+								<td></td>
 							</tr>
 						</c:forEach>
 					</table>

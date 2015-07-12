@@ -19,8 +19,9 @@
                     <h3 class="box-title">參考文件</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                                                我們所有的服務皆是開源的，包括<a href="https://github.com/NCU-CC/API-Documentation">NCU API</a>
-                                                ，並提供多個app作為使用NCU API的範例及其衍生服務。歡迎探索我們的<a href="https://github.com/NCU-CC">程式庫</a>。
+                   <p>我們所有的服務皆是開源的，包括<a href="https://github.com/NCU-CC/API-Documentation" target="_blank">NCU API</a>
+                                                ，並提供多個app作為使用NCU API的範例及其衍生服務。</p>
+                    <p>歡迎探索我們的<a href="https://github.com/NCU-CC">程式碼儲存庫</a>及<a href="https://play.google.com/store/apps/developer?id=%E5%9C%8B%E7%AB%8B%E4%B8%AD%E5%A4%AE%E5%A4%A7%E5%AD%B8%E9%9B%BB%E5%AD%90%E8%A8%88%E7%AE%97%E6%A9%9F%E4%B8%AD%E5%BF%83" target="_blank">Google Play</a>。</p>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
             
