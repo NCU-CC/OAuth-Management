@@ -25,37 +25,37 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 	@Override
 	public List<Client> findAll(String username) {
 		Assert.hasText(username);
-		return getList(withUrl(userUrl, username, "clients"));
+		return getList(withUrl(userUrl(), username, "clients"));
 	}
 
 	@Override
 	public Optional<Client> find(String clientId){
 		Assert.hasText(clientId);
-		return get(withUrl(clientUrl, clientId));
+		return get(withUrl(clientUrl(), clientId));
 	}
 
 	@Override
 	public Client update(Client client){
 		Assert.notNull(client);
-		return put(withUrl(clientUrl, client.getId()), client);
+		return put(withUrl(clientUrl(), client.getId()), client);
 	}
 
 	@Override
 	public Client create(Client client){
 		Assert.notNull(client);
-		return post(clientUrl, client);
+		return post(clientUrl(), client);
 	}
 
 	@Override
 	public void remove(Client client) {
 		Assert.notNull(client);
-		delete(withUrl(clientUrl, client.getId()));
+		delete(withUrl(clientUrl(), client.getId()));
 	}
 
 	@Override
 	public Client refreshSecret(String clientId) {
 		Assert.hasText(clientId);
-		return post(withUrl(clientUrl, clientId, "refresh_secret"));
+		return post(withUrl(clientUrl(), clientId, "refresh_secret"));
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 		
 		Assert.notNull(dto);
 		
-		String url = UriComponentsBuilder.fromHttpUrl(clientUrl)
+		String url = UriComponentsBuilder.fromHttpUrl(clientUrl())
 				.queryParam("name", dto.getName())
 				.queryParam("id", dto.getId())
 				.queryParam("owner", dto.getOwner())

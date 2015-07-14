@@ -24,19 +24,19 @@ public class AuthorizedTokenDao extends AbstractOAuthServiceDao<AuthorizedToken>
 	@Override
 	public List<AuthorizedToken> findAll(String username) {
 		Assert.hasText(username);
-		return getList(withUrl(userUrl, username, "authorized_tokens"));
+		return getList(withUrl(userUrl(), username, "authorized_tokens"));
 	}
 
 	@Override
 	public Optional<AuthorizedToken> find(String tokenId) {
 		Assert.hasText(tokenId);
-		return get(withUrl(tokenUrl, tokenId));
+		return get(withUrl(tokenUrl(), tokenId));
 	}
 
 	@Override
 	public void revoke(AuthorizedToken token) {
 		Assert.notNull(token);
 		Assert.hasText(token.getId());
-		delete(withUrl(tokenUrl, token.getId()));
+		delete(withUrl(tokenUrl(), token.getId()));
 	}
 }

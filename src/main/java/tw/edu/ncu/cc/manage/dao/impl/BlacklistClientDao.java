@@ -24,7 +24,7 @@ public class BlacklistClientDao  extends AbstractOAuthServiceDao<BlacklistClient
 	@Override
 	public List<BlacklistClient> search(Client dto) {
 		
-		String url = UriComponentsBuilder.fromHttpUrl(blacklistClientUrl)
+		String url = UriComponentsBuilder.fromHttpUrl(blacklistClientUrl())
 				.queryParam("name", dto.getName())
 				.queryParam("id", dto.getId())
 				.queryParam("owner", dto.getOwner())
@@ -36,12 +36,12 @@ public class BlacklistClientDao  extends AbstractOAuthServiceDao<BlacklistClient
 
 	@Override
 	public BlacklistClient create(BlacklistClient client) {
-		return post(blacklistClientUrl, client);
+		return post(blacklistClientUrl(), client);
 	}
 
 	@Override
 	public void delete(BlacklistClient client) {
-		delete(withUrl(blacklistClientUrl, client.getClient_id()));
+		delete(withUrl(blacklistClientUrl(), client.getClient_id()));
 	}
 
 }

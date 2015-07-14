@@ -24,30 +24,30 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 	@Override
 	public List<ApiToken> findByClient(String clientId) {
 		Assert.hasText(clientId);
-		return getList(withUrl(clientUrl, clientId, "api_tokens"));
+		return getList(withUrl(clientUrl(), clientId, "api_tokens"));
 	}
 	
 	@Override
 	public Optional<ApiToken> findByToken(String token) {
 		Assert.hasText(token);
-		return get(withUrl(apiTokenUrl, "token", token));
+		return get(withUrl(apiTokenUrl(), "token", token));
 	}
 	
 	@Override
 	public ApiToken create(String clientId) {
 		Assert.hasText(clientId);
-		return post(withUrl(apiTokenUrl, "?client_id=" + clientId));
+		return post(withUrl(apiTokenUrl(), "?client_id=" + clientId));
 	}
 
 	@Override
 	public void remove(ApiToken token) {
 		Assert.notNull(token);
-		delete(withUrl(apiTokenUrl, token.getId()));
+		delete(withUrl(apiTokenUrl(), token.getId()));
 	}
 
 	@Override
 	public ApiToken refresh(String token) {
 		Assert.hasText(token);
-		return post(withUrl(apiTokenUrl, token, "refresh"));
+		return post(withUrl(apiTokenUrl(), token, "refresh"));
 	}
 }
