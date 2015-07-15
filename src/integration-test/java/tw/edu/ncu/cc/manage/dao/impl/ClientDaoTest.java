@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import tw.edu.ncu.cc.manage.dao.impl.utils.DaoTestUtils;
 import tw.edu.ncu.cc.manage.domain.Client;
 
 public class ClientDaoTest {
@@ -34,14 +35,7 @@ public class ClientDaoTest {
 	}
 	
 	private Client testCreate() {
-		Client client = new Client();
-		client.setName("測試app名字");
-		client.setDescription("測試app描述");
-		client.setUrl("http://example.com");
-		client.setCallback("http://example.com/callback");
-		client.setOwner(DaoTestUtils.FAKE_USER_NAME);
-		client.setDeleted(false);
-		
+		Client client = DaoTestUtils.client();
 		Client createClient = this.clientDao.create(client);
 		
 		assertEquals(client.getName(), createClient.getName());

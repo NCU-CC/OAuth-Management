@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import tw.edu.ncu.cc.manage.dao.impl.utils.DaoTestUtils;
 import tw.edu.ncu.cc.manage.domain.Manager;
 
 public class ManagerDaoTest {

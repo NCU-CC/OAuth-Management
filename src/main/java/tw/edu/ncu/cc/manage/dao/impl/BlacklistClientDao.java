@@ -25,10 +25,10 @@ public class BlacklistClientDao  extends AbstractOAuthServiceDao<BlacklistClient
 	public List<BlacklistClient> search(Client dto) {
 		
 		String url = UriComponentsBuilder.fromHttpUrl(blacklistClientUrl())
-				.queryParam("name", dto.getName())
-				.queryParam("id", dto.getId())
-				.queryParam("owner", dto.getOwner())
-				.queryParam("deleted", dto.isDeleted())
+				.queryParam("client_name", dto.getName())
+				.queryParam("client_id", dto.getId())
+				.queryParam("client_owner", dto.getOwner())
+				.queryParam("client_deleted", dto.isDeleted())
 				.build(false).toUriString();
 		
 		return getList(url);
