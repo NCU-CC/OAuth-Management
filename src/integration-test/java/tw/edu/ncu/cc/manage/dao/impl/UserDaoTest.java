@@ -1,26 +1,27 @@
 package tw.edu.ncu.cc.manage.dao.impl;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.annotation.PropertySource;
 
 import tw.edu.ncu.cc.manage.domain.User;
 
-@PropertySource("classpath:OAuth-service.properties")
 public class UserDaoTest {
 
+	private static final String fakeUserName = DaoTestUtils.FAKE_USER_NAME;
 	
 	private UserDao userDao;
 	
 	@Before
 	public void setUp() throws Exception {
 		userDao = new UserDao();
-		userDao.setRootUrl("https://140.115.3.188/oauth/management/v1/");
+		userDao.setRootUrl(DaoTestUtils.ROOT_URL);
 	}
 
 	@After
@@ -28,21 +29,25 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void testFind() {
-		Optional<User> user = userDao.find("ABCDEFG");
-		if (!user.isPresent()) {
-			fail("User not present.");
-		}
+	public void shouldMatchApiSpecification() {
+		testCreate();
+		testFind();
+		testSearch();
 	}
-
-	@Test
-	public void testCreate() {
-		fail("Not yet implemented");
+	
+	private void testCreate() {
+		User fake = new User(fakeUserName, Collections.emptyList());
+		User result = this.userDao.create(fake);
+		assertEquals(result.getName(), fakeUserName);
 	}
-
-	@Test
-	public void testSearch() {
-		fail("Not yet implemented");
+	
+	private void testFind() {
+		Optional<User> findUser = this.userDao.find(fakeUserName);
+		assertTrue(findUser.isPresent());
 	}
-
+	
+	private void testSearch() {
+		Optional<User> searchUser = this.userDao.search(new User(fakeUserName, Collections.emptyList())).stream().findAny();
+		assertTrue(searchUser.isPresent());
+	}
 }

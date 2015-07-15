@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse-wtp'
+apply plugin: 'jetty'
 
 group = 'tw.edu.ncu.cc'
 version = '0.0.1'
