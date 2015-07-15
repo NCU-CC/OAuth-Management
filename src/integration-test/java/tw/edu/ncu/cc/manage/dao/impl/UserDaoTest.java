@@ -1,7 +1,6 @@
 package tw.edu.ncu.cc.manage.dao.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -43,11 +42,12 @@ public class UserDaoTest {
 	
 	private void testFind() {
 		Optional<User> findUser = this.userDao.find(fakeUserName);
-		assertTrue(findUser.isPresent());
+		findUser.get();
 	}
 	
 	private void testSearch() {
-		Optional<User> searchUser = this.userDao.search(new User(fakeUserName, Collections.emptyList())).stream().findAny();
-		assertTrue(searchUser.isPresent());
+		User dto = new User(fakeUserName, Collections.emptyList());
+		Optional<User> searchUser = this.userDao.search(dto).stream().findAny();
+		searchUser.get();
 	}
 }
