@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.domain;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Client {
@@ -99,5 +100,10 @@ public class Client {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	@Override 
+	public boolean equals(Object other) {
+		return EqualsBuilder.reflectionEquals(this, other, false);
 	}
 }
