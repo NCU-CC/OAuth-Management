@@ -47,7 +47,7 @@ public abstract class AbstractRestfulClientDao<T> {
 		}
 	}
 
-	private RestTemplate template = new RestTemplate();
+	private RestTemplate restTemplate = new RestTemplate();
 
 	private Class<T> clazz;
 
@@ -56,6 +56,10 @@ public abstract class AbstractRestfulClientDao<T> {
 		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+	
 	protected Optional<T> get(String url) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("GET {}", url);
@@ -63,7 +67,7 @@ public abstract class AbstractRestfulClientDao<T> {
 
 		T t = null;
 		try {
-			t = template.getForObject(url, clazz);
+			t = restTemplate.getForObject(url, clazz);
 		} catch (HttpClientErrorException e) {
 			if (is404(e)) {
 				logger.error("找不到資料");
@@ -83,7 +87,7 @@ public abstract class AbstractRestfulClientDao<T> {
 			logger.debug("GET {}", url);
 		}
 		
-		ResponseEntity<List<T>> response = template.exchange(url, HttpMethod.GET, null, parameterizedTypeReferenceForList());
+		ResponseEntity<List<T>> response = restTemplate.exchange(url, HttpMethod.GET, null, parameterizedTypeReferenceForList());
 		return response.getBody();
 	}
 	
@@ -94,7 +98,7 @@ public abstract class AbstractRestfulClientDao<T> {
 			logger.debug("PUT {} with params {}", url, parametersObject);
 		}
 
-		template.put(url, parametersObject);
+		restTemplate.put(url, parametersObject);
 		return parametersObject;
 	}
 
@@ -115,7 +119,7 @@ public abstract class AbstractRestfulClientDao<T> {
 			logger.debug("POST {} with uri params {}, body params {} ", url, uriParameters, parametersObject);
 		}
 		
-		return template.postForObject(url, parametersObject, clazz, uriParameters);
+		return restTemplate.postForObject(url, parametersObject, clazz, uriParameters);
 	}
 	
 	protected void delete(String url) {
@@ -123,7 +127,7 @@ public abstract class AbstractRestfulClientDao<T> {
 			logger.debug("DELETE {}", url);
 		}
 
-		template.delete(url);
+		restTemplate.delete(url);
 	}
 
 	protected String withUrl(String... strs) {
