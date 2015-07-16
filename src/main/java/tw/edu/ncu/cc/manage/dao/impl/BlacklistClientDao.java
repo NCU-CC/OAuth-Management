@@ -13,7 +13,7 @@ import tw.edu.ncu.cc.manage.domain.BlacklistClient;
 import tw.edu.ncu.cc.manage.domain.Client;
 
 @Repository
-public class BlacklistClientDao  extends AbstractOAuthServiceDao<BlacklistClient> implements IBlacklistClientDao {
+public class BlacklistClientDao extends AbstractOAuthServiceDao<BlacklistClient> implements IBlacklistClientDao {
 
 	private static final ParameterizedTypeReference<List<BlacklistClient>> parameterizedTypeReference = new ParameterizedTypeReference<List<BlacklistClient>>() {};
 	

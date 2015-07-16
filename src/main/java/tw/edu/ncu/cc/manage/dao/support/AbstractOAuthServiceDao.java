@@ -46,4 +46,8 @@ public abstract class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDa
 	protected String blacklistClientUrl() {
 		return rootUrl + "blacklist/clients";
 	}
+	
+	protected String blacklistUserUrl() {
+		return rootUrl + "blacklist/users";
+	}
 }
