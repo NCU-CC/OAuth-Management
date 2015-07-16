@@ -76,6 +76,8 @@ public class BlacklistClientDaoTest {
 
 	@After
 	public void tearDown() {
-		this.clientDao.remove(client);
+		if (client != null) {
+			this.clientDao.remove(client);	
+		}
 	}
 }

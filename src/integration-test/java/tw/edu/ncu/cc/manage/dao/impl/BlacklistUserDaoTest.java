@@ -19,7 +19,7 @@ public class BlacklistUserDaoTest {
 	}
 
 	@Test
-	public void test() {
+	public void shouldMatchApiSpecification() {
 		testCreate();
 		testFind();
 		testSearch();
