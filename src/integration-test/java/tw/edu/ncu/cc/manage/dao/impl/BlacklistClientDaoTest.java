@@ -17,8 +17,6 @@ public class BlacklistClientDaoTest {
 	private BlacklistClientDao blacklistClientDao;
 
 	private Client client;
-
-	private BlacklistClient testBlacklistClient;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -35,17 +33,19 @@ public class BlacklistClientDaoTest {
 	public void shouldMatchApiSpecification() {
 		testCreate();
 		testSearch();
+		testUpdate();
 		testDelete();
 	}
 
 	public void testCreate() {
+		String reason = "TEST";
 		BlacklistClient blacklistClient = new BlacklistClient();
 		blacklistClient.setClient_id(client.getId());
-		blacklistClient.setReason("TEST");
+		blacklistClient.setReason(reason);
 
-		testBlacklistClient = this.blacklistClientDao.create(blacklistClient);
-		assertEquals(blacklistClient.getClient_id(), testBlacklistClient.getClient_id());
-		assertEquals(blacklistClient.getReason(), testBlacklistClient.getReason());
+		BlacklistClient createBlacklistClient = this.blacklistClientDao.create(blacklistClient);
+		assertEquals(client.getId(), createBlacklistClient.getClient_id());
+		assertEquals(reason, createBlacklistClient.getReason());
 	}
 
 	public void testFind() {
@@ -56,8 +56,22 @@ public class BlacklistClientDaoTest {
 		this.blacklistClientDao.search(client).stream().findFirst().get();
 	}
 
+	public void testUpdate() {
+		String anotherReason = "ANOTHER";
+		BlacklistClient blacklistClient = new BlacklistClient();
+		blacklistClient.setClient_id(client.getId());
+		blacklistClient.setReason(anotherReason);
+		
+		BlacklistClient updateBlacklistClient = this.blacklistClientDao.update(blacklistClient);
+		assertEquals(client.getId(), updateBlacklistClient.getClient_id());
+		assertEquals(anotherReason, updateBlacklistClient.getReason());
+	}
+	
 	public void testDelete() {
-		this.blacklistClientDao.remove(testBlacklistClient);
+		BlacklistClient blacklistClient = new BlacklistClient();
+		blacklistClient.setClient_id(client.getId());
+		
+		this.blacklistClientDao.remove(blacklistClient);
 	}
 
 	@After

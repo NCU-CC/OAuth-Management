@@ -54,6 +54,6 @@ public class BlacklistUserDao extends AbstractOAuthServiceDao<BlacklistUser> imp
 	@Override
 	public void remove(BlacklistUser user) {
 		Assert.notNull(user);
-		delete(withUrl(clientUrl(), user.getUsername()));
+		delete(withUrl(blacklistUserUrl(), user.getUsername()));
 	}
 }
