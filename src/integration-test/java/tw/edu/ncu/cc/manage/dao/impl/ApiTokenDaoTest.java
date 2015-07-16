@@ -60,7 +60,7 @@ public class ApiTokenDaoTest {
 	}
 
 	public void testFindByToken() {
-		ApiToken findByToken = this.apiTokenDao.findByToken(this.apiToken.getId()).get();
+		ApiToken findByToken = this.apiTokenDao.find(this.apiToken.getId()).get();
 		
 		assertEquals(this.apiToken.getId(), findByToken.getId());
 		assertEquals(this.apiToken.getToken(), findByToken.getToken());
@@ -76,7 +76,7 @@ public class ApiTokenDaoTest {
 	}
 
 	public void testRemove() {
-		this.apiTokenDao.remove(apiToken);
+		this.apiTokenDao.revoke(apiToken);
 	}
 	
 	@After

@@ -11,9 +11,9 @@ public interface IApiTokenDao {
 
 	ApiToken create(String clientId);
 
-	void remove(ApiToken token);
+	void revoke(ApiToken token);
 
-	Optional<ApiToken> findByToken(String token);
+	Optional<ApiToken> find(String token);
 
 	ApiToken refresh(String tokenId);
 

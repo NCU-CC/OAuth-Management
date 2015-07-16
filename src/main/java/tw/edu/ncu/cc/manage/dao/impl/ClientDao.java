@@ -23,7 +23,7 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 	}
 	
 	@Override
-	public List<Client> findAll(String username) {
+	public List<Client> findByUsername(String username) {
 		Assert.hasText(username);
 		return getList(withUrl(userUrl(), username, "clients"));
 	}

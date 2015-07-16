@@ -28,7 +28,7 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 	}
 	
 	@Override
-	public Optional<ApiToken> findByToken(String tokenId) {
+	public Optional<ApiToken> find(String tokenId) {
 		Assert.hasText(tokenId);
 		return get(withUrl(apiTokenUrl(), tokenId));
 	}
@@ -40,7 +40,7 @@ public class ApiTokenDao extends AbstractOAuthServiceDao<ApiToken> implements IA
 	}
 
 	@Override
-	public void remove(ApiToken token) {
+	public void revoke(ApiToken token) {
 		Assert.notNull(token);
 		delete(withUrl(apiTokenUrl(), token.getId()));
 	}

@@ -44,7 +44,7 @@ public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IMan
 
 	@Override
 	@CacheEvict("managers")
-	public void delete(Manager manager) {
+	public void remove(Manager manager) {
 		Assert.notNull(manager);
 		delete(withUrl(managerUrl(), manager.getId()));
 	}

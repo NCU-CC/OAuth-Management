@@ -62,7 +62,7 @@ public class ClientDaoTest {
 	}
 
 	private void testFindAllByUsername() {
-		List<Client> clients = this.clientDao.findAll(createClient.getOwner());
+		List<Client> clients = this.clientDao.findByUsername(createClient.getOwner());
 		assertThat(clients, hasSize(greaterThan(0)));
 	}
 

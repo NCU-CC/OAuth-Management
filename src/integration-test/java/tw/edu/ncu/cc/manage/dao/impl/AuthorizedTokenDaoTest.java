@@ -75,7 +75,7 @@ public class AuthorizedTokenDaoTest {
 		.andExpect(method(HttpMethod.GET))
 		.andRespond(withSuccess(responseAuthorizedTokens(), MediaType.APPLICATION_JSON));
 		
-		List<AuthorizedToken> tokens = this.authorizedTokenDao.findAll("FAKENAME");
+		List<AuthorizedToken> tokens = this.authorizedTokenDao.findByUsername("FAKENAME");
 		
 		assertThat(tokens, hasSize(1));
 		

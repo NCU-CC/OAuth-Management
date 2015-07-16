@@ -22,7 +22,7 @@ public class AuthorizedTokenDao extends AbstractOAuthServiceDao<AuthorizedToken>
 	}
 	
 	@Override
-	public List<AuthorizedToken> findAll(String username) {
+	public List<AuthorizedToken> findByUsername(String username) {
 		Assert.hasText(username);
 		return getList(withUrl(userUrl(), username, "authorized_tokens"));
 	}

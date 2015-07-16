@@ -7,7 +7,7 @@ import tw.edu.ncu.cc.manage.domain.Client;
 
 public interface IClientDao {
 
-	List<Client> findAll(String username);
+	List<Client> findByUsername(String username);
 
 	Optional<Client> find(String clientId);
 

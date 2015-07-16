@@ -18,7 +18,7 @@ public class ClientService implements IClientService {
 	
 	@Override
 	public List<Client> findAll(String username) {
-		return this.clientDao.findAll(username);
+		return this.clientDao.findByUsername(username);
 	}
 
 	@Override

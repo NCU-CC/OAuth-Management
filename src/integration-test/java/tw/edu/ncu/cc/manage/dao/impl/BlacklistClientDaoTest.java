@@ -48,12 +48,16 @@ public class BlacklistClientDaoTest {
 		assertEquals(blacklistClient.getReason(), testBlacklistClient.getReason());
 	}
 
+	public void testFind() {
+		this.blacklistClientDao.find(client.getId()).get();
+	}
+	
 	public void testSearch() {
 		this.blacklistClientDao.search(client).stream().findFirst().get();
 	}
 
 	public void testDelete() {
-		this.blacklistClientDao.delete(testBlacklistClient);
+		this.blacklistClientDao.remove(testBlacklistClient);
 	}
 
 	@After

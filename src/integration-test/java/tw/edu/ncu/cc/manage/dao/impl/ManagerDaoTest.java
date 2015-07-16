@@ -52,6 +52,6 @@ public class ManagerDaoTest {
 	}
 	
 	private void testDelete() {
-		this.managerDao.delete(manager());
+		this.managerDao.remove(manager());
 	}
 }

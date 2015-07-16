@@ -42,7 +42,6 @@ public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {
 		
 		String url = UriComponentsBuilder.fromHttpUrl(userUrl())
 				.queryParam("name", dto.getName())
-				.queryParam("id", dto.getId())
 				.build(false).toUriString();
 		
 		return getList(url);
