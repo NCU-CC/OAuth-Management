@@ -26,4 +26,9 @@ public class ClientTutorialController {
 		List<ApiToken> list = this.apiTokenService.findAllByClient("8RnbKwp8RjZeGLkx");
 		return new ModelAndView("developer/tutorial", "list", list);
 	}
+	/**
+	 * TODO
+	 * 1. api黑名單說明(開發者被加進黑名單後，其下的CLIENT都會黑名單)
+	 * 2. api token和CLIENT_ID建議的模式 (api gateway)
+	 */
 }
