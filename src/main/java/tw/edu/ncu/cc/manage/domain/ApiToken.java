@@ -4,6 +4,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class ApiToken {
 	
+	private static final ApiToken EMPTY = new ApiToken();
+	
 	private String id;
 
 	private String token;
@@ -37,5 +39,9 @@ public class ApiToken {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public static final ApiToken empty() {
+		return EMPTY;
 	}
 }

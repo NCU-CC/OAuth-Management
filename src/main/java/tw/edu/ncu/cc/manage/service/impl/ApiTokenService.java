@@ -39,7 +39,7 @@ public class ApiTokenService implements IApiTokenService {
 	}
 
 	@Override
-	public Optional<ApiToken> find(String token) {
-		return this.apiTokenDao.find(token);
+	public Optional<ApiToken> findByToken(String token) {
+		return this.apiTokenDao.findByToken(token);
 	}
 }

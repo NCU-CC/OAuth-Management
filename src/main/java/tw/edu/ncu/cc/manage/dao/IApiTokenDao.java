@@ -13,7 +13,7 @@ public interface IApiTokenDao {
 
 	void revoke(ApiToken token);
 
-	Optional<ApiToken> find(String token);
+	Optional<ApiToken> findByToken(String token);
 
 	ApiToken refresh(String tokenId);
 
