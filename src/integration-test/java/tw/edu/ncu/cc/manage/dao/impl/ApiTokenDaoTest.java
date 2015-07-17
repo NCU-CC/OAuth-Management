@@ -48,7 +48,6 @@ public class ApiTokenDaoTest {
 		
 		assertThat(apiToken.getId(), not(isEmptyOrNullString()));
 		assertThat(apiToken.getToken(), not(isEmptyOrNullString()));
-		assertEquals(apiToken.getClient_id(), client.getId());
 	}
 
 	public void testFindByClient() {
