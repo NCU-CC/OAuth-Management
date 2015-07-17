@@ -41,16 +41,16 @@
 						</tr>
 					</table>
 				</c:if>
-				<c:if test="${not empty userList}">
+				<c:if test="${not empty tokenList}">
 					<table class="table table-hover">
 						<tr>
 							<th>id</th>
-							<th>帳號</th>
+							<th>token</th>
 						</tr>
-						<c:forEach var="user" items="${userList}">
+						<c:forEach var="token" items="${tokenList}">
 							<tr>
-								<td>${user.id}</td>
-								<td>${user.name}</td>
+								<td>${token.id}</td>
+								<td>${token.token}</td>
 							</tr>
 						</c:forEach>
 					</table>

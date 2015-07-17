@@ -60,7 +60,7 @@
                     <input id="login-btn" class="btn btn-primary btn-block"type="submit" value="NCU Portal 登入" />
                 </form>
             </div>
-			<p class="text-red">目前僅限教職員工、在校生及校友使用。</p>
+			<p class="text-red">測試中，目前僅限教職員工、在校生及校友使用。</p>
 			<a href="http://www.cc.ncu.edu.tw/net/password.php" class="btn btn-default">忘記密碼？</a>
 
 		</div>
