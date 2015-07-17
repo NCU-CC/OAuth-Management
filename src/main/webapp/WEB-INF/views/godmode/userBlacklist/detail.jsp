@@ -12,7 +12,7 @@
     <form:form role="form" action='#' method='post'>
 		<div class="box-body">
 			<div class="form-group">
-				<label for="account">開發者帳號</label>
+				<label for="account">使用者帳號</label>
 				<input id=account type="text" class="form-control" name="account">
 			</div>
 			<div class="form-group">

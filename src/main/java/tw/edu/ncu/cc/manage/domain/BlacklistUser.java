@@ -11,6 +11,13 @@ public class BlacklistUser {
 	
 	private String reason;
 
+	public BlacklistUser() {
+	}
+	
+	public BlacklistUser(String username) {
+		this.username = username;
+	}
+
 	public String getUsername() {
 		return username;
 	}

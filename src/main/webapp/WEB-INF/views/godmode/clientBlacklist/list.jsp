@@ -56,7 +56,7 @@
 			<%-- /.box-body --%>
 		</div>
 		<%-- /.box --%>
-		</div>
+	</div>
 	<div class="col-md-12">
 		<div class="box box-info">
 			<div class="box-header">
@@ -87,7 +87,7 @@
 									${blacklistClient.reason}
 								</td>
 								<td>
-									<a href="<c:url value='/godmode/blacklist/client/delete/${blacklistClient.client_id}'/>"><span class="label label-danger">刪除</span></a>
+									<a href="<c:url value='/godmode/blacklist/client/delete/${blacklistClient.client_id}'/>"><span class="label label-danger">取消</span></a>
 								</td>
 							</tr>
 						</c:forEach>

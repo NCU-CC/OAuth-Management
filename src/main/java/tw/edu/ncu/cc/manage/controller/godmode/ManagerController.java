@@ -70,7 +70,7 @@ public class ManagerController {
 	public String delete(@PathVariable("id") String id) {
 		
 		Manager manager = this.managerService.find(id).get();
-		this.managerService.delete(manager);
+		this.managerService.remove(manager);
 		
 		return "redirect:../";
 	}
