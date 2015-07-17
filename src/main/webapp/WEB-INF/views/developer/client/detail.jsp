@@ -3,6 +3,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
+<c:if test="${isInBlacklist}">
+	<div class="callout callout-danger">
+		<h4>已被加入黑名單！</h4>
+		<p>這個應用服務已被加入黑名單，將不被允許進行任何修改。</p>
+	</div>
+</c:if>
 <h2 class="page-header">一般</h2>
 <div class="box box-primary invoice">
 	<div class="box-header with-border">
@@ -37,11 +43,12 @@
 
 		</div>
 		<%-- /.box-body --%>
-
-		<div class="box-footer">
-            <form:hidden path="id"/>
-			<button type="submit" class="btn btn-success">更新資訊</button>
-		</div>
+		<c:if test="${not isInBlacklist}">
+			<div class="box-footer">
+				<form:hidden path="id" />
+				<button type="submit" class="btn btn-success">更新資訊</button>
+			</div>
+		</c:if>
 
 	</form:form>
 	<%--</form>--%>
@@ -62,7 +69,9 @@
 		</dl>
 	</div>
 	<div class="box-footer">
-		<button class="btn btn-info" onClick="location.href='secret?id=${client.id}'">更新secret</button>
+		<c:if test="${not isInBlacklist}">
+			<button class="btn btn-info" onClick="location.href='secret?id=${client.id}'">更新secret</button>
+		</c:if>
 	</div>
 </div>
 <div class="box box-info invoice">
@@ -72,12 +81,17 @@
 	<div class="box-body">
 		<dl class="dl-horizontal">
 			<dt>API Token</dt>
-			<dd>${apiToken.token}</dd>
+			<dd>
+				${apiToken.token}
+			</dd>
 		</dl>
 	</div>
-	<div class="box-footer">
-		<button class="btn btn-info" onClick="location.href='apiToken?d=${apiToken.token}'">更新API Token</button>
-	</div>
+	
+	<c:if test="${not isInBlacklist}">
+		<div class="box-footer">
+			<button class="btn btn-info" onClick="location.href='apiToken?d=${apiToken.token}'">更新API Token</button>
+		</div>
+	</c:if>
 </div>
 
 
