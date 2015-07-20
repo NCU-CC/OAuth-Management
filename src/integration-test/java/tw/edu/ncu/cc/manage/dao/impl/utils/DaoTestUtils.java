@@ -11,11 +11,11 @@ public class DaoTestUtils {
 	public static String ROOT_URL = null;
 	public static final String FAKE_USER_NAME = "VERIFY_TEST_USER_NAME";
 	public static final String FAKE_NAME = "VERIFY_TEST_NAME";
-	
-	public DaoTestUtils() {
+
+	static {
 		setRootUrl();
 	}
-	
+
 	public static final Client client() {
 		
 		Client client = new Client();

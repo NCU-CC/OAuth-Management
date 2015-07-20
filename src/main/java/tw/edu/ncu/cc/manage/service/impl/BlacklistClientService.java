@@ -1,6 +1,7 @@
 package tw.edu.ncu.cc.manage.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,10 @@ public class BlacklistClientService implements IBlacklistClientService {
 	@Override
 	public void remove(BlacklistClient client) {
 		this.blacklistClientDao.remove(client);
+	}
+	
+	@Override
+	public Optional<BlacklistClient> find(String clientId) {
+		return this.blacklistClientDao.find(clientId);
 	}
 }
