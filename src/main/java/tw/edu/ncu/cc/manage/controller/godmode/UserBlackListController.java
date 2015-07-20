@@ -54,8 +54,8 @@ public class UserBlackListController {
 	 * @return
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create() {
-		return "blacklist/user/create";
+	public ModelAndView create() {
+		return new ModelAndView("blacklist/user/create", "user", new BlacklistUser());
 	}
 	
 	/**
@@ -67,28 +67,31 @@ public class UserBlackListController {
 		
 		this.blacklistUserService.create(user);
 		
-		return "redirect:../user?username=" + user.getUsername();
+		return "redirect:../user?action=search&username=" + user.getUsername();
 	}
 	
 	/**
 	 * 編輯黑名單頁面
 	 * @return
 	 */
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String edit() {
-		return "blacklist/user/edit";
+	@RequestMapping(value = "/edit/{username}", method = RequestMethod.GET)
+	public ModelAndView edit(@PathVariable String username) {
+		
+		BlacklistUser user = this.blacklistUserService.find(username).get();
+		
+		return new ModelAndView("blacklist/user/edit", "user", user);
 	}
 	
 	/**
 	 * 在編輯黑名單頁面按下送出
 	 * @return
 	 */
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit/{username}", method = RequestMethod.POST)
 	public String editSubmit(@ModelAttribute BlacklistUser user) {
 		
 		this.blacklistUserService.remove(user);
 		
-		return "redirect:../user?username=" + user.getUsername();
+		return "redirect:../../user?action=search&username=" + user.getUsername();
 	}
 	
 	/**

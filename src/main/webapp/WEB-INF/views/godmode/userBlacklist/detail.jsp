@@ -12,12 +12,12 @@
     <form:form role="form" action='#' method='post'>
 		<div class="box-body">
 			<div class="form-group">
-				<label for="account">使用者帳號</label>
-				<input id=account type="text" class="form-control" name="account">
+				<label for="username">使用者帳號</label>
+				<input id=username type="text" class="form-control" name="username" value="${user.username}">
 			</div>
 			<div class="form-group">
 				<label for="reason">停權原因</label>
-				<input id=reason type="text" class="form-control" name="reason">
+				<input id=reason type="text" class="form-control" name="reason" value="${user.reason}">
 			</div>
 		</div>
 		<%-- /.box-body --%>
