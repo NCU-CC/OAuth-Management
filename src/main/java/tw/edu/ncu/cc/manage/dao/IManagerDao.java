@@ -12,5 +12,5 @@ public interface IManagerDao {
 	
 	Manager create(Manager manager);
 	
-	void delete(Manager manager);
+	void remove(Manager manager);
 }

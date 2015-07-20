@@ -1,53 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
-	<div class="col-xs-12">
-		<div class="box">
+	<div class="col-md-6">
+		<div class="box box-solid box-info">
 			<div class="box-header">
-                <h3 class="box-title">黑名單管理</h3>
-                <div class="box-tools">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <a href="<c:url value="/godmode/blacklist/create"/>"><button
-                                    class="btn btn-sm btn-default pull-right">
-                                    <i class="fa fa-plus">新增黑名單</i>
-                                </button></a>
-                        </div>
-                    </div>
-                </div>
+				<h3 class="box-title">搜尋</h3>
+				<div class="box-tools">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<a href="<c:url value="user/create"/>"><button
+									class="btn btn-sm btn-warning pull-right">
+									<i class="fa fa-plus">新增使用者黑名單</i>
+								</button></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<%-- /.box-header --%>
+			<form class="form-horizontal" method="GET" action="">
+				<div class="box-body">
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">帳號</label>
+						<div class="col-sm-10">
+							<input class="form-control" id="username" placeholder="使用者帳號" name="username" value="${param.username}">
+						</div>
+					</div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer">
+					<input type=hidden name=action value=search />
+					<button type="submit" class="btn btn-primary">搜尋</button>
+				</div>
+				<!-- /.box-footer -->
+			</form>
+			<%-- /.box-body --%>
+		</div>
+		<%-- /.box --%>
+	</div>
+	<div class="col-md-12">
+		<div class="box box-info">
+			<div class="box-header">
+				<h3 class="box-title">搜尋結果</h3>
 			</div>
 			<%-- /.box-header --%>
 			<div class="box-body table-responsive no-padding">
-				<table class="table table-hover">
-					<tr>
-						<th>編號</th>
-						<th>開發者帳號</th>
-                        <th>開發者姓名</th>
-						<th>停權原因</th>
-						<th>功能</th>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>1000101009</td>
-						<td>王小明</td>
-						<td>散播垃圾訊息</td>
-						<td><a href="<c:url value='/godemode/blacklist/edit'/>"><span class="label label-primary">修改</span></a>
-						<a href="<c:url value='/godemode/blacklist/delete'/>"><span class="label label-danger">刪除</span></a></td>
-					</tr>
-                    <tr>
-                        <td>2</td>
-                        <td>A020202</td>
-                        <td>李小美</td>
-                        <td>將token給其他開發者使用</td>
-                        <td><a href="<c:url value='/godmode/blacklist/edit'/>"><span class="label label-primary">修改</span></a>
-                        <a href="<c:url value='/godmode/blacklist/delete'/>"><span class="label label-danger">刪除</span></a></td>
-                    </tr>
-				</table>
+				<c:if test="${empty userList}">
+					<table class="table table-hover">
+						<tr>
+							<th>無結果</th>
+						</tr>
+					</table>
+				</c:if>
+				<c:if test="${not empty userList}">
+					<table class="table table-hover">
+						<tr>
+							<th>帳號</th>
+							<th>原因</th>
+							<th>功能</th>
+						</tr>
+						<c:forEach var="blacklistUser" items="${userList}">
+							<tr>
+								<td>${blacklistUser.username}</td>
+								<td>${blacklistUser.reason}</td>
+								<td>
+									<a href="<c:url value='/godmode/blacklist/user/edit/${blacklistUser.username}'/>"><span class="label label-warning">編輯</span></a>
+									<a href="<c:url value='/godmode/blacklist/user/delete/${blacklistUser.username}'/>"><span class="label label-danger">取消</span></a>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
 			</div>
 			<%-- /.box-body --%>
 		</div>
 		<%-- /.box --%>
 	</div>
 </div>
-<script src="<c:url value='/resources/js/rails.js'/>" type="text/javascript"></script>
-<script src="<c:url value='/resources/js/data-confirm-modal.js'/>" type="text/javascript"></script>

@@ -25,13 +25,13 @@ public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {
 	@Override
 	public Optional<User> find(String username) {
 		Assert.hasText(username);
-		return get(withUrl(userUrl, username));
+		return get(withUrl(userUrl(), username));
 	}
 
 	@Override
 	public User create(User user) {
 		Assert.notNull(user);
-		post(userUrl, user);
+		post(userUrl(), user);
 		return user;
 	}
 
@@ -40,9 +40,8 @@ public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {
 		
 		Assert.notNull(dto);
 		
-		String url = UriComponentsBuilder.fromHttpUrl(userUrl)
+		String url = UriComponentsBuilder.fromHttpUrl(userUrl())
 				.queryParam("name", dto.getName())
-				.queryParam("id", dto.getId())
 				.build(false).toUriString();
 		
 		return getList(url);

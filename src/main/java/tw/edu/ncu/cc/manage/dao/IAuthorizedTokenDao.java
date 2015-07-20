@@ -6,7 +6,7 @@ import java.util.Optional;
 import tw.edu.ncu.cc.manage.domain.AuthorizedToken;
 
 public interface IAuthorizedTokenDao {
-	List<AuthorizedToken> findAll(String username);
+	List<AuthorizedToken> findByUsername(String username);
 
 	Optional<AuthorizedToken> find(String tokenId);
 

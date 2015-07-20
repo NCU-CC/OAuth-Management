@@ -28,6 +28,7 @@ import tw.edu.ncu.cc.manage.domain.User;
 import tw.edu.ncu.cc.manage.enums.RoleEnum;
 import tw.edu.ncu.cc.manage.exception.NoSuchUserRoleException;
 import tw.edu.ncu.cc.manage.exception.OAuthServiceUnavailableException;
+import tw.edu.ncu.cc.manage.service.IBlacklistUserService;
 import tw.edu.ncu.cc.manage.service.IManagerService;
 import tw.edu.ncu.cc.manage.service.IUserService;
 
@@ -44,6 +45,9 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	@Autowired
 	private IManagerService managerService;
 	
+	@Autowired
+	private IBlacklistUserService blacklistUserService;
+	
 	/**
 	 * 可存取本系統的role
 	 */
@@ -52,13 +56,14 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 	@Override
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException, NoSuchUserRoleException {
 
-		logger.debug("OpenID token {}", token);
-		logger.debug("使用者IP {}, User-Agent {} ", ip(), userAgent());
-		
 		String username = StringUtils.substringAfterLast((String) token.getPrincipal(), "/");
 		List<String> roles = ListUtils.union(roles(token), roles(username));
-		
-		logger.debug("使用者 OpenID roles: {}", roles);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("OpenID token {}", token);
+			logger.debug("使用者IP {}, User-Agent {} ", ip(), userAgent());
+			logger.debug("使用者 OpenID roles: {}", roles);
+		}
 		
 		if (!isAvailableRole(roles)) {
 			logger.warn("使用者role不允許存取本系統, expected {}, received {} ", PERMIT_ROLES, roles);
@@ -70,7 +75,10 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 			throw new UsernameNotFoundException((String) token.getPrincipal());
 		}
 
-		// TODO 若是黑名單，則不給登入
+		if (isInBlacklist(username)) {
+			logger.warn("使用者 {} 已被加入黑名單，不允許存取本系統", username);
+			throw new NoSuchUserRoleException((String) token.getPrincipal());			
+		}
 		
 		User user = findOrCreateUserIfNotExist(username, roles);
 
@@ -156,6 +164,16 @@ public class MyUserDetailService implements AuthenticationUserDetailsService<Ope
 		return SecurityConfig.AX_NAME_ROLE.equals(attribute.getName());
 	}
 
+	/**
+	 * 使用者帳號已被加入黑名單
+	 * @param username
+	 * @return
+	 */
+	private boolean isInBlacklist(String username) {
+		return this.blacklistUserService.find(username).isPresent();
+	}
+	
+	
 	/**
 	 * 尋找使用者資訊，若不存在則新增
 	 * @param username 使用者帳號

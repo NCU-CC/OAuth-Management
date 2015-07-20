@@ -71,6 +71,8 @@ public class ClientBlackListController {
 		return "redirect:../client?deleted=false&id=" + client.getClient_id();
 	}
 	
+	//TODO 編輯功能
+	
 	/**
 	 * 在搜尋後，按下「刪除」
 	 * @return
@@ -79,7 +81,7 @@ public class ClientBlackListController {
 	public String delete(@PathVariable String clientId) {
 
 		BlacklistClient blacklistClient = this.blacklistClientService.search(new Client(clientId)).stream().findAny().get();
-		this.blacklistClientService.delete(blacklistClient);
+		this.blacklistClientService.remove(blacklistClient);
 		
 		return "redirect:..";
 	}

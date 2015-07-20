@@ -11,6 +11,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.CollectionUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User implements UserDetails {
 	
 	/**
@@ -31,6 +33,7 @@ public class User implements UserDetails {
 	public User(String name, List<String> roles) {
 		super();
 		this.name = name;
+		setRoles(roles);
 	}
 
 	public String getName() {
@@ -100,6 +103,7 @@ public class User implements UserDetails {
 	
 	private static final GrantedAuthority ADMIN = new SimpleGrantedAuthority("ROLE_ADMIN");
 	
+	@JsonIgnore
 	public boolean isAdmin() {
 		return this.authorities.contains(ADMIN);
 	}

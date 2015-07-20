@@ -11,6 +11,6 @@ public interface IBlacklistClientService {
 
 	BlacklistClient create(BlacklistClient client);
 
-	void delete(BlacklistClient blacklistClient);
+	void remove(BlacklistClient blacklistClient);
 
 }

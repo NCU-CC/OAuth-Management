@@ -53,8 +53,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="<c:url value="/godmode/userManage"/>"><i class="fa fa-angle-double-right"></i>使用者管理</a></li>
-                        <li><a href="<c:url value="/godmode/userAuthorizedTokenManage"/>"><i class="fa fa-angle-double-right"></i>使用者授權管理(未完成)</a></li>
-                        <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單(未完成)</a></li>
+                        <li><a href="<c:url value="/godmode/userAuthorizedTokenManage"/>"><i class="fa fa-angle-double-right"></i>使用者授權管理</a></li>
+                        <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單</a></li>
                     </ul>
                 </li>
                 

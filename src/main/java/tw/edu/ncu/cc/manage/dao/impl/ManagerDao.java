@@ -25,27 +25,27 @@ public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IMan
 	
 	@Override
 	public List<Manager> findAll() {
-		return getList(managerUrl);
+		return getList(managerUrl());
 	}
 
 	@Override
 	@Cacheable("managers")
 	public Optional<Manager> find(String id) {
 		Assert.hasText(id);
-		return get(withUrl(managerUrl, id));
+		return get(withUrl(managerUrl(), id));
 	}
 
 	@Override
 	@CachePut("managers")
 	public Manager create(Manager manager) {
 		Assert.notNull(manager);
-		return post(managerUrl, manager);
+		return post(managerUrl(), manager);
 	}
 
 	@Override
 	@CacheEvict("managers")
-	public void delete(Manager manager) {
+	public void remove(Manager manager) {
 		Assert.notNull(manager);
-		delete(withUrl(managerUrl, manager.getId()));
+		delete(withUrl(managerUrl(), manager.getId()));
 	}
 }

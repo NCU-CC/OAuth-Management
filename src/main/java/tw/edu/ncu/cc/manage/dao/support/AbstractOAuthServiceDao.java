@@ -11,29 +11,43 @@ public abstract class AbstractOAuthServiceDao<T> extends AbstractRestfulClientDa
 
 	@Autowired
 	private Environment env;
-	
-	protected String rootUrl;
-	
-	protected String userUrl;
-	
-	protected String clientUrl;
-	
-	protected String tokenUrl;
-	
-	protected String managerUrl;
-	
-	protected String apiTokenUrl;
-	
-	protected String blacklistClientUrl;
-	
+
+	private String rootUrl;
+
 	@PostConstruct
 	private void init() {
-		rootUrl = env.getRequiredProperty("oauth.root");
-		userUrl = rootUrl + "users";
-		clientUrl = rootUrl + "clients";
-		tokenUrl = rootUrl + "authorized_tokens";
-		managerUrl = rootUrl + "managers";
-		apiTokenUrl = rootUrl + "api_tokens";
-		blacklistClientUrl = rootUrl + "blacklist/clients";
+		setRootUrl(env.getRequiredProperty("oauth.root"));
+	}
+
+	public void setRootUrl(String rootUrl) {
+		this.rootUrl = rootUrl;
+	}
+	
+	protected String userUrl() {
+		return rootUrl + "users";
+	}
+
+	protected String clientUrl() {
+		return rootUrl + "clients";
+	}
+
+	protected String tokenUrl() {
+		return rootUrl + "authorized_tokens";
+	}
+
+	protected String managerUrl() {
+		return rootUrl + "managers";
+	}
+
+	protected String apiTokenUrl() {
+		return rootUrl + "api_tokens";
+	}
+
+	protected String blacklistClientUrl() {
+		return rootUrl + "blacklist/clients";
+	}
+	
+	protected String blacklistUserUrl() {
+		return rootUrl + "blacklist/users";
 	}
 }

@@ -126,7 +126,12 @@ public class ClientController {
 	}
 	
 	private void addApiToken(Model model, Optional<Client> client) {
-		ApiToken apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
+		ApiToken apiToken = ApiToken.empty();
+		
+		if (!model.containsAttribute("isInBlacklist")) {
+			apiToken = this.apiTokenService.createOrFindByClient(client.get().getId());
+		}
+		
 		model.addAttribute("apiToken", apiToken);
 	}
 	
@@ -206,7 +211,7 @@ public class ClientController {
 		
 		String username = userContextService.getCurrentUsername();
 		
-		Optional<ApiToken> apiToken = this.apiTokenService.find(token);
+		Optional<ApiToken> apiToken = this.apiTokenService.findByToken(token);
 		
 		Optional<Client> client = this.clientService.find(apiToken.get().getClient_id());
 		validateClient(client, username);

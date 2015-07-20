@@ -18,7 +18,7 @@ public class AuthorizedTokenService implements IAuthorizedTokenService {
 	
 	@Override
 	public List<AuthorizedToken> findAll(String account) {
-		return tokenDao.findAll(account);
+		return tokenDao.findByUsername(account);
 	}
 
 	@Override

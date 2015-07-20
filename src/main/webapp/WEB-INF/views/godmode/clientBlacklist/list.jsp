@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="box box-solid box-info">
 			<div class="box-header">
 				<h3 class="box-title">搜尋</h3>
@@ -56,7 +56,7 @@
 			<%-- /.box-body --%>
 		</div>
 		<%-- /.box --%>
-		</div>
+	</div>
 	<div class="col-md-12">
 		<div class="box box-info">
 			<div class="box-header">
@@ -87,7 +87,7 @@
 									${blacklistClient.reason}
 								</td>
 								<td>
-									<a href="<c:url value='/godmode/blacklist/client/delete/${blacklistClient.client_id}'/>"><span class="label label-danger">刪除</span></a>
+									<a href="<c:url value='/godmode/blacklist/client/delete/${blacklistClient.client_id}'/>"><span class="label label-danger">取消</span></a>
 								</td>
 							</tr>
 						</c:forEach>

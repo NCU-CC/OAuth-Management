@@ -32,7 +32,7 @@ public class ManagerService implements IManagerService {
 	}
 
 	@Override
-	public void delete(Manager manager) {
-		this.managerDao.delete(manager);
+	public void remove(Manager manager) {
+		this.managerDao.remove(manager);
 	}
 }
