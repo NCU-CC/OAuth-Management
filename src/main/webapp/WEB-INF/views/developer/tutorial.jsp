@@ -39,6 +39,16 @@
                     </dl>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
+            
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">黑名單</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+					<p>若應用服務被加入黑名單，則該服務的client_id、client_secret和api token會失效，將無法使用所有服務。</p>
+					<p>若開發者帳號被加入黑名單，則該帳號將無法登入本系統，及其所擁有的應用服務也木會失效。</p>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
         </div>
     </div>
     <%-- /.col --%>
