@@ -80,7 +80,7 @@ public class ClientBlackListController {
 	@RequestMapping(value = "/delete/{clientId}", method = RequestMethod.GET)
 	public String delete(@PathVariable String clientId) {
 
-		BlacklistClient blacklistClient = this.blacklistClientService.search(new Client(clientId)).stream().findAny().get();
+		BlacklistClient blacklistClient = this.blacklistClientService.find(clientId).get();
 		this.blacklistClientService.remove(blacklistClient);
 		
 		return "redirect:..";
