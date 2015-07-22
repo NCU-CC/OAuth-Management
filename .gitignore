@@ -54,3 +54,4 @@ local.properties
 openid.properties
 database.properties
 src/main/resources/OAuth-service.properties
+src/integration-test/resources/OAuth-service.properties

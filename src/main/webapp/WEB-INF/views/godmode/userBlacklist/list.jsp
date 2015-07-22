@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
-	<div class="col-xs-12">
-		<div class="box">
+	<div class="col-md-6">
+		<div class="box box-solid box-info">
 			<div class="box-header">
 				<h3 class="box-title">搜尋</h3>
 				<div class="box-tools">
@@ -63,6 +63,7 @@
 								<td>${blacklistUser.username}</td>
 								<td>${blacklistUser.reason}</td>
 								<td>
+									<a href="<c:url value='/godmode/blacklist/user/edit/${blacklistUser.username}'/>"><span class="label label-warning">編輯</span></a>
 									<a href="<c:url value='/godmode/blacklist/user/delete/${blacklistUser.username}'/>"><span class="label label-danger">取消</span></a>
 								</td>
 							</tr>

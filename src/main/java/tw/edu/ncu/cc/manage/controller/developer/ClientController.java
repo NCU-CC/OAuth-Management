@@ -117,9 +117,7 @@ public class ClientController {
 
 	private void addBlackListIfExist(Model model, Optional<Client> client) {
 		this.blacklistClientService
-		.search(client.get())
-		.stream()
-		.findAny()
+		.find(client.get().getId())
 		.ifPresent(
 				b -> model.addAttribute("isInBlacklist", true)
 		);
