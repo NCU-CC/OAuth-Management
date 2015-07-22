@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition extends="defaultTemplate" name="user/tutorial">
+        <put-attribute name="primaryTitle" value="使用者使用說明"/>
+        <put-attribute name="secondaryTitle" value="使用說明"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/user/tutorial.jsp" />
+    </definition>  
+
+</tiles-definitions>

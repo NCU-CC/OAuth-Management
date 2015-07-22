@@ -6,7 +6,7 @@
 		<div id="preview">
 			<div class="box box-info">
 				<div class="box-header with-border">
-					<h3 class="box-title">關於開發者使用</h3>
+					<h3 class="box-title">關於開發者使用本系統</h3>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">

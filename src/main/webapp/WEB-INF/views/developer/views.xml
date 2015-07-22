@@ -10,5 +10,23 @@
         <put-attribute name="secondaryTitle" value="使用說明"/>
         <put-attribute name="mainContent" value="/WEB-INF/views/developer/tutorial.jsp" />
     </definition>    
-    
+
+    <definition extends="defaultTemplate" name="developer/client/list">
+        <put-attribute name="primaryTitle" value="已註冊應用服務列表"/>
+        <put-attribute name="secondaryTitle" value="下列是您已註冊使用NCU API的應用服務"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/developer/client/list.jsp" />
+    </definition>    
+
+    <definition extends="defaultTemplate" name="developer/client/detail">
+        <put-attribute name="primaryTitle" value="應用服務"/>
+        <put-attribute name="secondaryTitle" value="詳細內容"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/developer/client/detail.jsp" />
+    </definition>
+
+    <definition extends="defaultTemplate" name="developer/client/register">
+        <put-attribute name="primaryTitle" value="註冊應用服務"/>
+        <put-attribute name="secondaryTitle" value="註冊後將可使用NCU API"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/developer/client/register.jsp" />
+    </definition>
+
 </tiles-definitions>
