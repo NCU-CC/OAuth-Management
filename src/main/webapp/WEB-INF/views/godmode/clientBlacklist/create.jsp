@@ -18,7 +18,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="reason" class="col-sm-2 control-label">開發者</label>
+						<label for="reason" class="col-sm-2 control-label">理由</label>
 						<div class="col-sm-10">
 							<input class="form-control" id="reason" placeholder="黑名單的理由" name="reason" value="${param.reason}">
 						</div>
