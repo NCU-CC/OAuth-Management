@@ -1,8 +1,10 @@
 package tw.edu.ncu.cc.manage.dao.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -24,13 +26,21 @@ public class ClientDao extends AbstractOAuthServiceDao<Client> implements IClien
 	
 	@Override
 	public List<Client> findByUsername(String username) {
-		Assert.hasText(username);
+		
+		if (StringUtils.isEmpty(username)) {
+			return Collections.emptyList();
+		}
+		
 		return getList(withUrl(userUrl(), username, "clients"));
 	}
 
 	@Override
 	public Optional<Client> find(String clientId){
-		Assert.hasText(clientId);
+		
+		if (StringUtils.isEmpty(clientId)) {
+			return Optional.empty();
+		}
+		
 		return get(withUrl(clientUrl(), clientId));
 	}
 

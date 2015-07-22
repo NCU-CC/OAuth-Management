@@ -26,7 +26,11 @@ public class UserDao extends AbstractOAuthServiceDao<User> implements IUserDao {
 	
 	@Override
 	public Optional<User> find(String username) {
-		Assert.hasText(username);
+		
+		if (StringUtils.isEmpty(username)) {
+			return Optional.empty();
+		}
+		
 		return get(withUrl(userUrl(), username));
 	}
 
