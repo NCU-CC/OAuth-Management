@@ -30,7 +30,7 @@
                     <h3 class="box-title">使用限制</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <p>每個NCU API皆有每月使用量限制，超過使用量則列入黑名單，若需要解除或有特殊需求者請<a href="mailto:mobile@cc.ncu.edu.tw">來信</a>告知。</p>
+                    <p>每個NCU API皆有每月使用量限制，超過使用量將列入觀察名單，若有特殊需求請<a href="mailto:mobile@cc.ncu.edu.tw">來信</a>告知。</p>
                     <dl class="dl-horizontal">
                         <dt>一般API</dt>
                         <dd>每月使用量：25000次 Requests</dd>
