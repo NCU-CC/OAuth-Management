@@ -3,6 +3,7 @@ package tw.edu.ncu.cc.manage.dao.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -31,7 +32,11 @@ public class ManagerDao extends AbstractOAuthServiceDao<Manager> implements IMan
 	@Override
 	@Cacheable("managers")
 	public Optional<Manager> find(String id) {
-		Assert.hasText(id);
+
+		if (StringUtils.isEmpty(id)) {
+			return Optional.empty();
+		}
+
 		return get(withUrl(managerUrl(), id));
 	}
 

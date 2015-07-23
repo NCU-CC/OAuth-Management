@@ -3,6 +3,7 @@ package tw.edu.ncu.cc.manage.dao.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,6 +25,11 @@ public class BlacklistClientDao extends AbstractOAuthServiceDao<BlacklistClient>
 
 	@Override
 	public Optional<BlacklistClient> find(String clientId) {
+		
+		if (StringUtils.isEmpty(clientId)) {
+			return Optional.empty();
+		}
+		
 		return get(withUrl(blacklistClientUrl(), clientId));
 	}
 	
