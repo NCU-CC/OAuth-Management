@@ -29,6 +29,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
+					<li><a href="<c:url value="/user/tutorial"/>" ><i class="fa fa-angle-double-right"></i>使用者說明</a></li>
 	            	<li><a href="<c:url value="/user/token/list"/>"><i class="fa fa-angle-double-right"></i>授權管理</a></li>                               
 	            </ul>
 	        </li>
@@ -39,7 +40,7 @@
 	                <i class="fa fa-angle-left pull-right"></i>
 	            </a>
 	            <ul class="treeview-menu">
-					<li><a href="<c:url value="/developer/tutorial"/>" ><i class="fa fa-angle-double-right"></i>使用說明</a></li>
+					<li><a href="<c:url value="/developer/tutorial"/>" ><i class="fa fa-angle-double-right"></i>開發者說明</a></li>
 	                <li><a href="<c:url value="/developer/client/list"/>"><i class="fa fa-angle-double-right"></i>應用服務管理</a></li>
 	            </ul>
 	        </li>

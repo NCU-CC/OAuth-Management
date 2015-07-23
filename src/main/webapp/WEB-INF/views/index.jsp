@@ -7,13 +7,12 @@
 		<%-- small box --%>
 		<div class="small-box bg-aqua">
 			<div class="inner">
-				<h3>使用說明</h3>
-				<p>一般使用者</p>
+				<h3>使用者說明</h3>
 			</div>
 			<div class="icon">
 				<i class="ion ion-ios7-paper-outline"></i>
 			</div>
-			<a href="<c:url action='/user/tutorial'/>" class="small-box-footer">
+			<a href="<c:url value='/user/tutorial'/>" class="small-box-footer">
 				More info <i class="fa fa-arrow-circle-right"></i>
 			</a>
 		</div>
@@ -21,13 +20,12 @@
 		<%-- small box --%>
         <div class="small-box bg-yellow">
             <div class="inner">
-                <h3>使用說明</h3>
-                <p>程式開發者</p>
+                <h3>開發者說明</h3>
             </div>
             <div class="icon">
                 <i class="ion ion-ios7-paper"></i>
             </div>
-            <a href="<c:url action='/developer/tutorial'/>" class="small-box-footer">
+            <a href="<c:url value='/developer/tutorial'/>" class="small-box-footer">
                 More info <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>

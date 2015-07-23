@@ -3,7 +3,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="box box-solid box-info">
 			<div class="box-header">
 				<h3 class="box-title">新增應用服務黑名單</h3>
