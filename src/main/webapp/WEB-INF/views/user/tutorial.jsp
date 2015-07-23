@@ -7,6 +7,7 @@
 			<div class="box box-info">
 				<div class="box-header with-border">
 					<h3 class="box-title">關於使用者使用本系統</h3>
+					<small class="pull-right">2015-07-23</small>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
