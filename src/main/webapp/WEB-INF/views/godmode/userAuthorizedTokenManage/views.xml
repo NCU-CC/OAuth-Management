@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition extends="defaultTemplate" name="userAuthorizedTokenManage/list">
+        <put-attribute name="primaryTitle" value="使用者授權管理"/>
+        <put-attribute name="secondaryTitle" value="提供系統管理者管理使用者授權"/>
+        <put-attribute name="mainContent" value="/WEB-INF/views/godmode/userAuthorizedTokenManage/list.jsp" />
+    </definition>
+
+</tiles-definitions>
