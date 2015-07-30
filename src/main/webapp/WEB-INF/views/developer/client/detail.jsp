@@ -16,7 +16,7 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-    <form:form role="form" action='edit' method='post' commandName="client">
+    <form:form role="form" action='../edit' method='post' commandName="client">
        <security:csrfInput/>
 		<div class="box-body">
 			<div class="form-group">
@@ -70,7 +70,7 @@
 	</div>
 	<div class="box-footer">
 		<c:if test="${not isInBlacklist}">
-			<button class="btn btn-info" onClick="location.href='secret?id=${client.id}'">更新secret</button>
+			<button class="btn btn-info" onClick="location.href='../secret?id=${client.id}'">更新secret</button>
 		</c:if>
 	</div>
 </div>
@@ -89,7 +89,7 @@
 	
 	<c:if test="${not isInBlacklist}">
 		<div class="box-footer">
-			<button class="btn btn-info" onClick="location.href='apiToken?d=${apiToken.token}'">更新API Token</button>
+			<button class="btn btn-info" onClick="location.href='../apiToken?d=${apiToken.token}'">更新API Token</button>
 		</div>
 	</c:if>
 </div>
@@ -98,7 +98,7 @@
 <h2 class="page-header">無法回復的操作</h2>
 <div class="box box-danger invoice">
 	<div class="box-footer">
-		<button class="btn btn-danger" onClick="location.href='delete?id=${client.id}'">刪除本應用服務</button>
+		<button class="btn btn-danger" onClick="location.href='../delete?id=${client.id}'">刪除本應用服務</button>
 	</div>
 </div>
 
