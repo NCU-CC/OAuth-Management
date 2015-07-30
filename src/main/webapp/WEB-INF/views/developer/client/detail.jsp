@@ -16,7 +16,7 @@
 	</div>
 	<%-- /.box-header --%>
 	<%-- form start --%>
-    <form:form role="form" action='edit' method='post' commandName="client">
+    <form:form role="form" action='../../edit' method='post' commandName="client">
        <security:csrfInput/>
 		<div class="box-body">
 			<div class="form-group">
