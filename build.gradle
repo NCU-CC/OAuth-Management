@@ -5,7 +5,6 @@ apply plugin: 'jetty'
 apply plugin: "findbugs"
 
 group = 'tw.edu.ncu.cc'
-version = '1.0.0'
 
 description = """NCU OAuth management"""
 
