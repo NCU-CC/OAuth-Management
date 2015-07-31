@@ -70,7 +70,7 @@
 	</div>
 	<div class="box-footer">
 		<c:if test="${not isInBlacklist}">
-			<button class="btn btn-info" onClick="location.href='../secret?id=${client.id}'">更新secret</button>
+			<a class="btn btn-info" href="../secret?id=${client.id}">更新secret</a>
 		</c:if>
 	</div>
 </div>
@@ -89,7 +89,7 @@
 	
 	<c:if test="${not isInBlacklist}">
 		<div class="box-footer">
-			<button class="btn btn-info" onClick="location.href='../apiToken?d=${apiToken.token}'">更新API Token</button>
+			<a class="btn btn-info" href="../apiToken?y=${client.id}">更新API Token</a>
 		</div>
 	</c:if>
 </div>
@@ -98,9 +98,13 @@
 <h2 class="page-header">無法回復的操作</h2>
 <div class="box box-danger invoice">
 	<div class="box-footer">
-		<button class="btn btn-danger" onClick="location.href='../delete?id=${client.id}'">刪除本應用服務</button>
+		<a id="delete-button" class="btn btn-danger comfirm" href="../delete?id=${client.id}">刪除本應用服務</a>
 	</div>
 </div>
-
-<script src="<c:url value='/resources/js/rails.js'/>" type="text/javascript"></script>
-<script src="<c:url value='/resources/js/data-confirm-modal.js'/>" type="text/javascript"></script>
+<script>
+document.getElementById('delete-button').onclick = function(event) {
+	if (!confirm('確定要刪除嗎？\n一旦刪除後，所有相關的應用服務將無法使用！')) {
+		event.preventDefault();		
+	}
+}
+</script>
