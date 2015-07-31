@@ -44,12 +44,7 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<p>
-						針對中央大學的學生，我們提供了提案的管道，讓你可以製作出適合中央大學教職員生使用的應用服務，並從中得到工讀費，請參考<a href="http://ncu-cc.github.io/proposal.html">詳細說明</a>
-					</p>
-					<p>
-						歡迎探索我們的<a href="https://github.com/NCU-CC">程式碼儲存庫</a>及<a
-							href="https://play.google.com/store/apps/developer?id=%E5%9C%8B%E7%AB%8B%E4%B8%AD%E5%A4%AE%E5%A4%A7%E5%AD%B8%E9%9B%BB%E5%AD%90%E8%A8%88%E7%AE%97%E6%A9%9F%E4%B8%AD%E5%BF%83"
-							target="_blank">Google Play</a>。
+						針對中央大學的學生，我們提供了提案的管道，讓你可以製作出適合中央大學教職員生使用的應用服務，並從中得到工讀費，請參考<a href="http://ncu-cc.github.io/proposal.html">詳細說明</a>。
 					</p>
 				</div>
 				<!-- /.box-body -->
