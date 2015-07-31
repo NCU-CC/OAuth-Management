@@ -41,6 +41,7 @@
 	            </a>
 	            <ul class="treeview-menu">
 					<li><a href="<c:url value="/developer/tutorial"/>" ><i class="fa fa-angle-double-right"></i>開發者說明</a></li>
+					<li><a href="http://ncu-cc.github.io/proposal.html" target="_blank"/>" ><i class="fa fa-angle-double-right"></i>開發者提案</a></li>
 	                <li><a href="<c:url value="/developer/client/list"/>"><i class="fa fa-angle-double-right"></i>應用服務管理</a></li>
 	            </ul>
 	        </li>
