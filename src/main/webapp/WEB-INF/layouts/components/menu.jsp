@@ -50,12 +50,12 @@
                 <li class="treeview active">
                     <a href="#">
                         <i class="fa fa-unlock-alt"></i>
-                        <span>使用者管理</span>
+                        <span>管理使用者</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<c:url value="/godmode/userManage"/>"><i class="fa fa-angle-double-right"></i>使用者管理</a></li>
-                        <li><a href="<c:url value="/godmode/userAuthorizedTokenManage"/>"><i class="fa fa-angle-double-right"></i>使用者授權管理</a></li>
+                        <li><a href="<c:url value="/godmode/userManage"/>"><i class="fa fa-angle-double-right"></i>查詢使用者</a></li>
+                        <li><a href="<c:url value="/godmode/userAuthorizedTokenManage"/>"><i class="fa fa-angle-double-right"></i>取消使用者授權</a></li>
                         <li><a href="<c:url value="/godmode/blacklist/user"/>"><i class="fa fa-angle-double-right"></i>使用者黑名單</a></li>
                     </ul>
                 </li>
@@ -63,11 +63,11 @@
                 <li class="treeview active">
                     <a href="#">
                         <i class="fa fa-unlock-alt"></i>
-                        <span>應用服務管理</span>
+                        <span>管理應用服務</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<c:url value="/godmode/clientManage"/>"><i class="fa fa-angle-double-right"></i>應用服務</a></li>
+                        <li><a href="<c:url value="/godmode/clientManage"/>"><i class="fa fa-angle-double-right"></i>查詢應用服務</a></li>
                         <li><a href="<c:url value="/godmode/blacklist/client"/>"><i class="fa fa-angle-double-right"></i>應用服務黑名單</a></li>
                     </ul>
                 </li>
