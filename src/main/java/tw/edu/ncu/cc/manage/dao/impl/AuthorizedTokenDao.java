@@ -9,8 +9,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import com.google.common.base.Strings;
-
 import tw.edu.ncu.cc.manage.dao.IAuthorizedTokenDao;
 import tw.edu.ncu.cc.manage.dao.support.AbstractOAuthServiceDao;
 import tw.edu.ncu.cc.manage.domain.AuthorizedToken;

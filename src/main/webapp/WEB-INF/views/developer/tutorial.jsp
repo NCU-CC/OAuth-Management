@@ -73,7 +73,7 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<p>請儘量使用API Gateway。</p>
-					<p>不管您開發的是網站還是智慧型裝置的應用，我們都建議您將client_id、client_secret和api_tokens放置在自己的主機上，並透過這個主機完成呼叫api的工作。
+					<p>不管您開發的是網站還是智慧型裝置的應用，我們都建議您將client_id、client_secret和api_tokens放置在自己的主機上，並透過這個主機完成呼叫API的工作。
 						因為只要它們到了客戶端，無論你使用何種方式保護這些資訊，都還是有可能被客戶端所取得。</p>
 				</div>
 				<!-- /.box-body -->
@@ -109,7 +109,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-					<p>若應用服務被加入黑名單，則該服務的client_id、client_secret和api token將會失效。</p>
+					<p>若應用服務被加入黑名單，則該服務的client_id、client_secret和API token將會失效。</p>
 					<p>若開發者帳號被加入黑名單，則該帳號將無法登入本系統，及其該開發者所擁有的應用服務也會失效。</p>
 				</div>
 				<!-- /.box-body -->
