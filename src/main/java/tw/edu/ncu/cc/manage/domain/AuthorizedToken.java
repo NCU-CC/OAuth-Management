@@ -2,6 +2,7 @@ package tw.edu.ncu.cc.manage.domain;
 
 import java.sql.Timestamp;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.util.StringUtils;
 
 public class AuthorizedToken {
@@ -33,6 +34,16 @@ public class AuthorizedToken {
 	}
 
 	public void setScope(String[] scope) {
+		
+		scope = ArrayUtils.nullToEmpty(scope);
+		
+		for (int i = 0; i < scope.length; i++) {
+			String str = scope[i];
+			if (StringUtils.hasText(str)) {
+				scope[i] = str.toUpperCase();
+			}
+		}
+		
 		this.scope = scope;
 	}
 
