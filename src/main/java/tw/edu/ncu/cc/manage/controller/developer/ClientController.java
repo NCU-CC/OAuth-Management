@@ -85,9 +85,9 @@ public class ClientController {
 	public String create(Model model, @Valid @ModelAttribute Client client) {
 
 		client.setOwner(userContextService.getCurrentUsername());
-		this.clientService.create(client);
+		Client created = this.clientService.create(client);
 
-		return "redirect:../client/detail/" + client.getId();
+		return "redirect:../client/detail/" + created.getId();
 	}
 	
 	/**
