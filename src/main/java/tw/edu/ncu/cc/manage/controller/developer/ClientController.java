@@ -85,9 +85,9 @@ public class ClientController {
 	public String create(Model model, @Valid @ModelAttribute Client client) {
 
 		client.setOwner(userContextService.getCurrentUsername());
-		this.clientService.create(client);
+		Client created = this.clientService.create(client);
 
-		return "redirect:../client/list";
+		return "redirect:../client/detail/" + created.getId();
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class ClientController {
 		
 		this.clientService.update(editedClient);
 
-		return "redirect:../client/list";
+		return "redirect:../client/detail/" + editedClient.getId();
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class ClientController {
 		
 		this.clientService.refreshSecret(id);
 		
-		return "redirect:../client/detail?id=" + id;
+		return "redirect:../client/detail/" + id;
 	}
 	
 	/**
@@ -205,19 +205,18 @@ public class ClientController {
 	 * @throws NotAuthorizedException 
 	 */
 	@RequestMapping(value = "/apiToken", method = RequestMethod.GET)
-	public String refreshApiToken(Model model, @RequestParam(value = "d", required = true) String token) throws NotAuthorizedException {
+	public String refreshApiToken(Model model, @RequestParam(value = "y", required = true) String clientId) throws NotAuthorizedException {
 		
 		String username = userContextService.getCurrentUsername();
+		ApiToken apiToken = this.apiTokenService.createOrFindByClient(clientId);
+		Optional<Client> client = this.clientService.find(clientId);
 		
-		Optional<ApiToken> apiToken = this.apiTokenService.findByToken(token);
-		
-		Optional<Client> client = this.clientService.find(apiToken.get().getClient_id());
 		validateClient(client, username);
 		checkBlacklist(client);
 		
-		this.apiTokenService.refresh(apiToken.get().getId());
+		this.apiTokenService.refresh(apiToken.getId());
 		
-		return "redirect:../client/detail?id=" + client.get().getId();
+		return "redirect:../client/detail/" + client.get().getId();
 	}
 	
 	/**
