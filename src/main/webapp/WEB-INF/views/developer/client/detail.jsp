@@ -104,11 +104,12 @@
 	</div>
 	<form action="../transfer" method="POST">
 		<div class="box-body">
-			<input type="text" name="otherOwner" placeHolder="Portal id"/>
-			<form:hidden path="id" />
+			<input type="text" name="otherOwner" placeHolder="對方的Portal id" required />
+			<input type="hidden" name="id" value="${client.id}" />
+			<security:csrfInput/>
 		</div>
 		<div class="box-footer">
-			<button id="transfer-button" class="btn btn-danger comfirm">轉移</button>
+			<input type="submit" id="transfer-button" class="btn btn-danger comfirm" value="轉移" />
 		</div>
 	</form>
 </div>
@@ -129,7 +130,7 @@ document.getElementById('delete-button').onclick = function(event) {
 	}
 }
 document.getElementById('transfer-button').onclick = function(event) {
-	if (!confirm('確定要轉移嗎？')) {
+	if (!confirm('確定要轉移嗎？\n一旦轉移後，這個應用服務將不再屬於你')) {
 		event.preventDefault();		
 	}
 }

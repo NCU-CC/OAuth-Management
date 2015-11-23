@@ -155,7 +155,29 @@ public class ClientController {
 
 		return "redirect:../client/detail/" + editedClient.getId();
 	}
-
+	
+	/**
+	 * 在詳細頁面按下「轉移」
+	 * @param otherOwner
+	 * @return
+	 * @throws NotAuthorizedException 
+	 */
+	@RequestMapping(value = "/transfer", method = RequestMethod.POST)
+	public String transfer(@RequestParam String id, @RequestParam String otherOwner) throws NotAuthorizedException {
+		
+		String username = this.userContextService.getCurrentUsername();
+		Optional<Client> oldClient = this.clientService.find(id);
+		validateClient(oldClient, username);
+		checkBlacklist(oldClient);
+		
+		Client client = oldClient.get();
+		client.setOwner(otherOwner);
+		
+		this.clientService.update(client);
+		
+		return "redirect:../client/list";
+	}
+	
 	/**
 	 * 按下「刪除App」
 	 * @param model
