@@ -66,6 +66,8 @@
 					<table class="table table-hover">
 						<tr>
 							<th>名稱</th>
+							<th>擁有者</th>
+							<th>說明</th>
 							<th>是否刪除</th>
 						</tr>
 						<c:forEach var="client" items="${clientList}">
@@ -73,6 +75,8 @@
 								<td>
 								    <a href="<c:url value="/developer/client/detail/${client.id}"/>">${client.name}</a>
 								</td>
+								<td>${client.owner}</td>
+								<td>${client.description}</td>
 								<td>
 								    <c:choose>
 										<c:when test="${client.deleted}">已刪除</c:when>
