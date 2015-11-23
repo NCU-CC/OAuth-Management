@@ -97,9 +97,25 @@
 	</c:if>
 </div>
 
-
 <h2 class="page-header">無法回復的操作</h2>
 <div class="box box-danger invoice">
+	<div class="box-header with-border">
+		<h3 class="box-title">轉移給其他人</h3>
+	</div>
+	<form action="../transfer" method="POST">
+		<div class="box-body">
+			<input type="text" name="otherOwner" placeHolder="Portal id"/>
+			<form:hidden path="id" />
+		</div>
+		<div class="box-footer">
+			<button id="transfer-button" class="btn btn-danger comfirm">轉移</button>
+		</div>
+	</form>
+</div>
+<div class="box box-danger invoice">
+	<div class="box-header with-border">
+		<h3 class="box-title">刪除</h3>
+	</div>
 	<div class="box-footer">
 		<a id="delete-button" href="../delete?id=${client.id}">
 			<button class="btn btn-danger comfirm">刪除本應用服務</button>
@@ -109,6 +125,11 @@
 <script>
 document.getElementById('delete-button').onclick = function(event) {
 	if (!confirm('確定要刪除嗎？\n一旦刪除後，所有相關的應用服務將無法使用！')) {
+		event.preventDefault();		
+	}
+}
+document.getElementById('transfer-button').onclick = function(event) {
+	if (!confirm('確定要轉移嗎？')) {
 		event.preventDefault();		
 	}
 }
