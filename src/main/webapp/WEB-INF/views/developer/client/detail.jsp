@@ -65,12 +65,13 @@
 			<dd>${client.id}</dd>
 			<dt>Client Secret</dt>
 			<dd>${client.secret}</dd>
-			
 		</dl>
 	</div>
 	<div class="box-footer">
 		<c:if test="${not isInBlacklist}">
-			<a class="btn btn-info" href="../secret?id=${client.id}">更新secret</a>
+			<a href="../secret?id=${client.id}">
+				<button class="btn btn-info">更新secret</button>
+			</a>
 		</c:if>
 	</div>
 </div>
@@ -89,7 +90,9 @@
 	
 	<c:if test="${not isInBlacklist}">
 		<div class="box-footer">
-			<a class="btn btn-info" href="../apiToken?y=${client.id}">更新API Token</a>
+			<a href="../apiToken?y=${client.id}">
+				<button class="btn btn-info">更新API Token</button>
+			</a>
 		</div>
 	</c:if>
 </div>
@@ -98,7 +101,9 @@
 <h2 class="page-header">無法回復的操作</h2>
 <div class="box box-danger invoice">
 	<div class="box-footer">
-		<a id="delete-button" class="btn btn-danger comfirm" href="../delete?id=${client.id}">刪除本應用服務</a>
+		<a id="delete-button" href="../delete?id=${client.id}">
+			<button class="btn btn-danger comfirm">刪除本應用服務</button>
+		</a>
 	</div>
 </div>
 <script>

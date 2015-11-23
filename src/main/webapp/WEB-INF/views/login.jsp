@@ -61,8 +61,9 @@
                 </form>
             </div>
 			<p class="text-red">測試中，目前僅限教職員工、在校生及校友使用。</p>
-			<a href="http://www.cc.ncu.edu.tw/net/password.php" class="btn btn-default">忘記密碼？</a>
-
+			<a href="http://www.cc.ncu.edu.tw/net/password.php">
+				<button class="btn btn-default">忘記密碼？</button>
+			</a>
 		</div>
 		<%-- /#login --%>
 	</div>
