@@ -105,6 +105,7 @@
 	<form action="../transfer" method="POST">
 		<div class="box-body">
 			<input type="text" name="otherOwner" placeHolder="對方的Portal id" required />
+			<p class="text-red">對方必須已註冊且不在黑名單內</p>
 			<input type="hidden" name="id" value="${client.id}" />
 			<security:csrfInput/>
 		</div>
