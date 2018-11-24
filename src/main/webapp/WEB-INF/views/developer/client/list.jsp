@@ -7,7 +7,7 @@
 				<h3 class="box-title">
 					<c:choose>
 						<c:when test="${not empty clientList}">應用服務列表</c:when>
-						<c:otherwise>您尚未註冊任何應用服務</c:otherwise>
+						<c:otherwise>目前因為中心人力不足，已不開放新的 Oauth 用戶註冊服務。舊申請者仍然可以透過左邊界面管理已申請的設施，但一年後將全面停止這項 Oauth  服務。</c:otherwise>
 					</c:choose>
 				</h3>
 				<div class="box-tools">
@@ -15,7 +15,7 @@
 						<div class="input-group-btn">
 							<a href="<c:url value="/developer/client/create"/>"><button
 									class="btn btn-sm btn-default pull-right">
-									<i class="fa fa-plus">註冊新應用服務</i>
+									<i>目前不開放註冊</i>
 								</button></a>
 						</div>
 					</div>
