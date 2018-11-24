@@ -13,10 +13,9 @@
 				<div class="box-tools">
 					<div class="input-group">
 						<div class="input-group-btn">
-							<a href="<c:url value="/developer/client/create"/>"><button
-									class="btn btn-sm btn-default pull-right">
+							<button disabled class="btn btn-sm btn-default pull-right">
 									<i>目前不開放註冊</i>
-								</button></a>
+								</button>
 						</div>
 					</div>
 				</div>
